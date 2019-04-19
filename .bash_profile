@@ -70,6 +70,10 @@ alias datt='docker attach'
 
 alias drmi_none='docker images | grep -F "<none>" | awk '\''{ print "docker rmi "$3 }'\'''
 
+alias dlt='docker logs -t'
+alias dlf='docker logs -f'
+
+
 # system
 alias ll='ls -l'
 
