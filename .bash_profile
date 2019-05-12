@@ -69,6 +69,7 @@ alias dcup='docker-compose up'
 alias datt='docker attach'
 
 alias drmi_none='docker images | grep -F "<none>" | awk '\''{ print "docker rmi "$3 }'\'''
+alias drm_run='dcl -a | grep run | cut -d" " -f1 | xargs docker rm'
 
 alias dlt='docker logs -t'
 alias dlf='docker logs -f'
