@@ -2,34 +2,6 @@ export LANG=ja_JP.UTF-8
 
 export PATH=~/.local/bin:$PATH
 
-# Node.js
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-export NODE_PATH=/usr/local/lib/node_modules
-
-# Python
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-if which pyenv > /dev/null; then 
-    eval "$(pyenv init -)";
-fi
-
-# Ruby
-export PATH="$HOME/.rbenv/shims:$PATH"
-eval "$(rbenv init -)"
-
-# Java
-export JAVA_HOME="$(/usr/libexec/java_home -v 1.8)"
-export PATH=$JAVA_HOME/bin:$PATH
-
-# Go
-export PATH=$PATH:/usr/local/opt/go/libexec/bin
-
-# Rust
-export PATH=$PATH:$HOME/.cargo/env
-export PATH="$HOME/.cargo/bin:$PATH"
-
-
 #########
 # alias #
 #########
@@ -90,8 +62,4 @@ alias ssh-pi='ssh pi@192.168.179.3'
 
 # brew
 alias bupd='brew update'
-
-# if [ -f $HOME/bin/welcome ]; then
-#     . $HOME/bin/welcome
-# fi
 
