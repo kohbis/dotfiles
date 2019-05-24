@@ -1,0 +1,15 @@
+#######
+# git #
+#######
+
+alias gst='git status'
+
+alias ga='git add'
+alias gaa='git add --all'
+
+alias gd='git diff'
+
+alias gcmsg='git commit -m'
+
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
+
