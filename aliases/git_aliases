@@ -11,5 +11,5 @@ alias gd='git diff'
 
 alias gcmsg='git commit -m'
 
-alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias gpsup='git push --set-upstream origin `git branch | cut -d" " -f2`'
 
