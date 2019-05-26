@@ -13,3 +13,5 @@ alias gcmsg='git commit -m'
 
 alias gpsup='git push --set-upstream origin `git symbolic-ref --short HEAD`'
 
+alias glg='git log --stat'
+alias glgg='git log --graph'
