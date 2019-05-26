@@ -37,7 +37,7 @@ alias sbp='source ~/.bash_profile'
 alias tmsc='tmux source ~/.tmux.conf'
 
 # ssh
-alias ssh-pi='ssh pi@192.168.179.3'
+alias ssh-pi='ssh pi@raspberrypi'
 
 # brew
 alias bupd='brew update'
