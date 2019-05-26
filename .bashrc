@@ -12,7 +12,7 @@ GIT_PS1_SHOWDIRTYSTATE=true
 ##########
 # prompt #
 ##########
-PS1='\e[1;32m→\e[0m \e[1;31m\W\e[0m\e[0;36m$(__git_ps1)\e[0m '
+PS1='\[\e[1;32m\]→\[\e[0m\] \[\e[1;31m\]\W\[\e[0m\]\[\e[0;36m$(__git_ps1)\[\e[0m\] '
 
 #########
 # alias #
@@ -24,6 +24,8 @@ source ~/workspace/settings/dotfiles/aliases/docker_aliases
 # system
 alias ls='ls -G'
 alias ll='ls -lh'
+
+LESS='-i -M -R'
 
 # bash
 alias vbr='vi ~/.bashrc'
