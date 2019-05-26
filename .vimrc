@@ -36,3 +36,5 @@ set wrapscan
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
+highlight CursorLine cterm=none ctermbg=234
+
