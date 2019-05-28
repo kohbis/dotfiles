@@ -25,6 +25,8 @@ source ~/workspace/settings/dotfiles/aliases/docker_aliases
 alias ls='ls -G'
 alias ll='ls -lh'
 
+alias histgrep="history | grep"
+
 LESS='-i -M -R'
 
 # bash
