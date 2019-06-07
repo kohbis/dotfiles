@@ -2,6 +2,12 @@ export LANG=ja_JP.UTF-8
 
 export PATH=~/.local/bin:$PATH
 
+########
+# bind #
+########
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
+
 #######
 # git #
 #######
