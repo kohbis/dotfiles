@@ -49,4 +49,5 @@ alias ssh-pi='ssh pi@raspberrypi'
 
 # brew
 alias bupd='brew update'
-
+alias bupg='brew upgrade'
+alias bcupg='brew cask update'
