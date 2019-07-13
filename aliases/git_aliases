@@ -10,6 +10,7 @@ alias gaa='git add --all'
 alias glc='git clone --recurse-submodules'
 
 alias gcmsg='git commit -m'
+alias gcmsg_type='echo "fix hotfix add update clean disable remove upgrade"'
 
 alias gd='git diff'
 
@@ -20,3 +21,4 @@ alias grhh='git reset --hard HEAD'
 
 alias glg='git log --stat'
 alias glgg='git log --graph'
+

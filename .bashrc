@@ -1,6 +1,13 @@
 export LANG=ja_JP.UTF-8
 
-export PATH=~/.local/bin:$PATH
+export PATH=~/.local/bin:/usr/local/aws/bin:$PATH
+
+complete -C '/usr/local/bin/aws_completer' aws
+
+#######
+# env #
+#######
+HISTSIZE=5000
 
 ########
 # bind #
@@ -50,4 +57,4 @@ alias ssh-pi='ssh pi@raspberrypi'
 # brew
 alias bupd='brew update'
 alias bupg='brew upgrade'
-alias bcupg='brew cask update'
+alias bcupg='brew cask upgrade'
