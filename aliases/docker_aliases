@@ -10,6 +10,8 @@ alias cdcyml='code docker-compose.yml'
 alias dps='docker ps'
 alias dcps='docker-compose ps'
 
+alias dpull='docker pull'
+
 alias dims='docker images'
 alias dimp='docker image prune'
 alias dcl='docker container ls'
