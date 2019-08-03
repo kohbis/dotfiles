@@ -22,10 +22,25 @@ source /usr/local/etc/bash_completion.d/git-prompt.sh
 source /usr/local/etc/bash_completion.d/git-completion.bash
 GIT_PS1_SHOWDIRTYSTATE=true
 
+__git_not_pushed()
+{
+  if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = "true" ]; then
+    head="$(git rev-parse HEAD)"
+    for x in $(git rev-parse --remotes)
+    do
+      if [ "$head" = "$x" ]; then
+        return 0
+      fi
+    done
+    echo "?"
+  fi
+  return 0
+}
+
 ##########
 # prompt #
 ##########
-PS1='\[\e[1;32m\]→\[\e[00m\] \[\e[1;31m\]\W\[\e[00m\]\[\e[1;36m\]$(__git_ps1)\[\e[00m\] '
+PS1='\[\e[1;32m\]→\[\e[00m\] \[\e[1;31m\]\W\[\e[00m\]\[\e[1;36m\]$(__git_ps1)\[\e[00m\]\[\e[1;36m\]$(__git_not_pushed)\[\e[00m\] '
 
 #########
 # alias #
