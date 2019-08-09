@@ -44,4 +44,6 @@ alias drm_run='dcl -a | grep -F "_run_" | cut -d" " -f1 | xargs docker rm'
 
 alias dlt='docker logs -t'
 alias dlf='docker logs -f'
+alias dclt='docker-compose logs -t'
+alias dclf='docker-compose logs -f'
 
