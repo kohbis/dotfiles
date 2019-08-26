@@ -31,4 +31,4 @@ alias drmi_none='docker images | grep -F "<none>" | awk '\''{ print $3 }'\'' | x
 alias drun='docker run'
 alias dstart='docker start'
 alias dstop='docker stop'
-alias dv='docker volume'
+alias dvol='docker volume'
