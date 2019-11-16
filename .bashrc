@@ -46,8 +46,8 @@ PS1='\[\e[1;31m\]\W\[\e[00m\]\[\e[1;36m\]$(__git_ps1)\[\e[00m\]\[\e[1;36m\]$(__g
 # alias #
 #########
 
-source ~/workspace/settings/dotfiles/aliases/git_aliases
-source ~/workspace/settings/dotfiles/aliases/docker_aliases
+source ~/workspace/settings/dotfiles/aliases/git_aliases.sh
+source ~/workspace/settings/dotfiles/aliases/docker_aliases.sh
 
 # system
 alias ls='ls -G'
@@ -58,9 +58,6 @@ alias histgrep="history | grep"
 LESS='-i -M -R'
 
 # bash
-alias vbr='vi ~/.bashrc'
-alias sbr='source ~/.bashrc'
-alias vbp='vi ~/.bash_profile'
 alias sbp='source ~/.bash_profile'
 
 # tmux
