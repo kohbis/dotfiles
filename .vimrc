@@ -24,6 +24,7 @@ set nobackup
 set noswapfile
 set number
 set paste
+set relativenumber
 set ruler
 set scrolloff=5
 set shiftwidth=2
