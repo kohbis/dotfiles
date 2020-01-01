@@ -45,6 +45,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'tagbar', 'unite']
+let NERDTreeShowHidden=1
 
 nnoremap + <C-a>
 nnoremap - <C-x>
@@ -73,7 +74,11 @@ call dein#begin(expand('~/.vim/dein'))
   call dein#add('scrooloose/nerdtree')
   call dein#add('scrooloose/syntastic')
   call dein#add('tomasr/molokai')
-
+  call dein#add('prabirshrestha/async.vim')
+  call dein#add('prabirshrestha/asyncomplete.vim')
+  call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+  call dein#add('prabirshrestha/vim-lsp')
+  call dein#add('mattn/vim-lsp-settings')
 call dein#end()
 
 filetype plugin indent on
