@@ -5,6 +5,13 @@ export LANG=ja_JP.UTF-8
 #######
 HISTSIZE=5000
 
+##############
+# completion #
+##############
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+  . $(brew --prefix)/etc/bash_completion
+fi
+
 ########
 # bind #
 ########
@@ -19,8 +26,6 @@ complete -C '/usr/local/bin/aws_completer' aws
 #######
 # git #
 #######
-source /usr/local/etc/bash_completion.d/git-prompt.sh
-source /usr/local/etc/bash_completion.d/git-completion.bash
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUPSTREAM=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
