@@ -41,6 +41,7 @@ PS1='\[\e[1;31m\]\W\[\e[00m\]\[\e[1;36m\]$(__git_ps1)\[\e[00m\] \[\e[1;32m\]→\
 #########
 source $HOME/workspace/settings/dotfiles/aliases/git_aliases.sh
 source $HOME/workspace/settings/dotfiles/aliases/docker_aliases.sh
+source $HOME/workspace/settings/dotfiles/aliases/terraform_aliases.sh
 
 # system
 alias ls='ls -G'
