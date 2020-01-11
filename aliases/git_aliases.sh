@@ -4,8 +4,10 @@
 
 alias ga='git add'
 alias gaa='git add --all'
+alias gap='git add --patch'
 __git_complete ga _git_add
 __git_complete gaa _git_add
+__git_complete gap _git_add
 
 alias gb='git branch'
 alias gba='git branch -a'
@@ -22,7 +24,9 @@ alias gco='git checkout'
 __git_complete gco _git_checkout
 
 alias gd='git diff'
+alias gdc='git diff --cached'
 __git_complete gd _git_diff
+__git_complete gdc _git_diff
 
 alias gf='git fetch'
 __git_complete gf _git_fetch
