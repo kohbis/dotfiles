@@ -18,6 +18,7 @@ alias gcl='git clone --recurse-submodules'
 __git_complete gcl _git_clone
 
 alias gcmsg='git commit -m'
+alias gcam='git commit --amend'
 __git_complete gcmsg _git_commit
 
 alias gco='git checkout'
