@@ -47,8 +47,6 @@ source $HOME/workspace/settings/dotfiles/aliases/terraform_aliases.sh
 alias ls='ls -G'
 alias ll='ls -lh'
 
-alias histgrep="history | grep"
-
 LESS='-i -M -R'
 
 # bash
