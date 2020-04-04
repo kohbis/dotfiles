@@ -45,13 +45,12 @@ source $HOME/workspace/settings/dotfiles/aliases/terraform_aliases.sh
 
 # system
 alias ls='ls -G'
-alias ll='ls -lh'
+alias ll='ls -l'
 
 LESS='-i -M -R'
 
 # bash
 alias sbp='source ~/.bash_profile'
-alias vbr='vi ~/.bashrc'
 
 # tmux
 alias tmsc='tmux source ~/.tmux.conf'
