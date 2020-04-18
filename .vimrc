@@ -1,62 +1,125 @@
-if &compatible
-  set nocompatible
+"
+" Encode
+"
+set encoding=utf-8
+set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
+
+"
+" Curosr
+"
+set cursorline
+set ignorecase
+set smartcase
+set incsearch
+
+"
+" LineNumber
+"
+set number
+set relativenumber
+
+"
+" Search
+"
+set hlsearch
+
+"
+" Undo
+"
+if has('persistent_undo')
+  let undo_path = expand('~/.vim/undo')
+  exe 'set undodir=' . undo_path
+  set undofile
 endif
 
-set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
-
-set autoindent
-set autoread
-set backspace=indent,eol,start
-set clipboard=unnamed,unnamedplus
-set confirm
-set cursorline
-set expandtab
-set hidden
-set hlsearch
-set ignorecase
-set incsearch
-set laststatus=2
-set list listchars=tab:\>\-
-set mouse=a
-set nobackup
-set noswapfile
-set number
-set paste
-set ruler
-set scrolloff=5
-set shiftwidth=2
-set showcmd
-set showmatch
-set smartcase
-set smartindent
-set softtabstop=2
-set statusline=%f%m%=%l,%c\ %{'['.(&fenc!=''?&fenc:&enc).']\ ['.&fileformat.']'}
+"
+" Tab
+"
 set tabstop=2
-set title
-set virtualedit=onemore
-set visualbell t_vb=
-set wildmenu wildmode=list:longest,full
-set wrapscan
+set expandtab
 
-let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
-let NERDTreeShowHidden=1
+"
+" Indent
+"
+set smartindent
+set shiftwidth=2
+set autoindent
 
+"
+" Clipboard
+"
+set clipboard+=unnamed
+
+"
+" TabPage
+"
+set showtabline=2
+
+"
+" StatusLine
+"
+set laststatus=2
+
+"
+" CursorColumnSelect
+"
+set virtualedit=block
+
+"
+" CommandLine
+"
+set wildmenu
+set wildmode=list:longest,full
+
+"
+" Keymap
+"
 nnoremap + <C-a>
 nnoremap - <C-x>
 nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-s> :w<CR>
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 
 "
-" plugin
+" Etc
 "
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+set autoread
+set backspace=indent,eol,start
+set confirm
+set hidden
+set list listchars=tab:\>\-
+set mouse=a
+set nobackup
+set noswapfile
+set paste
+set ruler
+set scrolloff=5
+set showcmd
+set showmatch
+set softtabstop=2
+set statusline=%f%m%=%l,%c\ %{'['.(&fenc!=''?&fenc:&enc).']\ ['.&fileformat.']'}
+set title
+set visualbell t_vb=
+set wrapscan
 
-call dein#begin(expand('~/.vim/dein'))
+"
+" Plugin
+"
+let s:dein_dir = expand('~/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '~/.vim/dein/repos/github.com/Shougo/dein.vim'
+
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+  execute 'set runtimepath^=' . s:dein_repo_dir
+endif
+
+if dein#load_state(s:dein_dir)
+  call dein#begin(s:dein_dir)
 
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/neosnippet.vim')
@@ -76,21 +139,33 @@ call dein#begin(expand('~/.vim/dein'))
   call dein#add('mattn/vim-lsp-settings')
   call dein#add('Yggdroot/indentLine')
   call dein#add('jiangmiao/auto-pairs')
-call dein#end()
+  call dein#add('skanehira/translate.vim')
 
-filetype plugin indent on
+  call dein#end()
+  call dein#save_state()
+endif
 
 if dein#check_install()
   call dein#install()
 endif
 
+let s:removed_plugins = dein#check_clean()
+if len(s:removed_plugins) > 0
+  call map(s:removed_plugins, "delete(v:val, 'rf'")
+  call dein#recache_runtimepath()
+endif
+
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
+let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
+let NERDTreeShowHidden=1
+
 "
-" color
+" Syntax
 "
 syntax enable
+filetype plugin indent on
 " colorscheme molokai
 
 highlight CursorLine cterm=none ctermbg=234
