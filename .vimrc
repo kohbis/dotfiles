@@ -44,6 +44,7 @@ set expandtab
 set smartindent
 set shiftwidth=2
 set autoindent
+let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
 
 "
 " Clipboard
@@ -124,22 +125,24 @@ if dein#load_state(s:dein_dir)
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/unite.vim')
+  call dein#add('SirVer/ultisnips')
   call dein#add('Townk/vim-autoclose')
+  call dein#add('Yggdroot/indentLine')
   call dein#add('bronson/vim-trailing-whitespace')
   call dein#add('ctrlpvim/ctrlp.vim')
   call dein#add('itchyny/lightline.vim')
+  call dein#add('jiangmiao/auto-pairs')
   call dein#add('jistr/vim-nerdtree-tabs')
+  call dein#add('mattn/vim-lsp-settings')
+  call dein#add('prabirshrestha/async.vim')
+  call dein#add('prabirshrestha/asyncomplete-lsp.vim')
+  call dein#add('prabirshrestha/asyncomplete.vim')
+  call dein#add('prabirshrestha/vim-lsp')
   call dein#add('scrooloose/nerdtree')
   call dein#add('scrooloose/syntastic')
-  call dein#add('tomasr/molokai')
-  call dein#add('prabirshrestha/async.vim')
-  call dein#add('prabirshrestha/asyncomplete.vim')
-  call dein#add('prabirshrestha/asyncomplete-lsp.vim')
-  call dein#add('prabirshrestha/vim-lsp')
-  call dein#add('mattn/vim-lsp-settings')
-  call dein#add('Yggdroot/indentLine')
-  call dein#add('jiangmiao/auto-pairs')
+  call dein#add('simeji/winresizer')
   call dein#add('skanehira/translate.vim')
+  call dein#add('tomasr/molokai')
 
   call dein#end()
   call dein#save_state()
@@ -158,8 +161,12 @@ endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
+" NERDTree
 let NERDTreeShowHidden=1
+" UtilSnips
+let g:UltiSnipsExpandTrigger="<tab>"
+" winresizer
+let g:winresizer_gui_enable = 1
 
 "
 " Syntax
