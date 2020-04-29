@@ -3,108 +3,7 @@
 "
 set encoding=utf-8
 set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
-
-"
-" Curosr
-"
-set cursorline
-set ignorecase
-set smartcase
-set incsearch
-
-"
-" LineNumber
-"
-set number
-set relativenumber
-
-"
-" Search
-"
-set hlsearch
-
-"
-" Undo
-"
-if has('persistent_undo')
-  let undo_path = expand('~/.vim/undo')
-  exe 'set undodir=' . undo_path
-  set undofile
-endif
-
-"
-" Tab
-"
-set tabstop=2
-set expandtab
-
-"
-" Indent
-"
-set smartindent
-set shiftwidth=2
-set autoindent
-let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
-
-"
-" Clipboard
-"
-set clipboard+=unnamed
-
-"
-" TabPage
-"
-set showtabline=2
-
-"
-" StatusLine
-"
-set laststatus=2
-
-"
-" CursorColumnSelect
-"
-set virtualedit=block
-
-"
-" CommandLine
-"
-set wildmenu
-set wildmode=list:longest,full
-
-"
-" Keymap
-"
-nnoremap + <C-a>
-nnoremap - <C-x>
-nnoremap <C-n> :NERDTreeToggle<CR>
-nnoremap <C-s> :w<CR>
-nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
-nnoremap Y y$
-nnoremap j gj
-nnoremap k gk
-
-"
-" Etc
-"
-set autoread
-set backspace=indent,eol,start
-set confirm
-set hidden
-set list listchars=tab:\>\-
-set mouse=a
-set nobackup
-set noswapfile
-set paste
-set ruler
-set scrolloff=5
-set showcmd
-set showmatch
-set softtabstop=2
-set statusline=%f%m%=%l,%c\ %{'['.(&fenc!=''?&fenc:&enc).']\ ['.&fileformat.']'}
-set title
-set visualbell t_vb=
-set wrapscan
+set fileformats=unix,dos,mac
 
 "
 " Plugin
@@ -168,13 +67,149 @@ let g:UltiSnipsExpandTrigger="<tab>"
 " winresizer
 let g:winresizer_gui_enable = 1
 
+
 "
 " Syntax
 "
 syntax enable
-filetype plugin indent on
 " colorscheme molokai
-
 highlight CursorLine cterm=none ctermbg=234
 highlight CursorLineNr cterm=none ctermbg=234
+
+filetype plugin indent on
+
+"
+" Curosr
+"
+set cursorline
+set ignorecase
+
+"
+" LineNumber
+"
+set number
+set relativenumber
+
+"
+" Search
+"
+set ignorecase
+set hlsearch
+set incsearch
+" 大文字入力した場合はignorecaseを無効化
+set smartcase
+" 最後尾まで検索したら先頭に戻る
+set wrapscan
+
+"
+" Undo
+"
+set undolevels=1000
+if has('persistent_undo')
+  let undo_path = expand('~/.vim/undo')
+  exe 'set undodir=' . undo_path
+  set undofile
+endif
+
+"
+" Tab
+"
+" tabとみなすspace数
+set tabstop=4
+" tab入力で挿入するspace数
+set softtabstop=4
+set expandtab
+
+"
+" Indent
+"
+" C構文解析に基づくindent
+set smartindent
+" 1行前に基づくindent
+set autoindent
+" 自動indentのspace数
+set shiftwidth=4
+let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
+
+"
+" Clipboard
+"
+if has("mac")
+  set clipboard+=unnamed
+else
+  set clipboard^=unnamedplus
+endif
+
+"
+" TabPage
+"
+" tabを常に表示
+set showtabline=2
+
+"
+" StatusLine
+"
+" stausを常に表示
+set laststatus=2
+set statusline=%f%m%=%l,%c\ %{'['.(&fenc!=''?&fenc:&enc).']\ ['.&fileformat.']'}
+
+"
+" CursorColumnSelect
+"
+set virtualedit=block
+
+"
+" CommandLine
+"
+set wildmenu
+set wildmode=list:longest,full
+
+"
+" Terminal
+"
+" window移動
+tnoremap <silent> <C-w>p <C-w>:tabprevious<CR>
+tnoremap <silent> <C-w>n <C-w>:tabnext<CR>
+
+"
+" Keymap
+"
+nnoremap + <C-a>
+nnoremap - <C-x>
+nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-s> :w<CR>
+nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
+nnoremap Y y$
+nnoremap j gj
+nnoremap k gk
+
+"
+" Etc
+"
+" 外部の変更を自動読込
+set autoread
+" backspaceの影響範囲
+set backspace=indent,eol,start
+" 未保存ファイルがある場合に終了前に保存確認
+set confirm
+" 未保存ファイルがある場合でも別ファイルを開く
+set hidden
+" 不可視文字の表示
+set list listchars=tab:\>\-
+" マウス操作有効化
+set mouse=a
+" ファイル保存時にbackupファイルを作成しない
+set nobackup
+" swapファイルを作成しない
+set noswapfile
+" カーソル位置
+set ruler
+" スクロール時の確保行
+set scrolloff=10
+" 入力コマンド表示
+set showcmd
+" 対応する括弧表示
+set showmatch
+" bepp音無効化
+set visualbell t_vb=
 
