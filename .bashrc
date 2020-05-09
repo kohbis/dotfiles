@@ -58,7 +58,3 @@ alias tmsc='tmux source ~/.tmux.conf'
 # ssh
 alias ssh-pi='ssh pi@raspberrypi'
 
-# brew
-alias bupd='brew update'
-alias bupg='brew upgrade'
-alias bcupg='brew cask upgrade'

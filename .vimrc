@@ -88,7 +88,7 @@ set ignorecase
 " LineNumber
 "
 set number
-set relativenumber
+" set relativenumber
 
 "
 " Search
