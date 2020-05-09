@@ -31,7 +31,7 @@ if [ $# -ne 1 ]; then
   usage_exit
 fi
 
-while getopts su OPT
+while getopts dsu OPT
 do
   case $OPT in
     "d" ) remove_symbolic_link ;;
