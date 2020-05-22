@@ -49,9 +49,6 @@ alias ll='ls -l'
 
 LESS='-i -M -R'
 
-# bash
-alias sbp='source ~/.bash_profile'
-
 # tmux
 alias tmsc='tmux source ~/.tmux.conf'
 
