@@ -46,6 +46,7 @@ source $HOME/workspace/settings/dotfiles/aliases/terraform_aliases.sh
 # system
 alias ls='ls -G'
 alias ll='ls -l'
+alias l='clear && ls -l'
 
 LESS='-i -M -R'
 
