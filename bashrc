@@ -48,7 +48,9 @@ alias ls='ls -G'
 alias ll='ls -l'
 alias l='clear && ls -l'
 
-LESS='-i -M -R'
+alias grep='grep --color=auto'
+
+LESS='-g -i -M -R -S -W -z-4 -x4'
 
 # tmux
 alias tmsc='tmux source ~/.tmux.conf'
