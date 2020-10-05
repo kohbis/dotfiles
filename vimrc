@@ -78,6 +78,8 @@ highlight CursorLineNr cterm=none ctermbg=234
 
 filetype plugin indent on
 
+autocmd BufEnter *.json setl conceallevel=0
+
 "
 " Curosr
 "
