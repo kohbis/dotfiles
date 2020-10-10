@@ -197,7 +197,8 @@ set confirm
 " 未保存ファイルがある場合でも別ファイルを開く
 set hidden
 " 不可視文字の表示
-set list listchars=tab:\>\-
+set list
+set listchars=tab:»-,trail:-,extends:»,precedes:«,nbsp:%
 " マウス操作有効化
 set mouse=a
 " ファイル保存時にbackupファイルを作成しない
