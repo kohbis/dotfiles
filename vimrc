@@ -45,12 +45,33 @@ endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
+"
 " NERDTree
+"
 let NERDTreeShowHidden=1
+
+"
 " UtilSnips
+"
 let g:UltiSnipsExpandTrigger="<tab>"
+
+"
 " winresizer
+"
 let g:winresizer_gui_enable = 1
+
+"
+" Asynchronous Lint Engine
+"
+" 保存時のみ実行
+let g:ale_lint_on_text_changed = 0
+" sign symbols
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+" message format
+let g:ale_echo_msg_format = '[%linter%]%code: %s [%severity%]'
+highlight link ALEErrorSign Tag
+highlight link ALEWarningSign StorageClass
 
 
 "
@@ -60,8 +81,6 @@ syntax enable
 " colorscheme molokai
 highlight CursorLine cterm=none ctermbg=234
 highlight CursorLineNr cterm=none ctermbg=234
-
-filetype plugin indent on
 
 autocmd BufEnter *.json setl conceallevel=0
 
@@ -75,7 +94,7 @@ set ignorecase
 " LineNumber
 "
 set number
-" set relativenumber
+set relativenumber
 
 "
 " Search
@@ -99,24 +118,29 @@ if has('persistent_undo')
 endif
 
 "
-" Tab
+" Tab, Indent
 "
+" tab入力をspaceに置き換える
+set expandtab
 " tabとみなすspace数
 set tabstop=4
 " tab入力で挿入するspace数
 set softtabstop=4
-set expandtab
-
-"
-" Indent
-"
+" 自動indentのspace数
+set shiftwidth=4
 " C構文解析に基づくindent
 set smartindent
 " 1行前に基づくindent
 set autoindent
-" 自動indentのspace数
-set shiftwidth=4
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
+" filetypeごとの設定
+filetype plugin indent on
+" sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
+autocmd FileType go         setlocal sw=4 sts=4 ts=4 noet
+autocmd FileType java       setlocal sw=4 sts=4 ts=4 et
+autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType rust       setlocal sw=4 sts=4 ts=4 et
 
 "
 " Clipboard
