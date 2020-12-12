@@ -57,9 +57,6 @@ repo = 'prabirshrestha/vim-lsp'
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
-repo = 'scrooloose/syntastic'
-
-[[plugins]]
 repo = 'simeji/winresizer'
 
 [[plugins]]
@@ -78,4 +75,7 @@ repo = 'tpope/vim-commentary'
 repo = 'prettier/vim-prettier'
 build = 'yarn install'
 on_ft = ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
+
+[[plugins]]
+repo = 'w0rp/ale'
 
