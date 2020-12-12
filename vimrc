@@ -73,7 +73,6 @@ let g:ale_echo_msg_format = '[%linter%]%code: %s [%severity%]'
 highlight link ALEErrorSign Tag
 highlight link ALEWarningSign StorageClass
 
-
 "
 " Syntax
 "
@@ -141,6 +140,7 @@ autocmd FileType java       setlocal sw=4 sts=4 ts=4 et
 autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
 autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
 autocmd FileType rust       setlocal sw=4 sts=4 ts=4 et
+autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et
 
 "
 " Clipboard
