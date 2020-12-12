@@ -72,6 +72,18 @@ repo = 'tpope/vim-fugitive'
 repo = 'tpope/vim-commentary'
 
 [[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
+[[plugins]]
+repo = 'fatih/vim-go'
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+
+[[plugins]]
 repo = 'prettier/vim-prettier'
 build = 'yarn install'
 on_ft = ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
