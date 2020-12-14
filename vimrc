@@ -6,6 +6,11 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 
 "
+" Common
+"
+highlight SignColumn ctermbg=none
+
+"
 " Plugin
 "
 let s:dein_dir = expand('~/.cache/dein')
@@ -58,7 +63,14 @@ let g:UltiSnipsExpandTrigger="<tab>"
 "
 " winresizer
 "
-let g:winresizer_gui_enable = 1
+let g:winresizer_gui_enable=1
+
+"
+" gitgutter
+"
+highlight GitGutterAdd    ctermfg=green
+highlight GitGutterChange ctermfg=blue
+highlight GitGutterDelete ctermfg=red
 
 "
 " Asynchronous Lint Engine
@@ -78,7 +90,7 @@ highlight link ALEWarningSign StorageClass
 "
 syntax enable
 " colorscheme molokai
-highlight CursorLine cterm=none ctermbg=234
+highlight CursorLine   cterm=none ctermbg=234
 highlight CursorLineNr cterm=none ctermbg=234
 
 autocmd BufEnter *.json setl conceallevel=0
