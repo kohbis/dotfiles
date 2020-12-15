@@ -54,7 +54,7 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Syntax
 "
 syntax enable
-" colorscheme molokai
+colorscheme gruvbox
 highlight CursorLine   cterm=none ctermbg=234
 highlight CursorLineNr cterm=none ctermbg=234
 
