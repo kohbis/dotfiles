@@ -13,6 +13,9 @@ repo = 'Shougo/unite.vim'
 
 [[plugins]]
 repo = 'SirVer/ultisnips'
+hook_add = '''
+  let g:UltiSnipsExpandTrigger="<tab>"
+'''
 
 [[plugins]]
 repo = 'Townk/vim-autoclose'
@@ -55,9 +58,15 @@ repo = 'prabirshrestha/vim-lsp'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+hook_add = '''
+  let NERDTreeShowHidden=1
+'''
 
 [[plugins]]
 repo = 'simeji/winresizer'
+hook_add = '''
+  let g:winresizer_gui_enable=1
+'''
 
 [[plugins]]
 repo = 'skanehira/translate.vim'
@@ -76,9 +85,11 @@ repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
-
-[[plugins]]
-repo = 'fatih/vim-go'
+hook_add = '''
+  highlight GitGutterAdd    ctermfg=2
+  highlight GitGutterChange ctermfg=1
+  highlight GitGutterDelete ctermfg=3
+'''
 
 [[plugins]]
 repo = 'rust-lang/rust.vim'
@@ -90,4 +101,29 @@ on_ft = ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', '
 
 [[plugins]]
 repo = 'w0rp/ale'
+
+[[plugins]]
+repo = 'pangloss/vim-javascript'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'othree/yajs.vim'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'othree/es.next.syntax.vim'
+on_ft = ['javascript', 'javascript.jsx']
+
+[[plugins]]
+repo = 'othree/javascript-libraries-syntax.vim'
+on_ft = ['javascript', 'javascript.jsx']
+hook_add = '''
+  function! EnableJavascript()
+    " Setup used libraries
+    let g:used_javascript_libs = 'react,vue'
+    let b:javascript_lib_use_react = 1
+    let b:javascript_lib_use_vue = 1
+  endfunction
+  autocmd FileType javascript,javascript.jsx call EnableJavascript()
+'''
 
