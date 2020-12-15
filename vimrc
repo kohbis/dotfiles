@@ -50,29 +50,6 @@ endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-"
-" NERDTree
-"
-let NERDTreeShowHidden=1
-
-"
-" UtilSnips
-"
-let g:UltiSnipsExpandTrigger="<tab>"
-
-"
-" winresizer
-"
-let g:winresizer_gui_enable=1
-
-"
-" gitgutter
-"
-highlight GitGutterAdd    ctermfg=green
-highlight GitGutterChange ctermfg=blue
-highlight GitGutterDelete ctermfg=red
-
-"
 " Asynchronous Lint Engine
 "
 " 保存時のみ実行
@@ -105,7 +82,7 @@ set ignorecase
 " LineNumber
 "
 set number
-set relativenumber
+" set relativenumber
 
 "
 " Search
