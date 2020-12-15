@@ -1,20 +1,12 @@
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
-
-[[plugins]]
-repo = 'suan/vim-instant-markdown'
-on_ft = ['markdown']
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-
-[[plugins]]
-repo = 'Shougo/unite.vim'
+# [[plugins]]
+# repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'SirVer/ultisnips'
 hook_add = '''
   let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<c-b>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 '''
 
 [[plugins]]
@@ -30,16 +22,10 @@ repo = 'bronson/vim-trailing-whitespace'
 repo = 'ctrlpvim/ctrlp.vim'
 
 [[plugins]]
-repo = 'hashivim/vim-terraform'
-
-[[plugins]]
 repo = 'itchyny/lightline.vim'
 
 [[plugins]]
 repo = 'jiangmiao/auto-pairs'
-
-[[plugins]]
-repo = 'jistr/vim-nerdtree-tabs'
 
 [[plugins]]
 repo = 'mattn/vim-lsp-settings'
@@ -61,6 +47,9 @@ repo = 'scrooloose/nerdtree'
 hook_add = '''
   let NERDTreeShowHidden=1
 '''
+
+[[plugins]]
+repo = 'jistr/vim-nerdtree-tabs'
 
 [[plugins]]
 repo = 'simeji/winresizer'
@@ -92,38 +81,15 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'rust-lang/rust.vim'
-
-[[plugins]]
-repo = 'prettier/vim-prettier'
-build = 'yarn install'
-on_ft = ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
-
-[[plugins]]
 repo = 'w0rp/ale'
-
-[[plugins]]
-repo = 'pangloss/vim-javascript'
-on_ft = ['javascript', 'javascript.jsx']
-
-[[plugins]]
-repo = 'othree/yajs.vim'
-on_ft = ['javascript', 'javascript.jsx']
-
-[[plugins]]
-repo = 'othree/es.next.syntax.vim'
-on_ft = ['javascript', 'javascript.jsx']
-
-[[plugins]]
-repo = 'othree/javascript-libraries-syntax.vim'
-on_ft = ['javascript', 'javascript.jsx']
 hook_add = '''
-  function! EnableJavascript()
-    " Setup used libraries
-    let g:used_javascript_libs = 'react,vue'
-    let b:javascript_lib_use_react = 1
-    let b:javascript_lib_use_vue = 1
-  endfunction
-  autocmd FileType javascript,javascript.jsx call EnableJavascript()
+  " 保存時のみ実行
+  let g:ale_lint_on_text_changed = 0
+  " sign symbols
+  let g:ale_sign_error = '>>'
+  let g:ale_sign_warning = '--'
+  " message format
+  let g:ale_echo_msg_format = '[%linter%]%code: %s [%severity%]'
+  highlight link ALEErrorSign Tag
+  highlight link ALEWarningSign StorageClass
 '''
-

@@ -50,18 +50,6 @@ endif
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" Asynchronous Lint Engine
-"
-" 保存時のみ実行
-let g:ale_lint_on_text_changed = 0
-" sign symbols
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-" message format
-let g:ale_echo_msg_format = '[%linter%]%code: %s [%severity%]'
-highlight link ALEErrorSign Tag
-highlight link ALEWarningSign StorageClass
-
 "
 " Syntax
 "

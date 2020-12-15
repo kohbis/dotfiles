@@ -52,6 +52,10 @@ alias grep='grep --color=auto'
 
 LESS='-g -i -M -R -S -W -z-4 -x4'
 
+# vim, nvim
+alias vi='nvim'
+alias vim='nvim'
+
 # tmux
 alias tmsc='tmux source ~/.tmux.conf'
 
