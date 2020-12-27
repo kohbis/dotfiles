@@ -10,9 +10,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'Townk/vim-autoclose'
-
-[[plugins]]
 repo = 'Yggdroot/indentLine'
 
 [[plugins]]
@@ -28,19 +25,7 @@ repo = 'itchyny/lightline.vim'
 repo = 'jiangmiao/auto-pairs'
 
 [[plugins]]
-repo = 'mattn/vim-lsp-settings'
-
-[[plugins]]
-repo = 'prabirshrestha/async.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/asyncomplete.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
+repo = 'tpope/vim-surround'
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
@@ -58,19 +43,18 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'skanehira/translate.vim'
-
-[[plugins]]
 repo = 'morhetz/gruvbox'
-
-[[plugins]]
-repo = 'tpope/vim-fugitive'
+hook_add = '''
+  set background=dark
+  set t_Co=256
+  let g:ligthline = { 'colorscheme': 'gruvbox' }
+'''
 
 [[plugins]]
 repo = 'tpope/vim-commentary'
 
 [[plugins]]
-repo = 'tpope/vim-surround'
+repo = 'tpope/vim-fugitive'
 
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
