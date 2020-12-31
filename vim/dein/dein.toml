@@ -1,6 +1,3 @@
-# [[plugins]]
-# repo = 'Shougo/dein.vim'
-
 [[plugins]]
 repo = 'SirVer/ultisnips'
 hook_add = '''
@@ -77,3 +74,26 @@ hook_add = '''
   highlight link ALEErrorSign Tag
   highlight link ALEWarningSign StorageClass
 '''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete.vim'
+hook_add = '''
+  inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ asyncomplete#force_refresh()
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+'''
+
+[[plugins]]
+repo = 'prabirshrestha/asyncomplete-lsp.vim'
+
+[[plugins]]
+repo = 'prabirshrestha/vim-lsp'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-settings'
+
+[[plugins]]
+repo = 'mattn/vim-lsp-icons'
+
