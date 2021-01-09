@@ -34,6 +34,16 @@ hook_add = '''
 repo = 'jistr/vim-nerdtree-tabs'
 
 [[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_add = '''
+  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+  let g:WebDevIconsNerdTreeAfterGlyphPadding = " "
+  if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+  endif
+'''
+
+[[plugins]]
 repo = 'simeji/winresizer'
 hook_add = '''
   let g:winresizer_gui_enable=1
