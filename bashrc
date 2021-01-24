@@ -59,6 +59,3 @@ alias vim='nvim'
 # tmux
 alias tmsc='tmux source ~/.tmux.conf'
 
-# ssh
-alias ssh-pi='ssh pi@raspberrypi'
-

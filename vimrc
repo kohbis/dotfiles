@@ -110,6 +110,7 @@ let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
 " filetypeごとの設定
 filetype plugin indent on
 " sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
+autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
 autocmd FileType go         setlocal sw=8 sts=8 ts=8 noet
 autocmd FileType java       setlocal sw=4 sts=4 ts=4 et
 autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
