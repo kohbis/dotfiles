@@ -59,3 +59,8 @@ alias vim='nvim'
 # tmux
 alias tmsc='tmux source ~/.tmux.conf'
 
+#########
+# local #
+#########
+source $HOME/workspace/settings/dotfiles/bash_local
+
