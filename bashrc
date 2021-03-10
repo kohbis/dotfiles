@@ -62,5 +62,7 @@ alias tmsc='tmux source ~/.tmux.conf'
 #########
 # local #
 #########
-source $HOME/workspace/settings/dotfiles/bash_local
-
+BASH_LOCAL="${HOME}/workspace/settings/dotfiles/bash_local"
+if [ -e $BASH_LOCAL ];then
+  source $BASH_LOCAL
+fi
