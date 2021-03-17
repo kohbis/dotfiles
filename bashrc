@@ -21,7 +21,10 @@ bind '"\e[B": history-search-forward'
 #######
 # aws #
 #######
-complete -C '/usr/local/bin/aws_completer' aws
+aws_completer='/usr/local/bin/aws_completer'
+if [ -f $aws_completer ]; then
+  complete -C $aws_completer aws
+fi
 
 #######
 # git #
@@ -39,9 +42,20 @@ PS1='\[\e[1;31m\]\W\[\e[00m\]\[\e[1;36m\]$(__git_ps1)\[\e[00m\] \[\e[1;32m\]→\
 #########
 # alias #
 #########
-source $HOME/workspace/settings/dotfiles/aliases/git_aliases.sh
-source $HOME/workspace/settings/dotfiles/aliases/docker_aliases.sh
-source $HOME/workspace/settings/dotfiles/aliases/terraform_aliases.sh
+git_aliases="${HOME}/workspace/settings/dotfiles/aliases/git_aliases.sh"
+if [ -f $git_aliases ]; then
+  . $git_aliases
+fi
+
+docker_aliases="${HOME}/workspace/settings/dotfiles/aliases/docker_aliases.sh"
+if [ -f $docker_aliases ]; then
+  . $docker_aliases
+fi
+
+terraform_aliases="${HOME}/workspace/settings/dotfiles/aliases/terraform_aliases.sh"
+if [ -f $terraform_aliases ]; then
+  . $terraform_aliases
+fi
 
 # system
 alias ls='ls -G'
@@ -62,7 +76,8 @@ alias tmsc='tmux source ~/.tmux.conf'
 #########
 # local #
 #########
-BASH_LOCAL="${HOME}/workspace/settings/dotfiles/bash_local"
-if [ -e $BASH_LOCAL ];then
-  source $BASH_LOCAL
+bash_local="${HOME}/workspace/settings/dotfiles/bash_local"
+if [ -f $bash_local ]; then
+  . $bash_local
 fi
+
