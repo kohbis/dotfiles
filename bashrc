@@ -64,6 +64,10 @@ alias l='clear && ls -l'
 
 alias grep='grep --color=auto'
 
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
 LESS='-g -i -M -R -S -W -z-4 -x4'
 
 # vim, nvim

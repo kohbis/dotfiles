@@ -170,6 +170,8 @@ nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
+inoremap ;<CR> <End>;<CR>
+inoremap ,<CR> <End>,<CR>
 
 "
 " Etc
