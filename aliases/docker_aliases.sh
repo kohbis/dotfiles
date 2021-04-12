@@ -5,7 +5,6 @@
 alias datt='docker attach'
 alias dbuild='docker build'
 alias dcbuild='docker-compose build'
-alias dcdown='docker-compose down'
 alias dcexec='docker-compose exec'
 alias dcl='docker container ls'
 alias dcla='docker container ls -a'
