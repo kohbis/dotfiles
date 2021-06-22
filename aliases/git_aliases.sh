@@ -2,12 +2,16 @@
 # git #
 #######
 
+_comp_git_add() {
+  local __git_cmd_idx=0
+  _git_add
+}
 alias ga='git add'
 alias gaa='git add --all'
 alias gap='git add --patch'
-__git_complete ga _git_add
-__git_complete gaa _git_add
-__git_complete gap _git_add
+__git_complete ga  _comp_git_add
+__git_complete gaa _comp_git_add
+__git_complete gap _comp_git_add
 
 alias gb='git branch'
 alias gba='git branch -a'
@@ -21,8 +25,12 @@ alias gcmsg='git commit -m'
 alias gcam='git commit --amend'
 __git_complete gcmsg _git_commit
 
+_comp_git_checkout() {
+  local __git_cmd_idx=0
+  _git_checkout
+}
 alias gco='git checkout'
-__git_complete gco _git_checkout
+__git_complete gco _comp_git_checkout
 
 alias gd='git diff'
 alias gdc='git diff --cached'
@@ -47,5 +55,10 @@ __git_complete grhh _git_reset
 alias gsho='git show'
 __git_complete gsho _git_show
 
+_comp_git_status() {
+  local __git_cmd_idx=0
+  _git_status
+}
 alias gst='git status -uall'
-__git_complete gst _git_status
+__git_complete gst _comp_git_status
+
