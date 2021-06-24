@@ -13,10 +13,14 @@ __git_complete ga  _comp_git_add
 __git_complete gaa _comp_git_add
 __git_complete gap _comp_git_add
 
+_comp_git_branch() {
+  local __git_cmd_idx=0
+  _git_branch
+}
 alias gb='git branch'
 alias gba='git branch -a'
-__git_complete gb _git_branch
-__git_complete gba _git_branch
+__git_complete gb _comp_git_branch
+__git_complete gba _comp_git_branch
 
 alias gcl='git clone --recurse-submodules'
 __git_complete gcl _git_clone
