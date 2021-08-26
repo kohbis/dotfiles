@@ -3,7 +3,8 @@ repo = 'morhetz/gruvbox'
 
 [[plugins]]
 repo = 'neoclide/coc.nvim'
-build = './install.sh nightly'
+merge = 0
+rev = 'release'
 
 [[plugins]]
 repo = 'SirVer/ultisnips'
