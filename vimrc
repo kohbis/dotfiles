@@ -193,6 +193,8 @@ set mouse=a
 set nobackup
 " swapファイルを作成しない
 set noswapfile
+" swapファイルを作成するまでの秒数
+set updatetime=500
 " カーソル位置
 set ruler
 " スクロール時の確保行

@@ -2,6 +2,10 @@
 repo = 'morhetz/gruvbox'
 
 [[plugins]]
+repo = 'neoclide/coc.nvim'
+build = './install.sh nightly'
+
+[[plugins]]
 repo = 'SirVer/ultisnips'
 hook_add = '''
   let g:UltiSnipsExpandTrigger="<tab>"
