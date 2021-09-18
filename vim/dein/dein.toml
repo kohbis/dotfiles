@@ -104,18 +104,6 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'prabirshrestha/asyncomplete-lsp.vim'
-
-[[plugins]]
-repo = 'prabirshrestha/vim-lsp'
-
-[[plugins]]
-repo = 'mattn/vim-lsp-settings'
-
-[[plugins]]
-repo = 'mattn/vim-lsp-icons'
-
-[[plugins]]
 repo = 'hashivim/vim-terraform'
 on_ft = ['terraform']
 hook_add = '''
@@ -126,4 +114,8 @@ hook_add = '''
 [[plugins]]
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = ['rust']
 

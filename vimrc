@@ -118,6 +118,7 @@ autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
 autocmd FileType rust       setlocal sw=4 sts=4 ts=4 et
 autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et
 autocmd FileType toml       setlocal sw=2 sts=2 ts=2 et
+autocmd FileType json       let g:indentLine_setConceal = 0
 
 "
 " Clipboard
