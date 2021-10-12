@@ -5,7 +5,7 @@ usage_exit() {
   exit 1
 }
 
-DOT_FILES=(bashrc bash_profile vimrc zshrc tmux.conf)
+DOT_FILES=(bashrc bash_profile vimrc zshrc tmux.conf clang-format)
 
 create_symbolic_link() {
   echo "create symbolic links"
