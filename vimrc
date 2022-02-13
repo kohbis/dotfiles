@@ -51,6 +51,22 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 "
+" Plugins Lua
+"
+lua << EOF
+require("bufferline").setup{
+  options = {
+    offsets = {
+      {
+        filetype = "nerdtree",
+        text = "EXPLORER",
+      }
+    },
+  }
+}
+EOF
+
+"
 " Syntax
 "
 syntax enable
@@ -211,4 +227,6 @@ set showcmd
 set showmatch
 " bepp音無効化
 set visualbell t_vb=
+
+set termguicolors
 
