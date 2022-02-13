@@ -109,12 +109,13 @@ set autoindent
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
 " filetypeごとの設定
 filetype plugin indent on
-" sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtabの略
+" sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtab
 autocmd FileType c          setlocal sw=4 sts=4 ts=4 et
 autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et
 autocmd FileType go         setlocal sw=8 sts=8 ts=8 noet
 autocmd FileType java       setlocal sw=4 sts=4 ts=4 et
 autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et
+autocmd FileType lua        setlocal sw=2 sts=2 ts=2 et
 autocmd FileType ruby       setlocal sw=2 sts=2 ts=2 et
 autocmd FileType rust       setlocal sw=4 sts=4 ts=4 et
 autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et
@@ -172,6 +173,9 @@ nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
+nnoremap <Leader>bb :buffers<CR>:b<Space>
+nnoremap <Left> :bp<CR>
+nnoremap <Right> :bn<CR>
 inoremap ;<CR> <End>;<CR>
 inoremap ,<CR> <End>,<CR>
 
