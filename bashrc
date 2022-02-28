@@ -26,6 +26,19 @@ if [ -f $aws_completer ]; then
   complete -C $aws_completer aws
 fi
 
+########
+# asdf #
+########
+asdf_init="/usr/local/opt/asdf/libexec/asdf.sh"
+asdf_completer="/usr/local/opt/asdf/etc/bash_completion.d/asdf.bash"
+if [ -f $asdf_init ]; then
+  . $asdf_init
+
+  if [ -f $asdf_completer ]; then
+    . $asdf_completer
+  fi
+fi
+
 #######
 # git #
 #######
