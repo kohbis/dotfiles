@@ -125,3 +125,8 @@ on_ft = ['rust']
 [[plugins]]
 repo = 'akinsho/bufferline.nvim'
 
+[[plugins]]
+repo = 'rhysd/vim-clang-format'
+hook_add = '''
+  let g:clang_format#detect_style_file=1
+'''
