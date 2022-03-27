@@ -128,5 +128,12 @@ repo = 'akinsho/bufferline.nvim'
 [[plugins]]
 repo = 'rhysd/vim-clang-format'
 hook_add = '''
-  let g:clang_format#detect_style_file=1
+  let g:clang_format#detect_style_file = 1
 '''
+
+[[plugins]]
+repo = 'mattn/vim-sqlfmt'
+hook_add = '''
+  let g:sqlfmt_program = "sqlformat --reindent --keyword upper -o %s -"
+'''
+
