@@ -64,7 +64,6 @@ hook_add = '''
 repo = 'morhetz/gruvbox'
 hook_add = '''
   set background=dark
-  set t_Co=256
   let g:ligthline = { 'colorscheme': 'gruvbox' }
 '''
 
