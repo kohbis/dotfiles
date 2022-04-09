@@ -9,6 +9,7 @@ set fileformats=unix,dos,mac
 " Common
 "
 highlight SignColumn ctermbg=none
+set termguicolors
 
 "
 " Plugin
@@ -47,22 +48,35 @@ if len(s:removed_plugins) > 0
   call dein#recache_runtimepath()
 endif
 
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
 "
 " Plugins Lua
 "
 lua << EOF
 require("bufferline").setup{
   options = {
+    numbers = 'both',
+    diagnostics = "coc",
+    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+      local s = " "
+      for e, n in pairs(diagnostics_dict) do
+        local sym = e == "error" and " "
+          or (e == "warning" and " " or "" )
+        s = s .. n .. sym
+      end
+      return s
+    end,
     offsets = {
       {
-        filetype = "nerdtree",
+        filetype = "NvimTree",
         text = "EXPLORER",
       }
     },
+    show_buffer_close_icons = false,
+    show_close_icons = false,
   }
+}
+
+require('nvim-tree').setup{
 }
 EOF
 
@@ -122,7 +136,7 @@ set shiftwidth=4
 set smartindent
 " 1行前に基づくindent
 set autoindent
-let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'tabbar', 'unite']
+let g:indentLine_fileTypeExclude = ['help', 'nvimtree', 'tabbar', 'unite']
 " filetypeごとの設定
 filetype plugin indent on
 " sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtab
@@ -137,6 +151,8 @@ autocmd FileType rust       setlocal sw=4 sts=4 ts=4 et
 autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et
 autocmd FileType toml       setlocal sw=2 sts=2 ts=2 et
 autocmd FileType json       let g:indentLine_setConceal = 0
+autocmd StdinReadPre *      let s:std_in=1
+
 
 "
 " Clipboard
@@ -183,7 +199,6 @@ tnoremap <silent> <C-w>n <C-w>:tabnext<CR>
 "
 nnoremap + <C-a>
 nnoremap - <C-x>
-nnoremap <C-n> :NERDTreeToggle<CR>
 nnoremap <C-s> :w<CR>
 nnoremap <Esc><Esc> :nohlsearch<CR><Esc>
 nnoremap Y y$

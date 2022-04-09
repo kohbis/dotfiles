@@ -33,25 +33,16 @@ repo = 'jiangmiao/auto-pairs'
 repo = 'tpope/vim-surround'
 
 [[plugins]]
-repo = 'scrooloose/nerdtree'
-hook_add = '''
-  let NERDTreeShowHidden=1
-'''
+repo = 'kyazdani42/nvim-web-devicons'
 
 [[plugins]]
-repo = 'jistr/vim-nerdtree-tabs'
+repo = 'kyazdani42/nvim-tree.lua'
 hook_add = '''
-  let g:nerdtree_tabs_autoclose=0
-'''
+  nnoremap <C-n> :NvimTreeToggle<CR>
+  nnoremap <leader>r :NvimTreeRefresh<CR>
+  nnoremap <leader>n :NvimTreeFindFile<CR>
 
-[[plugins]]
-repo = 'ryanoasis/vim-devicons'
-hook_add = '''
-  let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-  let g:WebDevIconsNerdTreeAfterGlyphPadding = " "
-  if exists('g:loaded_webdevicons')
-    call webdevicons#refresh()
-  endif
+  highlight NvimTreeFolderIcon guibg=black
 '''
 
 [[plugins]]
