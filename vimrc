@@ -70,9 +70,7 @@ require("bufferline").setup{
         filetype = "NvimTree",
         text = "EXPLORER",
       }
-    },
-    show_buffer_close_icons = false,
-    show_close_icons = false,
+    }
   }
 }
 
