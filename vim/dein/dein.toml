@@ -42,9 +42,42 @@ repo = 'kyazdani42/nvim-web-devicons'
 [[plugins]]
 repo = 'kyazdani42/nvim-tree.lua'
 hook_add = '''
+lua << EOF
+require('nvim-tree').setup {
+  open_on_setup = true
+}
+EOF
   nnoremap <C-n> :NvimTreeToggle<CR>
   nnoremap <leader>r :NvimTreeRefresh<CR>
   nnoremap <leader>n :NvimTreeFindFile<CR>
+'''
+
+[[plugins]]
+repo = 'akinsho/bufferline.nvim'
+hook_add = '''
+lua << EOF
+require("bufferline").setup {
+  options = {
+    numbers = 'both',
+    diagnostics = "coc",
+    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+      local s = " "
+      for e, n in pairs(diagnostics_dict) do
+        local sym = e == "error" and " "
+          or (e == "warning" and " " or "" )
+        s = s .. n .. sym
+      end
+      return s
+    end,
+    offsets = {
+      {
+        filetype = "NvimTree",
+        text = "",
+      }
+    }
+  }
+}
+EOF
 '''
 
 [[plugins]]
@@ -106,9 +139,6 @@ on_ft = ['toml']
 [[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = ['rust']
-
-[[plugins]]
-repo = 'akinsho/bufferline.nvim'
 
 [[plugins]]
 repo = 'rhysd/vim-clang-format'
