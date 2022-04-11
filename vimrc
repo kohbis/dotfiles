@@ -6,9 +6,8 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 
 "
-" Common
+" True Color
 "
-highlight SignColumn ctermbg=none
 set termguicolors
 
 "
@@ -82,7 +81,13 @@ EOF
 " Syntax
 "
 syntax enable
+
+
+"
+" Color
+"
 colorscheme gruvbox
+highlight SignColumn   ctermbg=none
 highlight CursorLine   cterm=none ctermbg=234
 highlight CursorLineNr cterm=none ctermbg=234
 

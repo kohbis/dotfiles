@@ -1,5 +1,9 @@
 [[plugins]]
 repo = 'morhetz/gruvbox'
+hook_add = '''
+  set background=dark
+  let g:ligthline = { 'colorscheme': 'gruvbox' }
+'''
 
 [[plugins]]
 repo = 'neoclide/coc.nvim'
@@ -41,21 +45,12 @@ hook_add = '''
   nnoremap <C-n> :NvimTreeToggle<CR>
   nnoremap <leader>r :NvimTreeRefresh<CR>
   nnoremap <leader>n :NvimTreeFindFile<CR>
-
-  highlight NvimTreeFolderIcon guibg=black
 '''
 
 [[plugins]]
 repo = 'simeji/winresizer'
 hook_add = '''
   let g:winresizer_gui_enable=1
-'''
-
-[[plugins]]
-repo = 'morhetz/gruvbox'
-hook_add = '''
-  set background=dark
-  let g:ligthline = { 'colorscheme': 'gruvbox' }
 '''
 
 [[plugins]]
