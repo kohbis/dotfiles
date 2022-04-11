@@ -6,6 +6,11 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis
 set fileformats=unix,dos,mac
 
 "
+" Syntax
+"
+syntax enable
+
+"
 " True Color
 "
 set termguicolors
@@ -14,7 +19,7 @@ set termguicolors
 " Plugin
 "
 let s:dein_dir = expand('~/.cache/dein')
-let s:dein_repo_dir = s:dein_dir . '~/.vim/dein/repos/github.com/Shougo/dein.vim'
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 if &runtimepath !~# '/dein.vim'
   if !isdirectory(s:dein_repo_dir)
@@ -48,42 +53,6 @@ if len(s:removed_plugins) > 0
 endif
 
 "
-" Plugins Lua
-"
-lua << EOF
-require("bufferline").setup{
-  options = {
-    numbers = 'both',
-    diagnostics = "coc",
-    diagnostics_indicator = function(count, level, diagnostics_dict, context)
-      local s = " "
-      for e, n in pairs(diagnostics_dict) do
-        local sym = e == "error" and " "
-          or (e == "warning" and " " or "" )
-        s = s .. n .. sym
-      end
-      return s
-    end,
-    offsets = {
-      {
-        filetype = "NvimTree",
-        text = "EXPLORER",
-      }
-    }
-  }
-}
-
-require('nvim-tree').setup{
-}
-EOF
-
-"
-" Syntax
-"
-syntax enable
-
-
-"
 " Color
 "
 colorscheme gruvbox
@@ -101,7 +70,6 @@ set ignorecase
 " LineNumber
 "
 set number
-" set relativenumber
 
 "
 " Search
@@ -139,7 +107,7 @@ set shiftwidth=4
 set smartindent
 " 1行前に基づくindent
 set autoindent
-let g:indentLine_fileTypeExclude = ['help', 'nvimtree', 'tabbar', 'unite']
+let g:indentLine_fileTypeExclude = ['help', 'NvimTree', 'tabbar', 'unite']
 " filetypeごとの設定
 filetype plugin indent on
 " sw=softtabstop, sts=shiftwidth, ts=tabstop, et=expandtab
@@ -154,8 +122,8 @@ autocmd FileType rust       setlocal sw=4 sts=4 ts=4 et
 autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et
 autocmd FileType toml       setlocal sw=2 sts=2 ts=2 et
 autocmd FileType json       let g:indentLine_setConceal = 0
-autocmd StdinReadPre *      let s:std_in=1
 
+autocmd StdinReadPre *      let s:std_in=1
 
 "
 " Clipboard
@@ -245,6 +213,8 @@ set showcmd
 set showmatch
 " bepp音無効化
 set visualbell t_vb=
-
-set termguicolors
+" 新しいウィンドウを下に開く
+set splitbelow
+" 新しいウィンドウを右に開く
+set splitright
 
