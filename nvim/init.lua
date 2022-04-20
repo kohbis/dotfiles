@@ -54,6 +54,8 @@ vim.cmd [[packadd packer.nvim]]
 require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
+  use 'neovim/nvim-lspconfig'
+
   -- Color Scheme
   use {
     'morhetz/gruvbox',
@@ -82,11 +84,6 @@ require('packer').startup(function()
   }
 
   use {
-    'neoclide/coc.nvim',
-    branch = 'release'
-  }
-
-  use {
     'kyazdani42/nvim-tree.lua',
     requires = {
       'kyazdani42/nvim-web-devicons',
@@ -103,7 +100,7 @@ require('packer').startup(function()
       require('bufferline').setup {
         options = {
           numbers = 'both',
-          diagnostics = "coc",
+          diagnostics = "nvim_lsp",
           diagnostics_indicator = function(count, level, diagnostics_dict, context)
             local s = " "
             for e, n in pairs(diagnostics_dict) do
