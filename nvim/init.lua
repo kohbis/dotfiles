@@ -1,3 +1,5 @@
+local vim = vim
+
 -- Line Number
 vim.wo.number = true
 
@@ -54,10 +56,25 @@ vim.cmd('autocmd FileType json       let g:indentLine_setConceal = 0')
 -- Plugins
 -- #######
 vim.cmd [[packadd packer.nvim]]
-require('packer').startup(function()
+require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
-  use 'neovim/nvim-lspconfig'
+  -- LSP
+  use {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require('lspconfig').setup()
+    end
+  }
+  use "williamboman/nvim-lsp-installer"
+
+  -- Completion
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
+  use 'onsails/lspkind-nvim'
 
   -- Color Scheme
   use {
@@ -207,8 +224,94 @@ require('packer').startup(function()
 end)
 
 -- #####################
--- Variables for Plugins
+-- Settings for Plugins
 -- #####################
+-- LSP
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
+
+    opts.capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+end)
+
+-- Completion
+vim.opt.completeopt = "menu,menuone,noselect"
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+cmp.setup({
+  preselect = cmp.PreselectMode.None,
+  snippet = {
+    expand = function(args)
+      -- For `vsnip` user.
+      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+      -- For `luasnip` user.
+      -- require('luasnip').lsp_expand(args.body)
+      -- For `ultisnips` user.
+      -- vim.fn["UltiSnips#Anon"](args.body)
+    end,
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-y>'] = cmp.mapping.complete(),
+  }),
+  sources = {
+    { name = 'nvim_lsp' },
+    -- { name = 'vsnip' },
+    -- { name = 'luasnip' },
+    -- { name = 'ultisnips' },
+    { name = 'buffer' },
+    { name = 'path' },
+    -- { name = 'treesitter' },
+  },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = "symbol_text",
+      with_text = true,
+      maxwidth = 50,
+      before = function (entry, vim_item)
+        vim_item.menu = ({
+          -- luasnip = '[SNIP]',
+          path = '[PATH]',
+          buffer = '[BUF]',
+          -- calc = '[CALC]',
+          -- nuspell = '[SPELL]',
+          -- spell = '[SPELL]',
+          -- emoji = '[EMOJI]',
+          -- treesitter = '[TS]',
+          nvim_lsp = '[LSP]',
+          -- cmp_tabnine = '[TN]',
+          -- latex_symbols = '[TEX]',
+          tmux = '[TMUX]',
+          -- conjure = '[CJ]',
+          -- orgmode = '[ORG]'
+        })[entry.source.name]
+        return vim_item
+      end
+    })
+  }
+})
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
 -- winresizer
 vim.g.winresizer_gui_enable = 1
 
