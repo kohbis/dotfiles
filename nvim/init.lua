@@ -4,6 +4,9 @@ vim.wo.number = true
 -- True Color
 vim.o.termguicolors = true
 
+-- Mouse
+vim.opt.mouse = 'a'
+
 -- Clipboard
 vim.opt.clipboard:append({'unnamedplus'})
 
