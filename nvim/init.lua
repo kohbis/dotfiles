@@ -60,12 +60,7 @@ require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   -- LSP
-  use {
-    'neovim/nvim-lspconfig',
-    config = function()
-      require('lspconfig').setup()
-    end
-  }
+  use 'neovim/nvim-lspconfig'
   use "williamboman/nvim-lsp-installer"
 
   -- Completion
@@ -174,6 +169,12 @@ require('packer').startup(function(use)
   use {
     'rust-lang/rust.vim',
     ft = { 'rust' }
+  }
+
+  -- Terraform
+  use {
+    'hashivim/vim-terraform',
+    ft = { 'terraform' }
   }
 
   -- defaults
