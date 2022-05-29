@@ -56,173 +56,190 @@ vim.cmd('autocmd FileType json       let g:indentLine_setConceal = 0')
 -- Plugins
 -- #######
 vim.cmd [[packadd packer.nvim]]
-require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
+require('packer').startup({
+  function(use)
+    use 'wbthomason/packer.nvim'
 
-  -- LSP
-  use 'neovim/nvim-lspconfig'
-  use "williamboman/nvim-lsp-installer"
+    -- LSP
+    use 'neovim/nvim-lspconfig'
+    use "williamboman/nvim-lsp-installer"
 
-  -- Completion
-  use 'hrsh7th/nvim-cmp'
-  use 'hrsh7th/cmp-nvim-lsp'
-  use 'hrsh7th/cmp-buffer'
-  use 'hrsh7th/cmp-path'
-  use 'hrsh7th/cmp-cmdline'
-  use 'onsails/lspkind-nvim'
+    -- Completion
+    use 'hrsh7th/nvim-cmp'
+    use 'hrsh7th/cmp-nvim-lsp'
+    use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-path'
+    use 'hrsh7th/cmp-cmdline'
+    use 'onsails/lspkind-nvim'
 
-  -- Color Scheme
-  use {
-    'morhetz/gruvbox',
-    opt = true
-  }
+    -- Color Scheme
+    use {
+      'morhetz/gruvbox',
+      opt = true
+    }
 
-  -- Load on a combination of conditions: specific filetypes or commands
-  -- Also run code after load (see the "config" key)
-  use {
-    'w0rp/ale',
-    ft = {
-      'sh',
-      'bash',
-      'c',
-      'cpp',
-      'cmake',
-      'html',
-      'markdown',
-      'vim',
-      'rust',
-      'go',
-      'ruby'
-    },
-    cmd = 'ALEEnable',
-    config = 'vim.cmd[[ALEEnable]]'
-  }
+    use 'lukas-reineke/indent-blankline.nvim'
 
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons',
-    },
-    config = function()
-      require('nvim-tree').setup {
-      }
-    end
-  }
+    -- Load on a combination of conditions: specific filetypes or commands
+    -- Also run code after load (see the "config" key)
+    use {
+      'w0rp/ale',
+      ft = {
+        'sh',
+        'bash',
+        'c',
+        'cpp',
+        'cmake',
+        'html',
+        'markdown',
+        'vim',
+        'rust',
+        'go',
+        'ruby'
+      },
+      cmd = 'ALEEnable',
+      config = 'vim.cmd[[ALEEnable]]'
+    }
 
-  use {
-    'akinsho/bufferline.nvim',
-    config = function()
-      require('bufferline').setup {
-        options = {
-          numbers = 'both',
-          diagnostics = "nvim_lsp",
-          diagnostics_indicator = function(count, level, diagnostics_dict, context)
-            local s = " "
-            for e, n in pairs(diagnostics_dict) do
-              local sym = e == "error" and " "
-                or (e == "warning" and " " or "" )
-              s = s .. n .. sym
-            end
-            return s
-          end,
-          offsets = {
-            {
-              filetype = "NvimTree",
-              text = "",
+    use {
+      'kyazdani42/nvim-tree.lua',
+      requires = {
+        'kyazdani42/nvim-web-devicons',
+      },
+      config = function()
+        require('nvim-tree').setup {
+        }
+      end
+    }
+
+    use {
+      'akinsho/bufferline.nvim',
+      config = function()
+        require('bufferline').setup {
+          options = {
+            numbers = 'both',
+            diagnostics = "nvim_lsp",
+            diagnostics_indicator = function(count, level, diagnostics_dict, context)
+              local s = " "
+              for e, n in pairs(diagnostics_dict) do
+                local sym = e == "error" and " "
+                  or (e == "warning" and " " or "" )
+                s = s .. n .. sym
+              end
+              return s
+            end,
+            offsets = {
+              {
+                filetype = "NvimTree",
+                text = "",
+              }
             }
           }
         }
-      }
-    end
+      end
+    }
+
+    use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons', opt = true },
+      config = function()
+        require('lualine').setup {
+          options = { theme = 'gruvbox' }
+        }
+      end
+    }
+
+    use 'jiangmiao/auto-pairs'
+
+    use 'tpope/vim-commentary'
+
+    -- Delete/change/add parentheses/quotes/XML-tags/much more with ease
+    use 'tpope/vim-surround'
+
+    -- Fuzzy Finder
+    use 'ctrlpvim/ctrlp.vim'
+
+    -- Git diff
+    use 'airblade/vim-gitgutter'
+
+    -- Trail whitespace
+    use 'bronson/vim-trailing-whitespace'
+
+    -- Resize windows
+    use 'simeji/winresizer'
+
+    -- Rust
+    use {
+      'rust-lang/rust.vim',
+      ft = { 'rust' }
+    }
+
+    -- Terraform
+    use {
+      'hashivim/vim-terraform',
+      ft = { 'terraform' }
+    }
+
+    -- SQL
+    use {
+      'mattn/vim-sqlfmt',
+      ft = { 'sql' }
+    }
+
+    -- defaults
+    -- -- Simple plugins can be specified as strings
+    -- use '9mm/vim-closer'
+    --
+    -- -- Lazy loading:
+    -- -- Load on specific commands
+    -- use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
+    --
+    -- -- Load on an autocommand event
+    -- use {'andymass/vim-matchup', event = 'VimEnter'}
+    --
+    -- -- Plugins can have dependencies on other plugins
+    -- use {
+    --   'haorenW1025/completion-nvim',
+    --   opt = true,
+    --   requires = {{'hrsh7th/vim-vsnip', opt = true}, {'hrsh7th/vim-vsnip-integ', opt = true}}
+    -- }
+    --
+    -- -- Plugins can also depend on rocks from luarocks.org:
+    -- use {
+    --   'my/supercoolplugin',
+    --   rocks = {'lpeg', {'lua-cjson', version = '2.1.0'}}
+    -- }
+    --
+    -- -- You can specify rocks in isolation
+    -- use_rocks 'penlight'
+    -- use_rocks {'lua-resty-http', 'lpeg'}
+    --
+    -- -- Local plugins can be included
+    -- use '~/projects/personal/hover.nvim'
+    --
+    -- -- Plugins can have post-install/update hooks
+    -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+    --
+    -- -- Post-install/update hook with neovim command
+    -- use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    --
+    -- -- Post-install/update hook with call of vimscript function with argument
+    -- use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
+
+    -- -- Use dependency and run lua function after load
+    -- use {
+    --   'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
+    --   config = function() require('gitsigns').setup() end
+    -- }
+  end,
+  config = {
+    display = {
+      open_fn = function()
+        return require('packer.util').float({ border = 'single' })
+      end
+    }
   }
-
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-    config = function()
-      require('lualine').setup {
-        options = { theme = 'gruvbox' }
-      }
-    end
-  }
-
-  use 'jiangmiao/auto-pairs'
-
-  use 'tpope/vim-commentary'
-
-  -- Delete/change/add parentheses/quotes/XML-tags/much more with ease
-  use 'tpope/vim-surround'
-
-  -- Fuzzy Finder
-  use 'ctrlpvim/ctrlp.vim'
-
-  -- Git diff
-  use 'airblade/vim-gitgutter'
-
-  -- Trail whitespace
-  use 'bronson/vim-trailing-whitespace'
-
-  -- Resize windows
-  use 'simeji/winresizer'
-
-  -- Rust
-  use {
-    'rust-lang/rust.vim',
-    ft = { 'rust' }
-  }
-
-  -- Terraform
-  use {
-    'hashivim/vim-terraform',
-    ft = { 'terraform' }
-  }
-
-  -- defaults
-  -- -- Simple plugins can be specified as strings
-  -- use '9mm/vim-closer'
-  --
-  -- -- Lazy loading:
-  -- -- Load on specific commands
-  -- use {'tpope/vim-dispatch', opt = true, cmd = {'Dispatch', 'Make', 'Focus', 'Start'}}
-  --
-  -- -- Load on an autocommand event
-  -- use {'andymass/vim-matchup', event = 'VimEnter'}
-  --
-  -- -- Plugins can have dependencies on other plugins
-  -- use {
-  --   'haorenW1025/completion-nvim',
-  --   opt = true,
-  --   requires = {{'hrsh7th/vim-vsnip', opt = true}, {'hrsh7th/vim-vsnip-integ', opt = true}}
-  -- }
-  --
-  -- -- Plugins can also depend on rocks from luarocks.org:
-  -- use {
-  --   'my/supercoolplugin',
-  --   rocks = {'lpeg', {'lua-cjson', version = '2.1.0'}}
-  -- }
-  --
-  -- -- You can specify rocks in isolation
-  -- use_rocks 'penlight'
-  -- use_rocks {'lua-resty-http', 'lpeg'}
-  --
-  -- -- Local plugins can be included
-  -- use '~/projects/personal/hover.nvim'
-  --
-  -- -- Plugins can have post-install/update hooks
-  -- use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
-  --
-  -- -- Post-install/update hook with neovim command
-  -- use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  --
-  -- -- Post-install/update hook with call of vimscript function with argument
-  -- use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
-
-  -- -- Use dependency and run lua function after load
-  -- use {
-  --   'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
-  --   config = function() require('gitsigns').setup() end
-  -- }
-end)
+})
 
 -- #####################
 -- Settings for Plugins
@@ -316,6 +333,8 @@ cmp.setup.cmdline(':', {
 -- winresizer
 vim.g.winresizer_gui_enable = 1
 
+-- vim-sqlfmt
+vim.g.sqlfmt_program = "sqlformat --reindent --keyword upper -o %s -"
 
 -- ######
 -- Keymap
