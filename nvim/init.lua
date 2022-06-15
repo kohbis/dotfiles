@@ -30,6 +30,9 @@ vim.o.wrapscan = true
 vim.o.splitbelow = true
 vim.o.splitright = true
 
+-- Command window height
+vim.o.cmdheight = 1
+
 -- Tab, Indent
 -- vim.o.shiftwidth = 4
 -- vim.o.softtabstop = 4
