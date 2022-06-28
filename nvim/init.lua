@@ -1,10 +1,13 @@
 local vim = vim
 
--- Line Number
-vim.wo.number = true
+-- GUI Font
+vim.opt.guifont = { 'DroidSansMono Nerd Font', "h11" }
 
 -- True Color
 vim.o.termguicolors = true
+
+-- Line Number
+vim.wo.number = true
 
 -- Mouse
 vim.opt.mouse = 'a'
