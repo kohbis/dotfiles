@@ -5,19 +5,29 @@ usage_exit() {
   exit 1
 }
 
-DOT_FILES=(bashrc bash_profile vimrc zshrc tmux.conf clang-format)
+DOT_FILES=(bashrc bash_profile vimrc zshrc tmux.conf clang-format rufo)
 
 create_symbolic_link() {
-  echo "create symbolic links"
+  echo "create symbolic links. [v] created [-] already exists"
   for file in ${DOT_FILES[@]}; do
-    ln -s $HOME/workspace/settings/dotfiles/$file $HOME/.$file
+    if [ -f "$HOME/.$file" ]; then
+      echo "[-] .$file"
+    else
+      ln -s $HOME/workspace/settings/dotfiles/$file $HOME/.$file
+      echo "[v] .$file"
+    fi
   done
 }
 
 remove_symbolic_link() {
-  echo "remove symbolic links"
+  echo "remove symbolic links. [v] removed [-] no file"
   for file in ${DOT_FILES[@]}; do
-    unlink $HOME/.$file
+    if [ -f "$HOME/.$file" ]; then
+      unlink $HOME/.$file
+      echo "[v] .$file"
+    else
+      echo "[-] .$file"
+    fi
   done
 }
 
