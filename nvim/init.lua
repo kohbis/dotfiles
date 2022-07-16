@@ -36,6 +36,9 @@ vim.o.splitright = true
 -- Command window height
 vim.o.cmdheight = 1
 
+-- Autoread
+vim.o.autoread = true
+
 -- Tab, Indent
 -- vim.o.shiftwidth = 4
 -- vim.o.softtabstop = 4
