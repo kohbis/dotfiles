@@ -58,6 +58,7 @@ vim.cmd('autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType toml       setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType typescript setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType lua        setlocal sw=2 sts=2 ts=2 et')
+vim.cmd('autocmd FileType zig        setlocal sw=4 sts=4 ts=4 et')
 
 -- Filetype Plugins
 vim.cmd('autocmd FileType json       let g:indentLine_setConceal = 0')
@@ -194,6 +195,12 @@ require('packer').startup({
     use {
       'mattn/vim-sqlfmt',
       ft = { 'sql' }
+    }
+
+    -- Zig
+    use {
+      'ziglang/zig.vim',
+      ft = { 'zig' }
     }
 
     -- defaults
