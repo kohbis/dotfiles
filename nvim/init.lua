@@ -83,6 +83,9 @@ require('packer').startup({
     use 'hrsh7th/cmp-cmdline'
     use 'onsails/lspkind-nvim'
 
+    use "hrsh7th/cmp-vsnip"
+    use "hrsh7th/vim-vsnip"
+
     -- Color Scheme
     use {
       'morhetz/gruvbox',
@@ -106,7 +109,8 @@ require('packer').startup({
         'vim',
         'rust',
         'go',
-        'ruby'
+        'ruby',
+        'zig'
       },
       cmd = 'ALEEnable',
       config = 'vim.cmd[[ALEEnable]]'
@@ -262,6 +266,7 @@ require('packer').startup({
 -- Settings for Plugins
 -- #####################
 -- LSP
+-- local nvim_lsp = require('lspconfig')
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     local opts = {}
@@ -286,7 +291,7 @@ cmp.setup({
   snippet = {
     expand = function(args)
       -- For `vsnip` user.
-      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` user.
+      vim.fn["vsnip#anonymous"](args.body)
       -- For `luasnip` user.
       -- require('luasnip').lsp_expand(args.body)
       -- For `ultisnips` user.
@@ -294,22 +299,33 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<Up>'] = cmp.mapping.select_prev_item(),
+    ['<Down>'] = cmp.mapping.select_next_item(),
+    -- ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    -- ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-e>'] = cmp.mapping.close(),
     ['<C-y>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
   }),
-  sources = {
+  sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    -- { name = 'vsnip' },
+    { name = 'vsnip' },
     -- { name = 'luasnip' },
     -- { name = 'ultisnips' },
+  }, {
     { name = 'buffer' },
     { name = 'path' },
     -- { name = 'treesitter' },
-  },
+  }),
   formatting = {
     format = lspkind.cmp_format({
       mode = "symbol_text",
       with_text = true,
-      maxwidth = 50,
       before = function (entry, vim_item)
         vim_item.menu = ({
           -- luasnip = '[SNIP]',
@@ -340,6 +356,7 @@ cmp.setup.cmdline('/', {
 })
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
 cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources({
     { name = 'path' }
   }, {
@@ -366,6 +383,9 @@ vim.api.nvim_set_keymap('n', '<Left>', '<cmd>bp<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Right>', '<cmd>bn<CR>', { noremap = true })
 vim.api.nvim_set_keymap('i', ';<CR>', '<End>;<CR>', { noremap = true })
 vim.api.nvim_set_keymap('i', ',<CR>', '<End>,<CR>', { noremap = true })
+vim.api.nvim_set_keymap('i', ';;', '<End>;', { noremap = true })
+vim.api.nvim_set_keymap('i', ',,', '<End>,', { noremap = true })
+
 -- ##################
 -- Keymap for Plugins
 -- ##################
