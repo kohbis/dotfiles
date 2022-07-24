@@ -207,6 +207,9 @@ require('packer').startup({
       ft = { 'zig' }
     }
 
+    -- DenoOps
+    use 'vim-denops/denops.vim'
+
     -- defaults
     -- -- Simple plugins can be specified as strings
     -- use '9mm/vim-closer'
@@ -266,15 +269,32 @@ require('packer').startup({
 -- Settings for Plugins
 -- #####################
 -- LSP
--- local nvim_lsp = require('lspconfig')
+local nvim_lsp = require('lspconfig')
 local lsp_installer = require("nvim-lsp-installer")
 lsp_installer.on_server_ready(function(server)
     local opts = {}
 
     -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
+   if server.name == "tsserver" then
+    opts.root_dir = nvim_lsp.util.root_pattern("package.json", "node_modules")
+   elseif server.name == "eslint" then
+     opts.root_dir = nvim_lsp.util.root_pattern("package.json", "node_modules")
+   elseif server.name == "denols" then
+     opts.root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
+     opts.init_options = {
+       lint = true,
+       unstable = true,
+       suggest = {
+         imports = {
+           hosts = {
+             ["https://deno.land"] = true,
+             ["https://cdn.nest.land"] = true,
+             ["https://crux.land"] = true
+           }
+         }
+       }
+     }
+   end
 
     opts.capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
@@ -397,4 +417,15 @@ vim.api.nvim_set_keymap('n', '<leader>n', '<cmd>NvimTreeFindFile<CR>', { noremap
 -- Color
 -- #####
 vim.cmd('colorscheme gruvbox')
+
+-- ##########
+-- Custom Lua
+-- ##########
+local loadModule = function(module)
+  local ok, _ = pcall(require, module)
+  if not ok then
+    print('unloadable module: '..module)
+  end
+end
+loadModule('local')
 
