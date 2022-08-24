@@ -5,6 +5,14 @@ export LANG=ja_JP.UTF-8
 #######
 HISTSIZE=5000
 
+########
+# brew #
+########
+homebrew='/opt/homebrew/bin/brew'
+if [ -f $homebrew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 ##############
 # completion #
 ##############
