@@ -1,14 +1,20 @@
 #!/bin/bash
 
 usage_exit() {
-  echo "Usage: `basename $0` [-d] [-s] [-u]" 1>&2
+  echo "Usage: `basename $0` [-d] remove [-s] create [-u] recreate symlinks" 1>&2
   exit 1
 }
 
-DOT_FILES=(bashrc bash_profile vimrc zshrc tmux.conf clang-format rufo)
+DOT_FILES=(bashrc bash_profile vimrc zshrc tmux.conf clang-format rufo config/nvim/init.lua)
+CONFIG_DIR=(nvim a)
 
 create_symbolic_link() {
   echo "create symbolic links. [v] created [-] already exists"
+
+  for dir in ${CONFIG_DIR[@]}; do
+    mkdir -p $HOME/.config/$dir
+  done
+
   for file in ${DOT_FILES[@]}; do
     if [ -f "$HOME/.$file" ]; then
       echo "[-] .$file"

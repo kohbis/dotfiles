@@ -37,8 +37,8 @@ fi
 ########
 # asdf #
 ########
-asdf_init="/usr/local/opt/asdf/libexec/asdf.sh"
-asdf_completer="/usr/local/opt/asdf/etc/bash_completion.d/asdf.bash"
+asdf_init="$(brew --prefix asdf)/libexec/asdf.sh"
+asdf_completer="$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash"
 if [ -f $asdf_init ]; then
   . $asdf_init
 
