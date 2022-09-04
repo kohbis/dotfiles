@@ -48,6 +48,7 @@ vim.o.autoread = true
 vim.cmd('autocmd FileType c          setlocal sw=4 sts=4 ts=4 et')
 vim.cmd('autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et')
 vim.cmd('autocmd FileType go         setlocal sw=8 sts=8 ts=8 noet')
+vim.cmd('autocmd FileType json       setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType java       setlocal sw=4 sts=4 ts=4 et')
 vim.cmd('autocmd FileType javascript setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType lua        setlocal sw=2 sts=2 ts=2 et')
