@@ -47,6 +47,7 @@ vim.o.autoread = true
 -- sw=shiftwidth, sts=softtabstop, ts=tabstop, et=expandtab
 vim.cmd('autocmd FileType c          setlocal sw=4 sts=4 ts=4 et')
 vim.cmd('autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et')
+vim.cmd('autocmd FileType css        setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType go         setlocal sw=8 sts=8 ts=8 noet')
 vim.cmd('autocmd FileType json       setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType java       setlocal sw=4 sts=4 ts=4 et')
@@ -209,7 +210,7 @@ require('packer').startup({
       ft = { 'zig' }
     }
 
-    -- DenoOps
+    -- Denops
     use 'vim-denops/denops.vim'
 
     -- defaults
