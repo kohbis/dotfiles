@@ -213,6 +213,8 @@ require('packer').startup({
     -- Denops
     use 'vim-denops/denops.vim'
 
+    use 'kohbis/snacam.vim'
+
     -- defaults
     -- -- Simple plugins can be specified as strings
     -- use '9mm/vim-closer'
