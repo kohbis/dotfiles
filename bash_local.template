@@ -27,6 +27,9 @@
 # export VOLTA_HOME="$HOME/.volta"
 # export PATH="$VOLTA_HOME/bin:$PATH"
 
+# rancher
+# export PATH="$HOME/.rd/bin:$PATH"
+
 # mysql
 # export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 
