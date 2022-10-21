@@ -95,3 +95,7 @@ plugins=(git ruby osx bundler brew rails emoji-clock)
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 source "$(pyenv which aws_zsh_completer.sh)"
+
+# rancher
+export PATH="$HOME/.rd/bin:$PATH"
+
