@@ -102,3 +102,7 @@ if [ -f $bash_local ]; then
   . $bash_local
 fi
 
+if command -v nerdctl &> /dev/null
+then
+  source <(nerdctl completion bash)
+fi

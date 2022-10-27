@@ -196,16 +196,19 @@ require('packer').startup({
       ft = { 'rust' }
     }
 
-    -- Terraform
-    use {
-      'hashivim/vim-terraform',
-      ft = { 'terraform' }
-    }
+    -- Helm
+    use 'towolf/vim-helm'
 
     -- SQL
     use {
       'mattn/vim-sqlfmt',
       ft = { 'sql' }
+    }
+
+    -- Terraform
+    use {
+      'hashivim/vim-terraform',
+      ft = { 'terraform' }
     }
 
     -- Zig
@@ -305,7 +308,7 @@ lsp_installer.on_server_ready(function(server)
      }
    end
 
-    opts.capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    opts.capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
     server:setup(opts)
     vim.cmd [[ do User LspAttachBuffers ]]
