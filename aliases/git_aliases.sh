@@ -22,11 +22,7 @@ alias gba='git branch -a'
 __git_complete gb _comp_git_branch
 __git_complete gba _comp_git_branch
 
-alias gcl='git clone --recurse-submodules'
-__git_complete gcl _git_clone
-
 alias gcmsg='git commit -m'
-alias gcam='git commit --amend'
 __git_complete gcmsg _git_commit
 
 _comp_git_checkout() {
@@ -55,9 +51,6 @@ __git_complete gpsup _git_push
 alias grhh='git reset --hard HEAD'
 __git_complete grh _git_reset
 __git_complete grhh _git_reset
-
-alias gsho='git show'
-__git_complete gsho _git_show
 
 _comp_git_status() {
   local __git_cmd_idx=0
