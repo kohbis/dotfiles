@@ -79,20 +79,13 @@ if [ -f $terraform_aliases ]; then
 fi
 
 # system
-alias ls='ls -G'
-alias ll='ls -l'
-alias l='clear && ls -l'
-
 alias grep='grep --color=auto'
-
-LESS='-g -i -M -R -S -W -z-4 -x4'
-
-# vim, nvim
-alias vi='nvim'
-# alias vim='nvim'
-
-# tmux
+alias l='clear && ls -l'
+alias ll='ls -l'
+alias ls='ls -G'
 alias tmsc='tmux source ~/.tmux.conf'
+alias vi='nvim'
+alias xargs='xargs '
 
 #########
 # local #
