@@ -16,8 +16,9 @@ fi
 ##############
 # completion #
 ##############
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
+bash_complation="$(brew --prefix)/etc/bash_completion"
+if [ -f $bash_completion ]; then
+  . $bash_completion
 fi
 
 ########
@@ -29,7 +30,7 @@ bind '"\e[B": history-search-forward'
 #######
 # aws #
 #######
-aws_completer='/usr/local/bin/aws_completer'
+aws_completer="$(brew --prefix)/bin/aws_completer"
 if [ -f $aws_completer ]; then
   complete -C $aws_completer aws
 fi
