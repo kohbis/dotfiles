@@ -16,7 +16,7 @@ fi
 ##############
 # completion #
 ##############
-bash_complation="$(brew --prefix)/etc/bash_completion"
+bash_completion="$(brew --prefix)/etc/bash_completion"
 if [ -f $bash_completion ]; then
   . $bash_completion
 fi
