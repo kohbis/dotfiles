@@ -105,7 +105,7 @@ require('packer').startup({
     -- Load on a combination of conditions: specific filetypes or commands
     -- Also run code after load (see the "config" key)
     use {
-      'w0rp/ale',
+      'dense-analysis/ale',
       ft = {
         'sh',
         'bash',
