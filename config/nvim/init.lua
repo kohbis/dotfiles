@@ -79,6 +79,9 @@ require('packer').startup({
   function(use)
     use 'wbthomason/packer.nvim'
 
+    -- Denops
+    use 'vim-denops/denops.vim'
+
     -- LSP
     use 'neovim/nvim-lspconfig'
     use "williamboman/nvim-lsp-installer"
@@ -218,9 +221,7 @@ require('packer').startup({
       ft = { 'zig' }
     }
 
-    -- Denops
-    use 'vim-denops/denops.vim'
-
+    -- Convert letter cases
     use 'kohbis/snacam.vim'
 
     -- defaults
