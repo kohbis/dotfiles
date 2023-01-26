@@ -39,7 +39,7 @@
 
 # aliases
 # pi_user="pi_user"
-# pi_port="xxx.xxx.xxx.xxx"
+# pi_host="xxx.xxx.xxx.xxx"
 # pi_port="22"
 # alias ssh-pi="ssh $pi_user@$pi_host -p $pi_port"
 
