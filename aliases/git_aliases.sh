@@ -59,3 +59,5 @@ _comp_git_status() {
 alias gst='git status -uall'
 __git_complete gst _comp_git_status
 
+alias gsw='git switch'
+__git_complete gsw _git_switch
