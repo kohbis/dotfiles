@@ -91,7 +91,7 @@ alias xargs='xargs '
 #########
 # local #
 #########
-bash_local="${HOME}/workspace/settings/dotfiles/bash_local"
+bash_local="${HOME}/.bash_local"
 if [ -f $bash_local ]; then
   . $bash_local
 fi

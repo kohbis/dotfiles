@@ -5,8 +5,8 @@ usage_exit() {
   exit 1
 }
 
-DOT_FILES=(bashrc bash_profile vimrc zshrc tmux.conf clang-format rufo config/nvim/init.lua)
-CONFIG_DIR=(nvim a)
+DOT_FILES=(bashrc bash_profile bash_local vimrc zshrc tmux.conf clang-format rufo config/nvim/init.lua)
+CONFIG_DIR=(nvim)
 
 create_symbolic_link() {
   echo "create symbolic links. [v] created [-] already exists"
