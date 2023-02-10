@@ -21,6 +21,11 @@ if [ -f $bash_completion ]; then
   . $bash_completion
 fi
 
+if command -v nerdctl &> /dev/null
+then
+  source <(nerdctl completion bash)
+fi
+
 ########
 # bind #
 ########
@@ -96,7 +101,3 @@ if [ -f $bash_local ]; then
   . $bash_local
 fi
 
-if command -v nerdctl &> /dev/null
-then
-  source <(nerdctl completion bash)
-fi
