@@ -189,7 +189,7 @@ require('packer').startup({
     use 'airblade/vim-gitgutter'
 
     -- Trail whitespace
-    use 'bronson/vim-trailing-whitespace'
+    use 'ntpeters/vim-better-whitespace'
 
     -- Resize windows
     use 'simeji/winresizer'
