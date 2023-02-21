@@ -84,7 +84,8 @@ require('packer').startup({
 
     -- LSP
     use 'neovim/nvim-lspconfig'
-    use "williamboman/nvim-lsp-installer"
+    use 'williamboman/mason.nvim'
+    use 'williamboman/mason-lspconfig.nvim'
 
     -- Completion
     use 'hrsh7th/nvim-cmp'
@@ -283,38 +284,54 @@ require('packer').startup({
 -- Settings for Plugins
 -- #####################
 -- LSP
+local mason = require("mason")
+mason.setup({
+  ui = {
+    icons = {
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗"
+    }
+  }
+})
+
 local nvim_lsp = require('lspconfig')
-local lsp_installer = require("nvim-lsp-installer")
-lsp_installer.on_server_ready(function(server)
+local mason_lspconfig = require('mason-lspconfig')
+mason_lspconfig.setup_handlers {
+  function(server_name)
     local opts = {}
 
-    -- (optional) Customize the options passed to the server
-   if server.name == "tsserver" then
-    opts.root_dir = nvim_lsp.util.root_pattern("package.json", "node_modules")
-   elseif server.name == "eslint" then
-     opts.root_dir = nvim_lsp.util.root_pattern("package.json", "node_modules")
-   elseif server.name == "denols" then
-     opts.root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
-     opts.init_options = {
-       lint = true,
-       unstable = true,
-       suggest = {
-         imports = {
-           hosts = {
-             ["https://deno.land"] = true,
-             ["https://cdn.nest.land"] = true,
-             ["https://crux.land"] = true
-           }
-         }
-       }
-     }
-   end
+    local node_root_dir = nvim_lsp.util.root_pattern("package.json", "node_modules")
+    local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
 
-    opts.capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+    if server_name == "tsserver" or server_name == "eslint" then
+      if not is_node_repo then return end
+    elseif server_name == "denols" then
+      if is_node_repo then return end
+      opts.root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
+      opts.init_options = {
+        lint = true,
+        unstable = true,
+        suggest = {
+          imports = {
+            hosts = {
+              ["https://deno.land"] = true,
+              ["https://cdn.nest.land"] = true,
+              ["https://crux.land"] = true
+            }
+          }
+        }
+      }
+    end
 
-    server:setup(opts)
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    opts.capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+    nvim_lsp[server_name].setup(opts)
+
     vim.cmd [[ do User LspAttachBuffers ]]
-end)
+  end,
+}
 
 -- Completion
 vim.opt.completeopt = "menu,menuone,noselect"
