@@ -178,7 +178,11 @@ require('packer').startup({
 
     use 'jiangmiao/auto-pairs'
 
+    -- Comment
     use 'tpope/vim-commentary'
+
+    -- CSV
+    use 'Decodetalkers/csv-tools.lua'
 
     -- Delete/change/add parentheses/quotes/XML-tags/much more with ease
     use 'tpope/vim-surround'
