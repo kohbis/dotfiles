@@ -62,6 +62,7 @@ vim.cmd('autocmd FileType sh         setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType sql        setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType toml       setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType typescript setlocal sw=2 sts=2 ts=2 et')
+vim.cmd('autocmd FileType yaml       setlocal sw=2 sts=2 ts=2 et')
 vim.cmd('autocmd FileType zig        setlocal sw=4 sts=4 ts=4 et')
 
 -- setfiletype
@@ -206,7 +207,10 @@ require('packer').startup({
     }
 
     -- Helm
-    use 'towolf/vim-helm'
+    use {
+      'towolf/vim-helm',
+      ft = { 'yaml' }
+    }
 
     -- SQL
     use {
