@@ -67,10 +67,9 @@ vim.cmd('autocmd FileType zig        setlocal sw=4 sts=4 ts=4 et')
 
 -- setfiletype
 vim.cmd('autocmd BufRead,BufNewFile *.njk setfiletype html')
-vim.cmd('autocmd BufRead,BufNewFile *rc setfiletype json')
 
 -- Filetype Plugins
-vim.cmd('autocmd FileType json       let g:indentLine_setConceal = 0')
+vim.cmd('autocmd FileType json let g:indentLine_setConceal = 0')
 
 -- #######
 -- Plugins
@@ -231,7 +230,10 @@ require('packer').startup({
     }
 
     -- Convert letter cases
-    use 'kohbis/snacam.vim'
+    use {
+      'kohbis/snacam.vim',
+      branch = 'main'
+    }
 
     -- defaults
     -- -- Simple plugins can be specified as strings
