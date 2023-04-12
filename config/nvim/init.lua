@@ -69,6 +69,7 @@ vim.cmd('autocmd FileType zig        setlocal sw=4 sts=4 ts=4 et')
 vim.cmd('autocmd BufRead,BufNewFile *.njk setfiletype html')
 
 -- Filetype Plugins
+vim.cmd('filetype plugin indent on')
 vim.cmd('autocmd FileType json let g:indentLine_setConceal = 0')
 
 -- #######
@@ -106,27 +107,7 @@ require('packer').startup({
 
     use 'lukas-reineke/indent-blankline.nvim'
 
-    -- Load on a combination of conditions: specific filetypes or commands
-    -- Also run code after load (see the "config" key)
-    use {
-      'dense-analysis/ale',
-      ft = {
-        'sh',
-        'bash',
-        'c',
-        'cpp',
-        'cmake',
-        'html',
-        'markdown',
-        'vim',
-        'rust',
-        'go',
-        'ruby',
-        'zig'
-      },
-      cmd = 'ALEEnable',
-      config = 'vim.cmd[[ALEEnable]]'
-    }
+    use 'dense-analysis/ale'
 
     use {
       'kyazdani42/nvim-tree.lua',
@@ -134,8 +115,7 @@ require('packer').startup({
         'kyazdani42/nvim-web-devicons',
       },
       config = function()
-        require('nvim-tree').setup {
-        }
+        require('nvim-tree').setup()
       end
     }
 
@@ -425,6 +405,22 @@ cmp.setup.cmdline(':', {
   })
 })
 
+-- ale
+vim.g.ale_fix_on_save = 1
+vim.g.ale_fixers = {
+  -- ['*'] = { 'remove_trailing_lines', 'trim_whitespace' },
+  c = { 'clang-format' },
+  cpp = { 'clang-format' },
+  go = { 'gofmt' },
+  html = { 'prettier' },
+  lua = { 'luafmt' },
+  javascript = { 'prettier', 'eslint' },
+  markdown = { 'textlint' },
+  ruby = { 'rufo' },
+  rust = { 'rustfmt' },
+  typescript = { 'prettier', 'eslint' },
+}
+
 -- winresizer
 vim.g.winresizer_gui_enable = 1
 
@@ -451,8 +447,10 @@ vim.api.nvim_set_keymap('i', ',,', '<End>,', { noremap = true })
 -- Keymap for Plugins
 -- ##################
 vim.api.nvim_set_keymap('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>r', '<cmd>NvimTreeRefresh<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>ALEFix<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>p', '<cmd>CtrlP<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>n', '<cmd>NvimTreeFindFile<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>r', '<cmd>NvimTreeRefresh<CR>', { noremap = true })
 
 -- #####
 -- Color
