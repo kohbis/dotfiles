@@ -191,12 +191,6 @@ require('packer').startup({
       ft = { 'yaml' }
     }
 
-    -- SQL
-    use {
-      'mattn/vim-sqlfmt',
-      ft = { 'sql' }
-    }
-
     -- Terraform
     use {
       'hashivim/vim-terraform',
@@ -418,14 +412,13 @@ vim.g.ale_fixers = {
   markdown = { 'textlint' },
   ruby = { 'rufo' },
   rust = { 'rustfmt' },
+  sql = { 'sqlformat' },
   typescript = { 'prettier', 'eslint' },
 }
+vim.g.ale_sql_sqlformat_options = '--keywords upper --reindent'
 
 -- winresizer
 vim.g.winresizer_gui_enable = 1
-
--- vim-sqlfmt
-vim.g.sqlfmt_program = "sqlformat --reindent --keyword upper -o %s -"
 
 -- ######
 -- Keymap
