@@ -170,6 +170,9 @@ require('packer').startup({
     -- Fuzzy Finder
     use 'ctrlpvim/ctrlp.vim'
 
+    -- GitHub Copilot
+    use { 'github/copilot.vim' }
+
     -- Git diff
     use 'airblade/vim-gitgutter'
 
