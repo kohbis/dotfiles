@@ -404,6 +404,9 @@ cmp.setup.cmdline(':', {
 
 -- ale
 vim.g.ale_fix_on_save = 1
+vim.g.ale_linters = {
+  sql = { 'sqlfluff' },
+}
 vim.g.ale_fixers = {
   -- ['*'] = { 'remove_trailing_lines', 'trim_whitespace' },
   c = { 'clang-format' },
@@ -415,10 +418,9 @@ vim.g.ale_fixers = {
   markdown = { 'textlint' },
   ruby = { 'rufo' },
   rust = { 'rustfmt' },
-  sql = { 'sqlformat' },
+  sql = { 'sqlfluff' },
   typescript = { 'prettier', 'eslint' },
 }
-vim.g.ale_sql_sqlformat_options = '--keywords upper --reindent'
 
 -- winresizer
 vim.g.winresizer_gui_enable = 1
