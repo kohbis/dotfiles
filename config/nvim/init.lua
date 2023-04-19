@@ -170,8 +170,11 @@ require('packer').startup({
     -- GitHub Copilot
     use { 'github/copilot.vim' }
 
-    -- Git diff
-    use 'airblade/vim-gitgutter'
+    -- Git
+    use {
+      'lewis6991/gitsigns.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+    }
 
     -- Trail whitespace
     use 'ntpeters/vim-better-whitespace'
@@ -248,12 +251,6 @@ require('packer').startup({
     --
     -- -- Post-install/update hook with call of vimscript function with argument
     -- use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
-
-    -- -- Use dependency and run lua function after load
-    -- use {
-    --   'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' },
-    --   config = function() require('gitsigns').setup() end
-    -- }
   end,
   config = {
     display = {
@@ -419,33 +416,80 @@ vim.g.ale_fixers = {
   typescript = { 'prettier', 'eslint' },
 }
 
+-- git
+local gitsigns = require('gitsigns')
+gitsigns.setup {
+  current_line_blame = true,
+  current_line_blame_opts = {
+    delay = 500,
+  },
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then return ']c' end
+      vim.schedule(function() gs.next_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    map('n', '[c', function()
+      if vim.wo.diff then return '[c' end
+      vim.schedule(function() gs.prev_hunk() end)
+      return '<Ignore>'
+    end, {expr=true})
+
+    -- Actions
+    map({'n', 'v'}, '<leader>hs', ':Gitsigns stage_hunk<CR>')
+    map({'n', 'v'}, '<leader>hr', ':Gitsigns reset_hunk<CR>')
+    map('n', '<leader>hS', gs.stage_buffer)
+    map('n', '<leader>hu', gs.undo_stage_hunk)
+    map('n', '<leader>hR', gs.reset_buffer)
+    map('n', '<leader>hp', gs.preview_hunk)
+    map('n', '<leader>hb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>tb', gs.toggle_current_line_blame)
+    map('n', '<leader>hd', gs.diffthis)
+    map('n', '<leader>hD', function() gs.diffthis('~') end)
+    map('n', '<leader>td', gs.toggle_deleted)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
+
 -- winresizer
 vim.g.winresizer_gui_enable = 1
 
 -- ######
 -- Keymap
 -- ######
-vim.api.nvim_set_keymap('n', '+', '<C-a>', { noremap = true })
-vim.api.nvim_set_keymap('n', '-', '<C-x>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Esc><Esc>', '<cmd>nohlsearch<CR><Esc>', { noremap = true })
-vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
-vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true })
-vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Left>', '<cmd>bp<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Right>', '<cmd>bn<CR>', { noremap = true })
-vim.api.nvim_set_keymap('i', ';<CR>', '<End>;<CR>', { noremap = true })
-vim.api.nvim_set_keymap('i', ',<CR>', '<End>,<CR>', { noremap = true })
-vim.api.nvim_set_keymap('i', ';;', '<End>;', { noremap = true })
-vim.api.nvim_set_keymap('i', ',,', '<End>,', { noremap = true })
+vim.keymap.set('n', '+', '<C-a>', { noremap = true })
+vim.keymap.set('n', '-', '<C-x>', { noremap = true })
+vim.keymap.set('n', '<Esc><Esc>', '<cmd>nohlsearch<CR><Esc>', { noremap = true })
+vim.keymap.set('n', 'Y', 'y$', { noremap = true })
+vim.keymap.set('n', 'j', 'gj', { noremap = true })
+vim.keymap.set('n', 'k', 'gk', { noremap = true })
+vim.keymap.set('n', '<Left>', '<cmd>bp<CR>', { noremap = true })
+vim.keymap.set('n', '<Right>', '<cmd>bn<CR>', { noremap = true })
+vim.keymap.set('i', ';<CR>', '<End>;<CR>', { noremap = true })
+vim.keymap.set('i', ',<CR>', '<End>,<CR>', { noremap = true })
+vim.keymap.set('i', ';;', '<End>;', { noremap = true })
+vim.keymap.set('i', ',,', '<End>,', { noremap = true })
 
 -- ##################
 -- Keymap for Plugins
 -- ##################
-vim.api.nvim_set_keymap('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>f', '<cmd>ALEFix<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>p', '<cmd>CtrlP<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>n', '<cmd>NvimTreeFindFile<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>r', '<cmd>NvimTreeRefresh<CR>', { noremap = true })
+vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>f', '<cmd>ALEFix<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>p', '<cmd>CtrlP<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>n', '<cmd>NvimTreeFindFile<CR>', { noremap = true })
+vim.keymap.set('n', '<leader>r', '<cmd>NvimTreeRefresh<CR>', { noremap = true })
 
 -- #####
 -- Color
