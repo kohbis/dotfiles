@@ -100,10 +100,7 @@ require('packer').startup({
     use "hrsh7th/vim-vsnip"
 
     -- Color Scheme
-    use {
-      'morhetz/gruvbox',
-      opt = true
-    }
+    use { 'morhetz/gruvbox' }
 
     use 'lukas-reineke/indent-blankline.nvim'
 
@@ -453,7 +450,7 @@ vim.api.nvim_set_keymap('n', '<leader>r', '<cmd>NvimTreeRefresh<CR>', { noremap 
 -- #####
 -- Color
 -- #####
-vim.cmd('colorscheme gruvbox')
+vim.cmd.colorscheme('gruvbox')
 
 -- ##########
 -- Custom Lua
