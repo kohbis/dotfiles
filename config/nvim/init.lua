@@ -176,6 +176,13 @@ require('packer').startup({
       requires = { 'nvim-lua/plenary.nvim' },
     }
 
+    -- Markdown
+    use {
+      'plasticboy/vim-markdown',
+      requires = { 'godlygeek/tabular' },
+      ft = { 'markdown' }
+    }
+
     -- Trail whitespace
     use 'ntpeters/vim-better-whitespace'
 
@@ -405,6 +412,7 @@ vim.g.ale_fixers = {
   -- ['*'] = { 'remove_trailing_lines', 'trim_whitespace' },
   c = { 'clang-format' },
   cpp = { 'clang-format' },
+  css = { 'prettier' },
   go = { 'gofmt' },
   html = { 'prettier' },
   lua = { 'luafmt' },
