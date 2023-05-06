@@ -5,7 +5,18 @@ usage_exit() {
   exit 1
 }
 
-DOT_FILES=(bashrc bash_profile bash_local vimrc zshrc tmux.conf clang-format rufo config/nvim/init.lua)
+DOT_FILES=(
+  bash_local
+  bash_profile
+  bashrc
+  clang-format
+  config/nvim/init.lua
+  rufo
+  sqlfluff
+  tmux.conf
+  vimrc
+  zshrc
+)
 CONFIG_DIR=(nvim)
 
 create_symbolic_link() {
