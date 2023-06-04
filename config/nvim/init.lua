@@ -1,49 +1,26 @@
 local vim = vim
 
--- GUI Font
+vim.opt.autoread = true
+vim.opt.clipboard:append({'unnamedplus'})
+vim.opt.cmdheight = 1
+vim.opt.cursorline = true
 vim.opt.guifont = { 'DroidSansMono Nerd Font', "h11" }
-
--- True Color
-vim.o.termguicolors = true
-
--- Line Number
+vim.opt.ignorecase = true
+vim.opt.list = true
+vim.opt.listchars = 'tab:»-,trail:-,extends:»,precedes:«,nbsp:%'
+vim.opt.mouse = 'a'
+vim.opt.smartcase = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.termguicolors = true
+vim.opt.wrapscan = true
 vim.wo.number = true
 
--- Mouse
-vim.opt.mouse = 'a'
-
--- Clipboard
-vim.opt.clipboard:append({'unnamedplus'})
-
--- Whitespace Charactors
-vim.o.list = true
-vim.o.listchars = 'tab:»-,trail:-,extends:»,precedes:«,nbsp:%'
-
--- Cursor
-vim.o.cursorline = true
-
--- Ignore uppercase/lowercase
-vim.o.ignorecase = true
--- Disable ignorecase when input uppercase
-vim.o.smartcase = true
--- Search to the end & Return to the beginning
-vim.o.wrapscan = true
-
--- New Window
-vim.o.splitbelow = true
-vim.o.splitright = true
-
--- Command window height
-vim.o.cmdheight = 1
-
--- Autoread
-vim.o.autoread = true
-
 -- Tab, Indent
--- vim.o.shiftwidth = 4
--- vim.o.softtabstop = 4
--- vim.o.tabstop = 4
--- vim.o.expandtab = true
+-- vim.opt.shiftwidth = 4
+-- vim.opt.softtabstop = 4
+-- vim.opt.tabstop = 4
+-- vim.opt.expandtab = true
 -- sw=shiftwidth, sts=softtabstop, ts=tabstop, et=expandtab
 vim.cmd('autocmd FileType c          setlocal sw=4 sts=4 ts=4 et')
 vim.cmd('autocmd FileType cpp        setlocal sw=4 sts=4 ts=4 et')
