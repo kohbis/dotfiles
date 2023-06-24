@@ -324,8 +324,9 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.close(),
     ['<C-y>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
+      -- behavior = cmp.ConfirmBehavior.Replace,
+      -- select = true,
+      select = false,
     },
   }),
   sources = cmp.config.sources({
