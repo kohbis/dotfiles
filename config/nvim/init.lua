@@ -155,7 +155,7 @@ require('packer').startup({
 
     -- Markdown
     use {
-      'plasticboy/vim-markdown',
+      'preservim/vim-markdown',
       requires = { 'godlygeek/tabular' },
       ft = { 'markdown' }
     }
