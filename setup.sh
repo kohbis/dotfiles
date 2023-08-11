@@ -11,6 +11,7 @@ DOT_FILES=(
   bashrc
   clang-format
   config/nvim/init.lua
+  git-cz.json
   rufo
   sqlfluff
   tmux.conf
