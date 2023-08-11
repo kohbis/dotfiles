@@ -25,12 +25,12 @@ __git_complete gba _comp_git_branch
 alias gcmsg='git commit -m'
 __git_complete gcmsg _git_commit
 
-_comp_git_checkout() {
-  local __git_cmd_idx=0
-  _git_checkout
-}
-alias gco='git checkout'
-__git_complete gco _comp_git_checkout
+# _comp_git_checkout() {
+#   local __git_cmd_idx=0
+#   _git_checkout
+# }
+# alias gco='git checkout'
+# __git_complete gco _comp_git_checkout
 
 alias gd='git diff'
 alias gdc='git diff --cached'
@@ -48,9 +48,9 @@ __git_complete glgg _git_log
 alias gpsup='git push --set-upstream origin `git symbolic-ref --short HEAD`'
 __git_complete gpsup _git_push
 
-alias grhh='git reset --hard HEAD'
-__git_complete grh _git_reset
-__git_complete grhh _git_reset
+# alias grhh='git reset --hard HEAD'
+# __git_complete grh _git_reset
+# __git_complete grhh _git_reset
 
 _comp_git_status() {
   local __git_cmd_idx=0
