@@ -98,4 +98,3 @@ source "$(pyenv which aws_zsh_completer.sh)"
 
 # rancher
 export PATH="$HOME/.rd/bin:$PATH"
-
