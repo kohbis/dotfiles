@@ -69,20 +69,17 @@ PS1='\[\e[1;31m\]\w\[\e[00m\]\[\e[1;36m\]$(__git_ps1)\[\e[00m\] \[\e[1;32m\]→\
 #########
 # alias #
 #########
-git_aliases="${HOME}/workspace/settings/dotfiles/aliases/git_aliases.sh"
-if [ -f $git_aliases ]; then
-  . $git_aliases
-fi
-
-docker_aliases="${HOME}/workspace/settings/dotfiles/aliases/docker_aliases.sh"
-if [ -f $docker_aliases ]; then
-  . $docker_aliases
-fi
-
-terraform_aliases="${HOME}/workspace/settings/dotfiles/aliases/terraform_aliases.sh"
-if [ -f $terraform_aliases ]; then
-  . $terraform_aliases
-fi
+ALIASES=(
+  git
+  docker
+  terraform
+)
+for a in ${ALIASES[@]}; do
+  alias_file="${HOME}/workspace/settings/dotfiles/aliases/${a}_aliases.sh"
+  if [ -f $alias_file ]; then
+    . $alias_file
+  fi
+done
 
 # system
 alias grep='grep --color=auto'
