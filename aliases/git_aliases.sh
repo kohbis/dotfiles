@@ -48,10 +48,6 @@ __git_complete glgg _git_log
 alias gpsup='git push --set-upstream origin `git symbolic-ref --short HEAD`'
 __git_complete gpsup _git_push
 
-# alias grhh='git reset --hard HEAD'
-# __git_complete grh _git_reset
-# __git_complete grhh _git_reset
-
 _comp_git_status() {
   local __git_cmd_idx=0
   _git_status
