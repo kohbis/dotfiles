@@ -2,16 +2,14 @@
   "disableEmoji": false,
   "format": "{type}{scope}: {emoji}{subject}",
   "list": [
-    "test",
+    "chore",
+    "ci",
+    "docs",
     "feat",
     "fix",
-    "chore",
-    "docs",
-    "refactor",
-    "style",
-    "ci",
     "perf",
-    "release"
+    "style",
+    "test"
   ],
   "maxMessageLength": 64,
   "minMessageLength": 3,
@@ -60,11 +58,6 @@
       "description": "A code change that neither fixes a bug or adds a feature",
       "emoji": "💡",
       "value": "refactor"
-    },
-    "release": {
-      "description": "Create a release commit",
-      "emoji": "🏹",
-      "value": "release"
     },
     "style": {
       "description": "Markup, white-space, formatting, missing semi-colons...",
