@@ -11,16 +11,31 @@ HISTSIZE=5000
 homebrew='/opt/homebrew/bin/brew'
 if [ -f $homebrew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  bash_completion="$(brew --prefix)/etc/bash_completion"
+  if [ -f $bash_completion ]; then
+    . $bash_completion
+  fi
+
+  aws_completer="$(brew --prefix)/bin/aws_completer"
+  if [ -f $aws_completer ]; then
+    complete -C $aws_completer aws
+  fi
+
+  asdf_init="$(brew --prefix asdf)/libexec/asdf.sh"
+  asdf_completer="$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash"
+  if [ -f $asdf_init ]; then
+    . $asdf_init
+
+    if [ -f $asdf_completer ]; then
+      . $asdf_completer
+    fi
+  fi
 fi
 
 ##############
 # completion #
 ##############
-bash_completion="$(brew --prefix)/etc/bash_completion"
-if [ -f $bash_completion ]; then
-  . $bash_completion
-fi
-
 if command -v nerdctl &> /dev/null
 then
   source <(nerdctl completion bash)
@@ -31,27 +46,6 @@ fi
 ########
 bind '"\e[A": history-search-backward'
 bind '"\e[B": history-search-forward'
-
-#######
-# aws #
-#######
-aws_completer="$(brew --prefix)/bin/aws_completer"
-if [ -f $aws_completer ]; then
-  complete -C $aws_completer aws
-fi
-
-########
-# asdf #
-########
-asdf_init="$(brew --prefix asdf)/libexec/asdf.sh"
-asdf_completer="$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash"
-if [ -f $asdf_init ]; then
-  . $asdf_init
-
-  if [ -f $asdf_completer ]; then
-    . $asdf_completer
-  fi
-fi
 
 #######
 # git #
