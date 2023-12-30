@@ -69,7 +69,7 @@ ALIASES=(
   terraform
 )
 for a in ${ALIASES[@]}; do
-  alias_file="${HOME}/workspace/settings/dotfiles/aliases/${a}_aliases.sh"
+  alias_file="${HOME}/workspace/dotfiles/aliases/${a}_aliases.sh"
   if [ -f $alias_file ]; then
     . $alias_file
   fi

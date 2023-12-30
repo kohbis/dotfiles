@@ -31,7 +31,7 @@ create_symbolic_link() {
     if [ -f "$HOME/.$file" ]; then
       echo "[-] .$file"
     else
-      ln -s $HOME/workspace/settings/dotfiles/$file $HOME/.$file
+      ln -s $HOME/workspace/dotfiles/$file $HOME/.$file
       echo "[v] .$file"
     fi
   done
@@ -40,7 +40,7 @@ create_symbolic_link() {
 remove_symbolic_link() {
   echo "remove symbolic links. [v] removed [-] no file"
   for file in ${DOT_FILES[@]}; do
-    if [ -f "$HOME/.$file" ]; then
+    if [ -L "$HOME/.$file" ]; then
       unlink $HOME/.$file
       echo "[v] .$file"
     else
