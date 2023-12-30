@@ -31,7 +31,7 @@ endif
 if dein#load_state(s:dein_dir)
   call dein#begin(s:dein_dir)
 
-  let s:toml_dir = $HOME . '/workspace/settings/dotfiles/vim/dein'
+  let s:toml_dir = $HOME . '/workspace/dotfiles/vim/dein'
   let s:toml = s:toml_dir . '/dein.toml'
   let s:toml_lazy = s:toml_dir . '/dein_lazy.toml'
 
