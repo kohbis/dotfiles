@@ -78,9 +78,14 @@ require('packer').startup({
     use "hrsh7th/vim-vsnip"
 
     -- Color Scheme
-    use { 'morhetz/gruvbox' }
+    use 'morhetz/gruvbox'
 
-    use 'lukas-reineke/indent-blankline.nvim'
+    use {
+      'lukas-reineke/indent-blankline.nvim',
+      config = function()
+        require("ibl").setup()
+      end
+    }
 
     use 'dense-analysis/ale'
 
