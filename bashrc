@@ -21,16 +21,6 @@ if [ -f $homebrew ]; then
   if [ -f $aws_completer ]; then
     complete -C $aws_completer aws
   fi
-
-  asdf_init="$(brew --prefix asdf)/libexec/asdf.sh"
-  asdf_completer="$(brew --prefix asdf)/etc/bash_completion.d/asdf.bash"
-  if [ -f $asdf_init ]; then
-    . $asdf_init
-
-    if [ -f $asdf_completer ]; then
-      . $asdf_completer
-    fi
-  fi
 fi
 
 ##############
