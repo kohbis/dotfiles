@@ -67,10 +67,8 @@ done
 
 # system
 alias grep='grep --color=auto'
-alias l='clear && ls -l'
 alias ll='ls -l'
 alias ls='ls -G'
-alias tmsc='tmux source ~/.tmux.conf'
 alias vi='nvim'
 alias xargs='xargs '
 
