@@ -414,6 +414,9 @@ vim.g.ale_fixers = {
   typescript = { 'prettier', 'eslint' },
 }
 
+-- vim-markdown
+vim.g.vim_markdown_folding_disabled = 1
+
 -- git
 local gitsigns = require('gitsigns')
 gitsigns.setup {
