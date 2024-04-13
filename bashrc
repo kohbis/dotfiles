@@ -12,10 +12,7 @@ homebrew='/opt/homebrew/bin/brew'
 if [ -f $homebrew ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
-  bash_completion="$(brew --prefix)/etc/bash_completion"
-  if [ -f $bash_completion ]; then
-    . $bash_completion
-  fi
+  [[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
 
   aws_completer="$(brew --prefix)/bin/aws_completer"
   if [ -f $aws_completer ]; then
