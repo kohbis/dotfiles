@@ -46,6 +46,8 @@ GIT_PS1_SHOWSTASHSTATE=1
 # prompt #
 ##########
 PS1='\[\e[1;31m\]\w\[\e[00m\]\[\e[1;36m\]$(__git_ps1)\[\e[00m\] \[\e[1;32m\]→\[\e[00m\] '
+added_prompt_command='history -a; history -c; history -r'
+PROMPT_COMMAND="$added_prompt_command;$PROMPT_COMMAND"
 
 #########
 # alias #
