@@ -491,10 +491,12 @@ vim.keymap.set('i', ',,', '<End>,', { noremap = true })
 -- ##################
 -- Keymap for Plugins
 -- ##################
-vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>bd', '<cmd>Bdelete<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>f', '<cmd>ALEFix<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>p', '<cmd>CtrlP<CR>', { noremap = true })
+
+-- NvimTree
+vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>n', '<cmd>NvimTreeFindFile<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>r', '<cmd>NvimTreeRefresh<CR>', { noremap = true })
 
