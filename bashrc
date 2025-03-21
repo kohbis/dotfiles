@@ -52,17 +52,18 @@ PROMPT_COMMAND="$added_prompt_command;$PROMPT_COMMAND"
 #########
 # alias #
 #########
-ALIASES=(
-  git
-  docker
-  terraform
-)
+ALIASES=(git docker)
 for a in ${ALIASES[@]}; do
   alias_file="${HOME}/workspace/dotfiles/aliases/${a}_aliases.sh"
   if [ -f $alias_file ]; then
     . $alias_file
   fi
 done
+
+# terraform
+alias tf='terraform'
+# kubernetes
+alias k='kubectl'
 
 # system
 alias grep='grep --color=auto'

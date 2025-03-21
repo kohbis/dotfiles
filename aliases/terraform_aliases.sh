@@ -1,5 +1,0 @@
-#############
-# terraform #
-#############
-
-alias tf='terraform'

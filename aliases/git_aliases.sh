@@ -2,6 +2,9 @@
 # git #
 #######
 
+alias gcz='npx git-cz'
+alias gitcz='npx git-cz'
+
 _comp_git_add() {
   local __git_cmd_idx=0
   _git_add
