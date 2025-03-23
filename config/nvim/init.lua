@@ -361,6 +361,7 @@ cmp.setup({
     { name = 'vsnip' },
     -- { name = 'luasnip' },
     -- { name = 'ultisnips' },
+    { name = 'copilot' },
   }, {
     { name = 'buffer' },
     { name = 'path' },
@@ -477,6 +478,13 @@ gitsigns.setup {
     -- Text object
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
+}
+
+-- github copilot
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_filetypes = {
+  markdown = true,
+  yaml = true,
 }
 
 -- winresizer
