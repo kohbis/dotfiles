@@ -75,6 +75,8 @@ alias xargs='xargs '
 #########
 # local #
 #########
+export PATH="$HOME/.local/bin:$PATH"
+
 bash_local="${HOME}/.bash_local"
 if [ -f $bash_local ]; then
   . $bash_local
