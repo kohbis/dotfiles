@@ -287,43 +287,53 @@ mason.setup({
   }
 })
 
-local nvim_lsp = require('lspconfig')
-local mason_lspconfig = require('mason-lspconfig')
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    local opts = {}
+local nvim_lsp = require("lspconfig")
+local mason_lspconfig = require("mason-lspconfig")
 
-    local node_root_dir = nvim_lsp.util.root_pattern("package.json", "node_modules")
-    local is_node_repo = node_root_dir(vim.api.nvim_buf_get_name(0)) ~= nil
+mason_lspconfig.setup({
+  ensure_installed = {
+    "ts_ls",
+    "denols",
+    "eslint",
+  }
+})
 
-    if server_name == "tsserver" or server_name == "eslint" then
-      if not is_node_repo then return end
-    elseif server_name == "denols" then
-      if is_node_repo then return end
-      opts.root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
-      opts.init_options = {
-        lint = true,
-        unstable = true,
-        suggest = {
-          imports = {
-            hosts = {
-              ["https://deno.land"] = true,
-              ["https://cdn.nest.land"] = true,
-              ["https://crux.land"] = true
-            }
+local node_root_dir = nvim_lsp.util.root_pattern("package.json", "node_modules")
+local is_node_repo = node_root_dir(vim.fn.getcwd()) ~= nil
+
+local servers = mason_lspconfig.get_installed_servers()
+for _, server_name in ipairs(servers) do
+  local opts = {}
+
+  if server_name == "tsserver" or server_name == "eslint" then
+    if not is_node_repo then goto continue end
+  elseif server_name == "denols" then
+    if is_node_repo then goto continue end
+    opts.root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
+    opts.init_options = {
+      lint = true,
+      unstable = true,
+      suggest = {
+        imports = {
+          hosts = {
+            ["https://deno.land"] = true,
+            ["https://cdn.nest.land"] = true,
+            ["https://crux.land"] = true,
           }
         }
       }
-    end
+    }
+  end
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    opts.capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  opts.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-    nvim_lsp[server_name].setup(opts)
+  nvim_lsp[server_name].setup(opts)
 
-    vim.cmd [[ do User LspAttachBuffers ]]
-  end,
-}
+  vim.cmd [[ do User LspAttachBuffers ]]
+
+  ::continue::
+end
 
 -- Completion
 vim.opt.completeopt = "menu,menuone,noselect"
