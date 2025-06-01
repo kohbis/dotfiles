@@ -524,6 +524,11 @@ vim.keymap.set('n', '<leader>bd', '<cmd>Bdelete<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>f', '<cmd>ALEFix<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>p', '<cmd>CtrlP<CR>', { noremap = true })
 
+-- Copilot
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.keymap.set('i', '<C-j>', 'copilot#Accept("<CR>")', { silent = true, expr = true, replace_keycodes = false })
+
 -- NvimTree
 vim.keymap.set('n', '<C-n>', '<cmd>NvimTreeToggle<CR>', { noremap = true })
 vim.keymap.set('n', '<leader>n', '<cmd>NvimTreeFindFile<CR>', { noremap = true })
