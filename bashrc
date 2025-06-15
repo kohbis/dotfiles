@@ -31,6 +31,16 @@ then
   source <(nerdctl completion bash)
 fi
 
+#########
+# local #
+#########
+export PATH="$HOME/.local/bin:$PATH"
+
+bash_local="${HOME}/.bash_local"
+if [ -f $bash_local ]; then
+  . $bash_local
+fi
+
 ########
 # bind #
 ########
@@ -40,6 +50,12 @@ bind '"\e[B": history-search-forward'
 #######
 # git #
 #######
+if [ -f /opt/homebrew/etc/bash_completion.d/git-completion.bash ]; then
+  source /opt/homebrew/etc/bash_completion.d/git-completion.bash
+fi
+if [ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ]; then
+  source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+fi
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUPSTREAM=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
@@ -75,12 +91,3 @@ alias ls='ls -G'
 alias vi='nvim'
 alias xargs='xargs '
 
-#########
-# local #
-#########
-export PATH="$HOME/.local/bin:$PATH"
-
-bash_local="${HOME}/.bash_local"
-if [ -f $bash_local ]; then
-  . $bash_local
-fi
