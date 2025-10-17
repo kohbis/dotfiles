@@ -64,8 +64,8 @@ require('packer').startup({
 
     -- LSP
     use 'neovim/nvim-lspconfig'
-    use 'williamboman/mason.nvim'
-    use 'williamboman/mason-lspconfig.nvim'
+    use 'mason-org/mason.nvim'
+    use 'mason-org/mason-lspconfig.nvim'
 
     -- Completion
     use 'hrsh7th/nvim-cmp'
@@ -287,7 +287,6 @@ mason.setup({
   }
 })
 
-local nvim_lsp = require("lspconfig")
 local mason_lspconfig = require("mason-lspconfig")
 
 mason_lspconfig.setup({
@@ -298,8 +297,8 @@ mason_lspconfig.setup({
   }
 })
 
-local node_root_dir = nvim_lsp.util.root_pattern("package.json", "node_modules")
-local is_node_repo = node_root_dir(vim.fn.getcwd()) ~= nil
+local node_root_dir = vim.fs.root(0, { "package.json", "node_modules" })
+local is_node_repo = node_root_dir ~= nil
 
 local servers = mason_lspconfig.get_installed_servers()
 for _, server_name in ipairs(servers) do
@@ -309,8 +308,8 @@ for _, server_name in ipairs(servers) do
     if not is_node_repo then goto continue end
   elseif server_name == "denols" then
     if is_node_repo then goto continue end
-    opts.root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc", "deps.ts", "import_map.json")
-    opts.init_options = {
+    opts.root_markers = { "deno.json", "deno.jsonc", "deps.ts", "import_map.json" }
+    opts.settings = {
       lint = true,
       unstable = true,
       suggest = {
@@ -328,7 +327,11 @@ for _, server_name in ipairs(servers) do
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   opts.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-  nvim_lsp[server_name].setup(opts)
+  -- Use new vim.lsp.config API
+  if not vim.lsp.config[server_name] then
+    vim.lsp.config[server_name] = opts
+  end
+  vim.lsp.enable(server_name)
 
   vim.cmd [[ do User LspAttachBuffers ]]
 
