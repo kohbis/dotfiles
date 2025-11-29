@@ -137,7 +137,9 @@ cp ~/.claude/commands/templates/ai-context/override-cursor.md .ai-context/overri
 
 Customize each file to match your project.
 
-### 6. Add Script to package.json
+### 6. Configure Sync Command
+
+#### Option A: For Node.js Projects (with package.json)
 
 Add the following to the `scripts` section of `package.json`:
 
@@ -148,6 +150,23 @@ Add the following to the `scripts` section of `package.json`:
   }
 }
 ```
+
+Then run with:
+
+```bash
+npm run ai-context:sync
+```
+
+#### Option B: For Non-Node.js Projects (direct execution)
+
+If your project doesn't have a `package.json`, run the sync script directly:
+
+```bash
+# Run from project root
+node scripts/sync-ai-context.js
+```
+
+Note: The sync script reads `config.json` relative to the `.ai-context/` directory in your current working directory, so always run from the project root.
 
 ### 7. Update .gitignore (Recommended)
 
@@ -163,7 +182,11 @@ Add to `.gitignore` to exclude backup files:
 After setup is complete, run the initial sync:
 
 ```bash
+# For Node.js projects
 npm run ai-context:sync
+
+# For non-Node.js projects (direct execution)
+node scripts/sync-ai-context.js
 ```
 
 Verify that three files are successfully generated:
@@ -177,14 +200,18 @@ Verify that three files are successfully generated:
 ### Update Common Rules
 
 1. Edit `.ai-context/base.md`
-2. Run `npm run ai-context:sync`
+2. Run sync command:
+   - Node.js project: `npm run ai-context:sync`
+   - Non-Node.js project: `node scripts/sync-ai-context.js`
 3. Review all generated files
 4. Git commit & push
 
 ### Update Tool-Specific Rules
 
 1. Edit `.ai-context/overrides/[tool-name].md`
-2. Run `npm run ai-context:sync`
+2. Run sync command:
+   - Node.js project: `npm run ai-context:sync`
+   - Non-Node.js project: `node scripts/sync-ai-context.js`
 3. Review only the relevant tool's file
 4. Git commit & push
 
@@ -192,7 +219,9 @@ Verify that three files are successfully generated:
 
 1. Create `.ai-context/overrides/[new-tool].md`
 2. Add configuration to `tools` section in `.ai-context/config.json`
-3. Run `npm run ai-context:sync`
+3. Run sync command:
+   - Node.js project: `npm run ai-context:sync`
+   - Non-Node.js project: `node scripts/sync-ai-context.js`
 4. Review newly generated file
 5. Git commit & push
 
@@ -237,4 +266,6 @@ Generated files include "auto-generated, manual editing prohibited" warning comm
 ---
 
 With these steps, the AI context management system is established.
-After setup, you can easily sync with `npm run ai-context:sync`.
+After setup, you can easily sync with:
+- Node.js project: `npm run ai-context:sync`
+- Non-Node.js project: `node scripts/sync-ai-context.js`
