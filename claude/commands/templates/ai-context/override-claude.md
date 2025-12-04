@@ -57,10 +57,3 @@
 4. **Implementation**: Implement following coding conventions
 5. **Testing**: Verify functionality and create test code
 6. **Documentation**: Update documentation as needed
-
----
-
-## Change History
-
-- [Date]: Initial version
-- [Date]: Migrated to .ai-context/ common management system

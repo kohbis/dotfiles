@@ -223,3 +223,10 @@ npm run type-check
 3. Code review
 4. Merge approval
 5. Automated deployment (staging → production)
+
+---
+
+## Change History
+
+- [Date]: Initial version
+- [Date]: Migrated to .ai-context/ common management system
