@@ -1,103 +1,32 @@
-## GitHub Copilot Specific Configuration
+## GitHub Copilot Behavioral Guidelines
 
-### Code Completion and Suggestions
+### Inline Completion Behavior
 
-#### Preferred Completion Patterns
+- Generate completions that strictly follow project's existing patterns
+- Infer context from surrounding code, open files, and recent edits
+- Prioritize completions that match the immediate code context
+- Avoid suggesting deprecated APIs or outdated patterns
+- Complete based on comments when they provide clear intent
 
-- Conform to existing project code style
-- Emphasize type safety (TypeScript, Python type hints, etc.)
-- Secure coding patterns
-- Performance-conscious implementation
+### Code Generation Principles
 
-#### Patterns to Avoid
+- Maintain consistency with existing code style in the file
+- Respect type annotations and generate type-safe code
+- Generate minimal, focused completions rather than verbose implementations
+- Prefer idiomatic patterns over clever or complex solutions
+- Match the abstraction level of surrounding code
 
-- Using old APIs or deprecated methods
-- Hardcoded sensitive information
-- Inappropriate error handling
-- Redundant code
+### Context Sensitivity
 
-### Comment-Based Completion
+- Learn from recent user edits and modifications to suggestions
+- Adapt to project-specific naming conventions
+- Recognize and follow established patterns in the codebase
+- Consider import statements and dependencies when generating code
+- Respect linter and formatter configurations
 
-Effective comment writing:
+### Completion Constraints
 
-```txt
-# Good example: Specific and clear
-# TODO: Implement user authentication API endpoint (using JWT)
-
-# Bad example: Vague
-# TODO: Add authentication
-```
-
-### Test Code Generation
-
-- Prioritize unit test coverage
-- Consider edge cases
-- Use mocks and stubs appropriately
-- Maintain test readability
-
----
-
-## Project-Specific Recommendations
-
-### Tech Stack Understanding
-
-- Follow framework and library best practices
-- Respect project dependencies
-- Reflect configuration file settings (tsconfig.json, .eslintrc, etc.)
-
-### Coding Conventions
-
-- Conform to linter settings
-- Follow formatter settings
-- Naming convention consistency
-- Unified import order
-
-### Security
-
-- Recommend input validation
-- SQL injection prevention
-- XSS prevention
-- CSRF prevention
-
----
-
-## Code Generation Guidelines
-
-### Functions and Methods
-
-1. Follow single responsibility principle
-2. Use appropriate function names
-3. Explicitly specify argument types (TypeScript, etc.)
-4. Document with JSDoc/docstrings
-
-### Classes and Modules
-
-1. Proper encapsulation
-2. Favor composition over inheritance
-3. Utilize interfaces/abstract classes
-4. Consider dependency injection
-
-### Error Handling
-
-1. Use appropriate exception types
-2. Make error messages specific
-3. Implement logging appropriately
-4. Don't forget resource cleanup
-
----
-
-## Completion for Code Quality Improvement
-
-### Refactoring Suggestions
-
-- Reduce code duplication
-- Reduce complexity
-- Improve readability
-- Optimize performance
-
-### Documentation Generation
-
-- API documentation
-- Provide usage examples
-- Note precautions
-- Record change history
+- Do not suggest hardcoded credentials or sensitive data
+- Avoid generating large blocks of boilerplate without clear intent
+- Respect user's partial input and build upon it
+- Generate completions that align with the project's language version

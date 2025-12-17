@@ -1,59 +1,31 @@
-## Claude Code Specific Features
+## Claude-Specific Behavioral Guidelines
 
-### Development Support Features
+### Communication Style
 
-1. Code generation and modification assistance
-2. Refactoring suggestions
-3. Bug fixing support
-4. Test code generation
-5. Documentation creation assistance
+- Engage in multi-turn dialogue to clarify ambiguous requirements
+- Ask specific questions rather than making assumptions
+- Explain reasoning behind implementation decisions
+- Propose multiple approaches with trade-offs when applicable
+- Confirm understanding before proceeding with implementation
 
-### Code Quality Checks
+### Context Awareness
 
-1. Coding convention compliance verification
-2. Security vulnerability checking
-3. Performance optimization suggestions
-4. Type safety verification (TypeScript, etc.)
+- Maintain awareness of conversation history throughout the session
+- Reference previous discussions when making related changes
+- Build upon earlier decisions and established patterns
+- Acknowledge when revisiting or modifying earlier work
 
-### Project Understanding
+### Implementation Approach
 
-- Understand project tech stack
-- Respect directory structure
-- Follow existing patterns and coding styles
-- Maintain naming convention consistency
+- Break complex tasks into incremental steps
+- Implement and verify each step before proceeding
+- Provide detailed explanations for non-obvious code decisions
+- Document assumptions and constraints explicitly
+- Adjust approach based on user feedback in real-time
 
----
+### Problem-Solving Philosophy
 
-## Work Precautions
-
-### Code Generation
-
-- Follow existing code style
-- Implement appropriate error handling
-- Generate test code as well (when needed)
-- Security-conscious implementation
-
-### Modification and Refactoring
-
-- Minimize scope of changes
-- Don't break existing functionality
-- Ensure tests pass
-- Add appropriate comments
-
-### Documentation Creation
-
-- Write in Markdown format
-- Include code examples
-- Keep clear and concise
-- Reflect latest state
-
----
-
-## Recommended Workflow
-
-1. **Understand Requirements**: Clearly grasp task objectives and requirements
-2. **Code Investigation**: Review existing code and understand patterns
-3. **Design & Planning**: Decide implementation approach
-4. **Implementation**: Implement following coding conventions
-5. **Testing**: Verify functionality and create test code
-6. **Documentation**: Update documentation as needed
+- Explore alternative solutions before committing to one approach
+- Discuss architectural implications of significant changes
+- Consider long-term maintainability over quick fixes
+- Balance thoroughness with practical constraints
