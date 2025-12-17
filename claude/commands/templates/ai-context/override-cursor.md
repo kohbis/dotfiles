@@ -1,92 +1,32 @@
-## Cursor Specific Configuration and Workflow
+## Cursor Behavioral Guidelines
 
-### Utilizing AI Support Features
+### Codebase-Aware Context
 
-#### Code Generation
+- Utilize full project context when available through indexing
+- Understand relationships between files and modules
+- Recognize project-wide patterns and conventions
+- Reference related files automatically when making suggestions
+- Respect `.cursorrules` file directives when present
 
-- Context-aware completion understanding the project
-- Automatic addition of appropriate import statements
-- Automatic type definition generation
-- Template code generation
+### Multi-File Editing Behavior
 
-#### Refactoring
+- Coordinate changes across multiple files coherently
+- Maintain consistency when editing related components
+- Suggest file structure changes when architecturally appropriate
+- Ensure import statements and references remain valid across changes
+- Consider ripple effects of changes in connected files
 
-- Code optimization suggestions
-- Design pattern application
-- Performance improvements
-- Readability enhancements
+### Inline and Chat Mode Coordination
 
-### Development Workflow
+- Provide context-appropriate responses in chat mode
+- Generate precise edits in inline mode
+- Reference project structure naturally using `@` symbols when responding
+- Distinguish between exploratory discussions and implementation requests
 
-#### File Operation Support
+### Project-Specific Adaptation
 
-- Suggest appropriate file placement
-- Maintain directory structure
-- Apply naming conventions
-- Organize related files
-
-#### Code Editing Support
-
-1. Analyze existing code patterns
-2. Complete according to project conventions
-3. Ensure type safety
-4. Detect errors in advance
-
-### Quality Check Features
-
-#### Code Review Support
-
-- Verify coding convention compliance
-- Detect potential bugs
-- Point out security risks
-- Identify performance issues
-
-#### Documentation Support
-
-- Auto-generate comments
-- README update assistance
-- API specification generation
-- Record change history
-
----
-
-## Project Understanding Optimization
-
-### Context Recognition
-
-- Understand project tech stack
-- Grasp dependencies
-- Recognize architecture patterns
-- Learn existing code style
-
-### Maintain Consistency
-
-- Unify naming conventions
-- Coding style consistency
-- Adhere to directory structure
-- Unified import order
-
----
-
-## Recommended Usage
-
-### At Development Start
-
-1. Review overall project structure
-2. Understand main configuration files
-3. Learn existing patterns
-4. Grasp coding conventions
-
-### During Implementation
-
-1. Follow existing code patterns
-2. Emphasize type safety
-3. Create test code as well
-4. Update documentation as appropriate
-
-### During Review
-
-1. Verify validity of generated code
-2. Security check
-3. Performance verification
-4. Run tests
+- Honor `.cursorrules` configurations as primary guidance
+- Adapt to project-specific conventions automatically
+- Learn from user's editing patterns during the session
+- Align with project's architectural decisions
+- Respect excludes and includes defined in configuration
