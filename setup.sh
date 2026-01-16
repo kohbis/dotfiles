@@ -1,7 +1,7 @@
 #!/bin/bash
 
 usage_exit() {
-  echo "Usage: `basename $0` [-d] remove [-s] create [-u] recreate symlinks" 1>&2
+  echo "Usage: `basename $0` [-c] create [-d] delete [-r] recreate symlinks" 1>&2
   exit 1
 }
 
@@ -12,6 +12,7 @@ DOT_FILES=(
   clang-format
   config/nvim/init.lua
   claude/commands
+  claude/skills
   git-cz.json
   rufo
   sqlfluff
@@ -60,12 +61,12 @@ if [ $# -ne 1 ]; then
   usage_exit
 fi
 
-while getopts dsu OPT
+while getopts cdr OPT
 do
   case $OPT in
+    "c" ) create_symbolic_link ;;
     "d" ) remove_symbolic_link ;;
-    "u" ) recreate_symbolic_link ;;
-    "s" ) create_symbolic_link ;;
+    "r" ) recreate_symbolic_link ;;
     * ) usage_exit ;;
   esac
 done

@@ -52,12 +52,19 @@ fi
 #######
 # git #
 #######
+# macOS (Homebrew)
 if [ -f /opt/homebrew/etc/bash_completion.d/git-completion.bash ]; then
   source /opt/homebrew/etc/bash_completion.d/git-completion.bash
 fi
 if [ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ]; then
   source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
 fi
+
+# Linux (Ubuntu/Debian)
+if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
+  source /usr/share/git-core/contrib/completion/git-prompt.sh
+fi
+
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWUPSTREAM=1
 GIT_PS1_SHOWUNTRACKEDFILES=1
