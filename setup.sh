@@ -30,9 +30,10 @@ create_symbolic_link() {
   done
 
   for file in ${DOT_FILES[@]}; do
-    if [ -f "$HOME/.$file" ]; then
+    if [ -e "$HOME/.$file" ]; then
       echo "[-] .$file"
     else
+      mkdir -p "$(dirname "$HOME/.$file")"
       ln -s $HOME/workspace/dotfiles/$file $HOME/.$file
       echo "[v] .$file"
     fi
