@@ -61,6 +61,9 @@ if [ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ]; then
 fi
 
 # Linux (Ubuntu/Debian)
+if [ -f /usr/share/doc/git/contrib/completion/git-completion.bash ]; then
+  source /usr/share/doc/git/contrib/completion/git-completion.bash
+fi
 if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
   source /usr/share/git-core/contrib/completion/git-prompt.sh
 fi
