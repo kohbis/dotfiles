@@ -13,6 +13,7 @@ DOT_FILES=(
   config/nvim/init.lua
   claude/commands
   claude/skills
+  claude/templates
   git-cz.json
   rufo
   sqlfluff
