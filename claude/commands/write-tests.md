@@ -2,7 +2,7 @@
 description: "Add effective tests focusing on behavior verification, not coverage metrics."
 ---
 
-# Add Tests
+# Write Tests
 
 Add effective tests that verify behavior, not just increase coverage:
 
