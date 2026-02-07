@@ -1,6 +1,6 @@
 ---
 name: codex-cli
-description: Execute code review, analysis, and technical research using Codex CLI. Use cases: (1) Code review, (2) Codebase-wide analysis, (3) Answering technical questions, (4) Bug investigation, (5) Refactoring proposals, (6) Deep technical research. Triggers: "codex", "/codex", "analyze", "review", "investigate"
+description: Execute code review, analysis, and technical research using Codex CLI. Use cases: (1) Code review, (2) Codebase-wide analysis, (3) Answering technical questions, (4) Bug investigation, (5) Refactoring proposals, (6) Deep technical research. Triggers: "codex", "/codex"
 ---
 
 # Codex
