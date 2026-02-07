@@ -1,37 +1,32 @@
 ---
 name: clean-deadcode
-description: Safely identify and remove dead code with test verification and a structured report of findings and deletions.
+description: Safely identify and remove dead code with test verification. Trigger when user says "dead code", "unused code", "clean up unused", "remove dead code", or requests finding/removing unused exports, functions, files, or dependencies.
 ---
 
 # Clean Deadcode
 
-Safely identify and remove dead code with test verification.
-
 ## Workflow
 
-1. Run dead code analysis tools appropriate for the project's language:
-   - Find unused exports, functions, and files
-   - Find unused dependencies
-   - Identify unreachable code paths
+1. Determine the dead code analysis tool to use:
+   - Check project config files (AGENTS.md, CLAUDE.md, README, Makefile, etc.) for tooling conventions
+   - If not found, ask the user which tool to use
 
-2. Generate a report at `.reports/dead-code-analysis.md` with findings.
+2. Run the tool and collect results.
 
 3. Categorize findings by severity:
-   - SAFE: Test files, unused utilities
-   - CAUTION: API routes, components
-   - DANGER: Config files, main entry points
+   - **SAFE**: Unused utilities, helpers, test files
+   - **CAUTION**: API routes, components (may have external consumers)
+   - **DANGER**: Config files, main entry points (never delete)
 
-4. Propose SAFE deletions only.
+4. Generate a report at `.reports/dead-code-analysis.md` with all findings and their categories.
 
-5. For each deletion:
-   - Run the full test suite
-   - Verify tests pass
+5. Delete SAFE items only. For each deletion:
    - Apply the change
-   - Re-run tests
-   - Roll back the change if tests fail
+   - Run the test suite
+   - Roll back if tests fail
 
-6. Summarize cleaned items and any follow-up recommendations.
+6. Summarize cleaned items and any CAUTION items for user review.
 
 ## Hard Rule
 
-Never delete code without running tests first.
+Never delete code without running tests after each change.
