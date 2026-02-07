@@ -1,5 +1,5 @@
 ---
-name: codex
+name: codex-cli
 description: Execute code review, analysis, and technical research using Codex CLI. Use cases: (1) Code review, (2) Codebase-wide analysis, (3) Answering technical questions, (4) Bug investigation, (5) Refactoring proposals, (6) Deep technical research. Triggers: "codex", "/codex", "analyze", "review", "investigate"
 ---
 
@@ -52,17 +52,17 @@ END
 
 | Task Type | Model | Reasoning Level | Sandbox Mode | --full-auto | Use Case |
 |-----------|-------|----------------|--------------|-------------|----------|
-| Complex bug investigation | gpt-5.2-codex | xhigh | read-only | NO | Deep root cause analysis |
-| Large-scale refactoring | gpt-5.2-codex | high | workspace-write | YES | Modify multiple files |
-| Standard code review | gpt-5.2-codex | high | read-only | NO | Security/performance review |
-| Infrastructure analysis | gpt-5.2-codex | high | read-only | NO | K8s/Terraform review |
+| Complex bug investigation | gpt-5.3-codex | xhigh | read-only | NO | Deep root cause analysis |
+| Large-scale refactoring | gpt-5.3-codex | high | workspace-write | YES | Modify multiple files |
+| Standard code review | gpt-5.3-codex | high | read-only | NO | Security/performance review |
+| Infrastructure analysis | gpt-5.3-codex | high | read-only | NO | K8s/Terraform review |
 | CI/CD optimization | gpt-5.2 | medium | read-only | NO | Pipeline analysis |
 | Quick code question | gpt-5.2 | medium | read-only | NO | Simple inquiries |
 
 ## Parameter Definitions
 
 ### {MODEL}
-- `gpt-5.2-codex`: Code-specialized model (prefer for code analysis)
+- `gpt-5.3-codex`: Code-specialized model (prefer for code analysis)
 - `gpt-5.2`: General-purpose model (use for CI/CD, infrastructure config)
 
 ### {LEVEL}
@@ -93,7 +93,7 @@ END
 Run through this checklist before executing:
 
 - [ ] Task type identified
-- [ ] Model selected: `gpt-5.2-codex` OR `gpt-5.2`
+- [ ] Model selected: `gpt-5.3-codex` OR `gpt-5.2`
 - [ ] Reasoning level determined: `xhigh`/`high`/`medium`/`low`
 - [ ] Sandbox mode chosen: `read-only`/`workspace-write`/`danger-full-access`
 - [ ] IF `workspace-write` THEN confirm `--full-auto` is added
@@ -138,7 +138,7 @@ MUST NOT:
 
 ### SHOULD (Recommended)
 
-1. Use `gpt-5.2-codex` for code analysis tasks
+1. Use `gpt-5.3-codex` for code analysis tasks
 2. Use structured prompt format (TASK/CONTEXT/FOCUS/OUTPUT)
 3. Default to showing reasoning process (no `2>/dev/null`)
 4. Start with `read-only` unless editing is required
@@ -179,11 +179,11 @@ Notes:
 ### Example 1: Kubernetes Manifests Review
 
 **Task Type**: Infrastructure analysis
-**Selected Parameters**: `gpt-5.2-codex` + `high` + `read-only`
+**Selected Parameters**: `gpt-5.3-codex` + `high` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.2-codex \
+  --model gpt-5.3-codex \
   --config model_reasoning_effort="high" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -197,11 +197,11 @@ OUTPUT: List issues by severity with specific remediation steps for each finding
 ### Example 2: API Performance Investigation
 
 **Task Type**: Complex bug investigation
-**Selected Parameters**: `gpt-5.2-codex` + `xhigh` + `read-only`
+**Selected Parameters**: `gpt-5.3-codex` + `xhigh` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.2-codex \
+  --model gpt-5.3-codex \
   --config model_reasoning_effort="xhigh" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -215,11 +215,11 @@ OUTPUT: Explain root cause, reproduction conditions, and optimization strategy s
 ### Example 3: Database Layer Refactoring
 
 **Task Type**: Large-scale refactoring
-**Selected Parameters**: `gpt-5.2-codex` + `high` + `workspace-write` + `--full-auto`
+**Selected Parameters**: `gpt-5.3-codex` + `high` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.2-codex \
+  --model gpt-5.3-codex \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --full-auto \
