@@ -1,10 +1,13 @@
 ---
-description: "Add effective tests focusing on behavior verification, not coverage metrics."
+name: write-tests
+description: Add effective tests focused on behavior verification, prioritization by risk, and validation through real test runs.
 ---
 
 # Write Tests
 
-Add effective tests that verify behavior, not just increase coverage:
+Add effective tests that verify behavior, not just increase coverage.
+
+## Workflow
 
 1. Analyze existing code to identify untested areas:
    - Core business logic
@@ -31,6 +34,8 @@ Add effective tests that verify behavior, not just increase coverage:
    - Excessive mocking that hides real bugs
    - Tests that break on refactoring
 
-6. Run tests to verify they pass and fail appropriately
+6. Run tests to verify they pass and fail appropriately.
 
-Write tests that catch bugs, not tests that chase coverage!
+## Hard Rule
+
+Write tests that catch bugs, not tests that chase coverage.
