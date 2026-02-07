@@ -24,13 +24,8 @@ When reporting Codex results to user, use this structure:
 
 ### IF execution fails:
 1. Report error immediately to user
-2. Identify error type:
-   - Command not found → Guide installation
-   - Timeout → Suggest narrower scope or --timeout flag
-   - Permission denied → Check sandbox mode
-   - Invalid model → Verify model name
-3. Suggest corrective action
-4. Ask if user wants to retry with adjusted parameters
+2. Look up the issue in the table below and suggest corrective action
+3. Ask if user wants to retry with adjusted parameters
 
 ### IF user requests danger-full-access:
 1. Explain implications (network access, system commands)
@@ -44,6 +39,8 @@ When reporting Codex results to user, use this structure:
 |-------|----------|
 | Command not found | Guide user to install Codex CLI |
 | Timeout on large codebase | Add `--timeout` flag or narrow scope |
+| Permission denied | Check sandbox mode setting |
+| Invalid model | Verify model name with `codex --help` |
 | Want to hide reasoning | Add `2>/dev/null` at end |
 | Need to edit files | Use `workspace-write` + `--full-auto` |
 | Need network access | Use `danger-full-access` with user confirmation |
