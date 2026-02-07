@@ -106,7 +106,7 @@ Create `.ai-context/config.json` with the following content:
 Copy the sync script from template and grant execution permissions:
 
 ```bash
-cp ~/.claude/commands/templates/ai-context/sync-ai-context.js scripts/
+cp ~/.claude/templates/ai-context/sync-ai-context.js scripts/
 chmod +x scripts/sync-ai-context.js
 ```
 
@@ -117,7 +117,7 @@ Write project-common rules and guidelines in `.ai-context/base.md`.
 Template example:
 
 ```bash
-cp ~/.claude/commands/templates/ai-context/base.md .ai-context/
+cp ~/.claude/templates/ai-context/base.md .ai-context/
 ```
 
 **Recommended content for base.md**:
@@ -135,13 +135,13 @@ Create tool-specific additional rules in `.ai-context/overrides/`:
 
 ```bash
 # Claude Code specific
-cp ~/.claude/commands/templates/ai-context/override-claude.md .ai-context/overrides/claude.md
+cp ~/.claude/templates/ai-context/override-claude.md .ai-context/overrides/claude.md
 
 # GitHub Copilot specific
-cp ~/.claude/commands/templates/ai-context/override-copilot.md .ai-context/overrides/copilot.md
+cp ~/.claude/templates/ai-context/override-copilot.md .ai-context/overrides/copilot.md
 
 # Cursor specific
-cp ~/.claude/commands/templates/ai-context/override-cursor.md .ai-context/overrides/cursor.md
+cp ~/.claude/templates/ai-context/override-cursor.md .ai-context/overrides/cursor.md
 ```
 
 Customize each file to match your project.
@@ -245,7 +245,7 @@ Verify that four files are successfully generated:
 ### Error: base.md not found
 
 - Create `.ai-context/base.md`
-- From template: `cp ~/.claude/commands/templates/ai-context/base.md .ai-context/`
+- From template: `cp ~/.claude/templates/ai-context/base.md .ai-context/`
 
 ### Warning: overrides/*.md not found
 
