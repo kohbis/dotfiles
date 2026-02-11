@@ -18,13 +18,6 @@ if [ -n "$remaining" ]; then
   used=$((100 - remaining))
 fi
 
-# Extract cost
-cost=$(echo "$input" | jq -r '.cost.total_cost_usd // empty')
-
-# Extract token usage
-input_tokens=$(echo "$input" | jq -r '.context_window.total_input_tokens // empty')
-output_tokens=$(echo "$input" | jq -r '.context_window.total_output_tokens // empty')
-
 # Extract mode
 mode=$(echo "$input" | jq -r '.mode // empty')
 
@@ -56,24 +49,6 @@ if [ -n "$used" ]; then
   context_info=$(printf " \e[1;33m[%d%%]\e[00m" "$used")
 fi
 
-token_info=""
-if [ -n "$input_tokens" ] && [ -n "$output_tokens" ]; then
-  # Format tokens with K suffix for readability
-  fmt_tokens() {
-    local t=$1
-    if [ "$t" -ge 1000000 ]; then
-      printf "%.1fM" "$(echo "scale=1; $t / 1000000" | bc)"
-    elif [ "$t" -ge 1000 ]; then
-      printf "%.1fK" "$(echo "scale=1; $t / 1000" | bc)"
-    else
-      printf "%d" "$t"
-    fi
-  }
-  in_fmt=$(fmt_tokens "$input_tokens")
-  out_fmt=$(fmt_tokens "$output_tokens")
-  token_info=$(printf " \e[0;37m[↑%s ↓%s]\e[00m" "$in_fmt" "$out_fmt")
-fi
-
-# Print status line in order: cwd, gitinfo, mode, model, context, tokens
-printf "\e[1;31m%s\e[00m\e[1;36m%s\e[00m%s \e[1;35m%s\e[00m%s%s" \
-  "$cwd" "$git_info" "$mode_info" "$model" "$context_info" "$token_info"
+# Print status line in order: cwd, gitinfo, mode, model, context
+printf "\e[1;31m%s\e[00m\e[1;36m%s\e[00m%s \e[1;35m%s\e[00m%s" \
+  "$cwd" "$git_info" "$mode_info" "$model" "$context_info"
