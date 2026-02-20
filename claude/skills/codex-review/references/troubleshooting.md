@@ -42,7 +42,7 @@ When reporting Codex results to user, use this structure:
 | Permission denied | Check sandbox mode setting |
 | Invalid model | Verify model name with `codex --help` |
 | Want to hide reasoning | Add `2>/dev/null` at end |
-| Need to edit files | Use `workspace-write` + `--full-auto` |
+| Need to edit files | Use the `codex-coding` skill instead |
 | Need network access | Use `danger-full-access` with user confirmation |
 | Session context lost | Use `resume --last` to continue |
 

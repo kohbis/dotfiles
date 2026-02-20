@@ -1,9 +1,9 @@
 ---
-name: codex-cli
-description: Execute code review, analysis, and technical research using Codex CLI. Trigger when user says "codex" or "/codex", or requests deep code review, codebase-wide analysis, bug investigation, refactoring proposals, infrastructure/K8s/Terraform review, CI/CD pipeline analysis, or technical research that goes beyond simple grep/read operations.
+name: codex-review
+description: Execute code review, analysis, and technical research using Codex CLI. Trigger only when user explicitly says "codex review" or "/codex-review".
 ---
 
-# Codex CLI
+# Codex Review
 
 ## Command Template
 
@@ -24,7 +24,6 @@ codex exec \
 | Task Type | Model | Reasoning | Sandbox | --full-auto |
 |-----------|-------|-----------|---------|-------------|
 | Complex bug investigation | gpt-5.3-codex | xhigh | read-only | NO |
-| Large-scale refactoring | gpt-5.3-codex | high | workspace-write | YES |
 | Standard code review | gpt-5.3-codex | high | read-only | NO |
 | Infrastructure analysis | gpt-5.3-codex | high | read-only | NO |
 | CI/CD optimization | gpt-5.2 | medium | read-only | NO |
@@ -32,7 +31,7 @@ codex exec \
 
 Parameter notes:
 - `gpt-5.3-codex` for code tasks, `gpt-5.2` for general/infra tasks
-- Default sandbox to `read-only`; use `workspace-write` only when editing files
+- Default sandbox to `read-only`; for file editing tasks use the `codex-coding` skill instead
 - `danger-full-access` (network access) requires explicit user confirmation
 - Add `--full-auto` only with `workspace-write`
 - Append `2>/dev/null` only if user requests hidden output
