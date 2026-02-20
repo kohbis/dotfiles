@@ -102,4 +102,3 @@ alias ll='ls -l'
 alias ls='ls -G'
 alias vi='nvim'
 alias xargs='xargs '
-
