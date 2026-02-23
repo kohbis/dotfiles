@@ -1,5 +1,5 @@
 ---
-name: create-command
+name: command-creator
 description: Interactively create Claude Code custom slash commands (~/.claude/commands/*.md). Trigger when user says "create command", "new command", "make a command", "add a slash command", or requests creating a new custom command for Claude Code.
 ---
 
