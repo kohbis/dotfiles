@@ -65,3 +65,4 @@ echo "{instructions}" | codex exec --skip-git-repo-check resume --last
 
 - [examples](references/examples.md) - Practical usage patterns
 - [troubleshooting](references/troubleshooting.md) - Error handling and output formatting
+- [code-review skill](../code-review/SKILL.md) - Tool-agnostic alternative: use this when Codex CLI is not available
