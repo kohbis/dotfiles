@@ -8,16 +8,20 @@ HISTSIZE=5000
 ########
 # brew #
 ########
-homebrew='/opt/homebrew/bin/brew'
-if [ -f $homebrew ]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+for homebrew in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+  if [ -f $homebrew ]; then
+    eval "$($homebrew shellenv)"
+    break
+  fi
+done
 
-  bash_completion='/opt/homebrew/etc/profile.d/bash_completion.sh'
+if [ -n "$HOMEBREW_PREFIX" ]; then
+  bash_completion="$HOMEBREW_PREFIX/etc/profile.d/bash_completion.sh"
   if [[ -r $bash_completion ]]; then
     . $bash_completion
   fi
 
-  aws_completer="$(brew --prefix)/bin/aws_completer"
+  aws_completer="$HOMEBREW_PREFIX/bin/aws_completer"
   if [ -f $aws_completer ]; then
     complete -C $aws_completer aws
   fi
@@ -53,11 +57,11 @@ fi
 # git #
 #######
 # macOS (Homebrew)
-if [ -f /opt/homebrew/etc/bash_completion.d/git-completion.bash ]; then
-  source /opt/homebrew/etc/bash_completion.d/git-completion.bash
+if [ -n "$HOMEBREW_PREFIX" ] && [ -f "$HOMEBREW_PREFIX/etc/bash_completion.d/git-completion.bash" ]; then
+  source "$HOMEBREW_PREFIX/etc/bash_completion.d/git-completion.bash"
 fi
-if [ -f /opt/homebrew/etc/bash_completion.d/git-prompt.sh ]; then
-  source /opt/homebrew/etc/bash_completion.d/git-prompt.sh
+if [ -n "$HOMEBREW_PREFIX" ] && [ -f "$HOMEBREW_PREFIX/etc/bash_completion.d/git-prompt.sh" ]; then
+  source "$HOMEBREW_PREFIX/etc/bash_completion.d/git-prompt.sh"
 fi
 
 # Linux (Ubuntu/Debian)
