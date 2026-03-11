@@ -1,2 +1,11 @@
+# alias
+aliases/**/*.local.sh
+
+# bash
 bash_local
+
+# claude
+claude/**/*.local.md
+
+# config
 config/nvim/lua/local.lua
