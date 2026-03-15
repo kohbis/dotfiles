@@ -89,7 +89,7 @@ PROMPT_COMMAND="$added_prompt_command;$PROMPT_COMMAND"
 #########
 ALIASES=(git docker)
 for a in ${ALIASES[@]}; do
-  alias_file="${HOME}/workspace/dotfiles/aliases/${a}_aliases.sh"
+  alias_file="${HOME}/workspace/dotfiles/aliases/${a}/aliases.sh"
   if [ -f $alias_file ]; then
     . $alias_file
   fi
@@ -99,10 +99,11 @@ done
 alias tf='terraform'
 # kubernetes
 alias k='kubectl'
+# nvim
+alias vi='nvim'
 
 # system
 alias grep='grep --color=auto'
 alias ll='ls -l'
 alias ls='ls -G'
-alias vi='nvim'
 alias xargs='xargs '
