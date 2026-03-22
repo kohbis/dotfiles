@@ -10,7 +10,6 @@ DOT_FILES=(
   bash_profile
   bashrc
   clang-format
-  config/nvim/init.lua
   git-cz.json
   rufo
   sqlfluff
@@ -18,10 +17,49 @@ DOT_FILES=(
   vimrc
   zshrc
 )
-CONFIG_DIR=(nvim)
+CONFIG_TOOLS=(nvim)
 CLAUDE_SUBDIRS=(commands skills templates)
 DOTFILES_DIR=$HOME/workspace/dotfiles
 DOTFILES_PRIVATE_DIR=$HOME/workspace/dotfiles-private
+
+link_config_files() {
+  local tool=$1
+  local src_dir="$DOTFILES_DIR/config/$tool"
+  local target_dir="$HOME/.config/$tool"
+
+  [ -d "$src_dir" ] || return
+
+  mkdir -p "$target_dir"
+  for src in "$src_dir"/*; do
+    local name=$(basename "$src")
+    local dst="$target_dir/$name"
+    if [ -e "$dst" ]; then
+      echo "[-] .config/$tool/$name"
+    else
+      ln -s "$src" "$dst"
+      echo "[v] .config/$tool/$name"
+    fi
+  done
+}
+
+unlink_config_files() {
+  local tool=$1
+  local src_dir="$DOTFILES_DIR/config/$tool"
+  local target_dir="$HOME/.config/$tool"
+
+  [ -d "$src_dir" ] || return
+
+  for src in "$src_dir"/*; do
+    local name=$(basename "$src")
+    local dst="$target_dir/$name"
+    if [ -L "$dst" ]; then
+      unlink "$dst"
+      echo "[v] .config/$tool/$name"
+    else
+      echo "[-] .config/$tool/$name"
+    fi
+  done
+}
 
 link_claude_files() {
   local src_dir=$1
@@ -65,10 +103,6 @@ unlink_claude_files() {
 create_symbolic_link() {
   echo "create symbolic links. [v] created [-] already exists"
 
-  for dir in ${CONFIG_DIR[@]}; do
-    mkdir -p $HOME/.config/$dir
-  done
-
   for file in ${DOT_FILES[@]}; do
     if [ -e "$HOME/.$file" ]; then
       echo "[-] .$file"
@@ -77,6 +111,10 @@ create_symbolic_link() {
       ln -s $DOTFILES_DIR/$file $HOME/.$file
       echo "[v] .$file"
     fi
+  done
+
+  for tool in ${CONFIG_TOOLS[@]}; do
+    link_config_files "$tool"
   done
 
   for subdir in ${CLAUDE_SUBDIRS[@]}; do
@@ -96,6 +134,10 @@ remove_symbolic_link() {
     else
       echo "[-] .$file"
     fi
+  done
+
+  for tool in ${CONFIG_TOOLS[@]}; do
+    unlink_config_files "$tool"
   done
 
   for subdir in ${CLAUDE_SUBDIRS[@]}; do
