@@ -6,6 +6,7 @@ bash_local
 
 # claude
 claude/**/*.local.md
+claude/**/*.local/
 
 # config
 config/nvim/lua/local.lua
