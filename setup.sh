@@ -20,7 +20,7 @@ DOT_FILES=(
 CONFIG_TOOLS=(nvim)
 CLAUDE_SUBDIRS=(commands skills templates)
 DOTFILES_DIR=$HOME/workspace/dotfiles
-DOTFILES_PRIVATE_DIR=$HOME/workspace/dotfiles-private
+DOTFILES_PRIVATE_DIR=$HOME/workspace/dotfiles/dotfiles-private
 
 link_config_files() {
   local tool=$1

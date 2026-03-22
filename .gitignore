@@ -10,3 +10,6 @@ claude/**/*.local/
 
 # config
 config/nvim/lua/local.lua
+
+# private dotfiles (managed in separate private repo)
+dotfiles-private/
