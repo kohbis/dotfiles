@@ -4,6 +4,9 @@ export LANG=ja_JP.UTF-8
 # env #
 #######
 HISTSIZE=5000
+if command -v nvim &> /dev/null; then
+  export EDITOR="nvim"
+fi
 
 ########
 # brew #
@@ -106,6 +109,9 @@ alias k='kubectl'
 alias vi='nvim'
 
 # system
+if [[ "$(uname)" == "Darwin" ]]; then
+  alias sed='gsed'
+fi
 alias grep='grep --color=auto'
 alias ll='ls -l'
 alias ls='ls -G'
