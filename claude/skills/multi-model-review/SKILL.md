@@ -1,0 +1,126 @@
+---
+name: multi-model-review
+description: Run code review using multiple AI models (Codex/GPT, Gemini, Copilot/Claude) and synthesize results into a unified report showing common findings and per-reviewer unique insights. Trigger when user says "multi-model review", "/multi-model-review", or "review with multiple models". Available reviewers: codex (Codex CLI / GPT), gemini (Gemini CLI), copilot (Copilot CLI / Claude).
+---
+
+# Multi-Model Review
+
+## Reviewers
+
+| Reviewer | CLI | Default Model | Skill Reference |
+|----------|-----|---------------|-----------------|
+| codex | Codex CLI | gpt-5.3-codex | [codex-review](../codex-review/SKILL.md) |
+| gemini | Gemini CLI | gemini-2.5-pro | [gemini-cli](../gemini-cli/SKILL.md) |
+| copilot | Copilot CLI | gpt-5.3-codex | [copilot-cli](../copilot-cli/SKILL.md) |
+
+Default: run all three unless user specifies a subset (e.g., "codex and gemini only").
+
+## Workflow
+
+1. **Determine review target** — default: `git diff HEAD`; alternatives below
+2. **Confirm reviewers** — ask if not specified; default to all three
+3. **Build common prompt** — same prompt sent to every reviewer
+4. **Run each reviewer sequentially**, capture full output
+5. **Synthesize** — extract common and unique findings
+6. **Report** — present structured summary
+
+## Review Target
+
+```bash
+# Uncommitted changes (default)
+git diff HEAD
+
+# Staged changes only
+git diff --cached
+
+# Specific files
+git diff HEAD -- {files}
+
+# PR diff
+gh pr diff {number}
+
+# Specific commit
+git show {hash}
+```
+
+Pipe diff content into the prompt or paste it inline.
+
+## Common Prompt Format
+
+Use this structure for all reviewers (substitute `{diff}` with actual content):
+
+```
+TASK: Review the following code changes for quality, correctness, and potential issues.
+CONTEXT: {tech stack, environment, relevant background}
+FOCUS: {specific concerns, e.g., security, performance, correctness — or "general" if none}
+OUTPUT: List issues by severity (critical / major / minor), with file:line references where applicable.
+
+CODE CHANGES:
+{diff or file content}
+```
+
+## Running Each Reviewer
+
+### Codex
+```bash
+codex exec \
+  --model gpt-5.3-codex \
+  --config model_reasoning_effort="high" \
+  --sandbox read-only \
+  --skip-git-repo-check \
+  -C {WORKING_DIR} \
+  "{PROMPT}"
+```
+
+### Gemini
+```bash
+gemini -p "{PROMPT}" \
+  --model gemini-2.5-pro \
+  --approval-mode plan
+```
+
+### Copilot
+```bash
+copilot -p "{PROMPT}" \
+  --model gpt-5.3-codex
+```
+
+See each reviewer's skill file for full parameter options and rules.
+
+## Synthesis
+
+After collecting all outputs:
+
+1. **Common findings** — issues mentioned by 2+ reviewers (higher confidence, prioritize these)
+2. **Unique findings** — issues from only one reviewer (potentially model-specific insight)
+3. Deduplicate issues that are substantially the same
+4. Sort by severity: critical → major → minor
+
+## Output Format
+
+```markdown
+## Multi-Model Review Summary
+
+**Reviewers:** {list of reviewers used}
+**Target:** {what was reviewed, e.g., "git diff HEAD (3 files)"}
+
+### Common Findings (2+ reviewers)
+- [critical] {issue description} ({file:line if available})
+- [major] {issue description}
+
+### Codex Unique Findings
+- [minor] {issue description}
+
+### Gemini Unique Findings
+- [major] {issue description}
+
+### Copilot Unique Findings
+- (none)
+
+### Overall Assessment
+{1–2 sentence summary of the overall code quality and the most important action items.}
+```
+
+## References
+
+- [examples](references/examples.md) - End-to-end usage examples
