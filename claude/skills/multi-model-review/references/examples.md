@@ -1,12 +1,10 @@
 # Multi-Model Review Examples
 
-## Review Uncommitted Changes (All Reviewers)
+## Review Uncommitted Changes (Default: codex + copilot)
 
 ```bash
-# 1. Get the diff
 DIFF=$(git diff HEAD)
 
-# 2. Build the prompt
 PROMPT="
 TASK: Review the following code changes for quality, correctness, and potential issues.
 CONTEXT: TypeScript Node.js REST API
@@ -17,16 +15,14 @@ CODE CHANGES:
 $DIFF
 "
 
-# 3. Run each reviewer
+# Run in parallel (spawn both subagents in the same turn)
 codex exec --model gpt-5.3-codex --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
-gemini -p "$PROMPT" --model gemini-2.5-pro --approval-mode plan
-
-copilot -p "$PROMPT" --model gpt-5.3-codex
+copilot -p "$PROMPT" --model claude-opus-4.6 --allow-tool 'shell(read:*)'
 ```
 
-## Review a PR
+## Review a PR (All Reviewers)
 
 ```bash
 DIFF=$(gh pr diff 42)
@@ -40,10 +36,19 @@ OUTPUT: Issues by severity with file:line references.
 CODE CHANGES:
 $DIFF
 "
-# Then run reviewers as above
+
+# Run all four in parallel
+codex exec --model gpt-5.3-codex --config model_reasoning_effort="high" \
+  --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
+
+copilot -p "$PROMPT" --model claude-opus-4.6 --allow-tool 'shell(read:*)'
+
+gemini -p "$PROMPT" --model gemini-2.5-pro --approval-mode plan
+
+claude -p "$PROMPT" --model claude-opus-4-6 --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```
 
-## Targeted Security Review (Codex + Gemini only)
+## Targeted Security Review (codex + gemini)
 
 ```bash
 PROMPT="
@@ -64,7 +69,7 @@ gemini -p "$PROMPT" --model gemini-2.5-pro --approval-mode plan
 ```markdown
 ## Multi-Model Review Summary
 
-**Reviewers:** codex, gemini, copilot
+**Reviewers:** codex, copilot
 **Target:** git diff HEAD (4 files, +120/-30 lines)
 
 ### Common Findings (2+ reviewers)
@@ -74,12 +79,9 @@ gemini -p "$PROMPT" --model gemini-2.5-pro --approval-mode plan
 ### Codex Unique Findings
 - [minor] Loop in `src/utils/transform.ts:15` could be replaced with `Array.flatMap` for clarity
 
-### Gemini Unique Findings
+### Copilot Unique Findings
 - [major] JWT secret falls back to a hardcoded string in `src/auth/config.ts:7` if env var is unset — potential security issue in misconfigured deployments
 
-### Copilot Unique Findings
-- [minor] Missing test coverage for the error branch in `src/orders/service.ts:55`
-
 ### Overall Assessment
-The changes are mostly sound but have two critical/major issues that should be addressed before merging: the null dereference on user.profile and the missing JWT secret validation. Gemini uniquely identified a security risk worth verifying independently.
+The changes are mostly sound but have two critical/major issues that should be addressed before merging: the null dereference on user.profile and the missing JWT secret validation.
 ```
