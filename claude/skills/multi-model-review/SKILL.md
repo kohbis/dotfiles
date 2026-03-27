@@ -20,12 +20,29 @@ Default: run **codex + copilot** (GPT + Gemini via Copilot CLI). Add others with
 
 1. **Determine review target** — default: `git diff HEAD`; alternatives below
 2. **Confirm reviewers** — ask if not specified; default to codex + copilot
-3. **Build common prompt** — same prompt sent to every reviewer
-4. **Run all reviewers in parallel** — spawn each as a subagent simultaneously; collect outputs as they finish
-5. **Synthesize** — extract common and unique findings
-6. **Report** — present structured summary
+3. **Check CLI availability** — run `which {cli}` for each selected reviewer; handle missing tools (see below)
+4. **Build common prompt** — same prompt sent to every reviewer
+5. **Run all reviewers in parallel** — spawn each as a subagent simultaneously; collect outputs as they finish
+6. **Synthesize** — extract common and unique findings
+7. **Report** — present structured summary
 
 > Running in parallel cuts total review time to the slowest single reviewer rather than the sum of all. Spawn subagents in the same turn so they execute concurrently.
+
+## Handling Missing CLIs
+
+Before running, check availability with `which {cli}` (e.g. `which codex`, `which copilot`).
+
+| Situation | Action |
+|-----------|--------|
+| A non-default reviewer is unavailable | Skip silently; note in the report header |
+| A default reviewer (codex or copilot) is unavailable | Warn the user and ask whether to proceed with the remaining reviewer(s) or abort |
+| All selected reviewers are unavailable | Abort with a clear error listing which CLIs are missing and how to install them |
+
+Install hints:
+- **codex**: `npm install -g @openai/codex`
+- **copilot**: `npm install -g @github/copilot-cli` (requires GitHub Copilot subscription)
+- **gemini**: `npm install -g @google/gemini-cli`
+- **claude**: `npm install -g @anthropic-ai/claude-code`
 
 ## Review Target
 
