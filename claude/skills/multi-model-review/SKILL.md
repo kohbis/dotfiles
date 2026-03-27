@@ -30,13 +30,7 @@ Default: run **codex + copilot** (GPT + Gemini via Copilot CLI). Add others with
 
 ## Handling Missing CLIs
 
-Before running, check availability with `which {cli}` (e.g. `which codex`, `which copilot`).
-
-| Situation | Action |
-|-----------|--------|
-| A non-default reviewer is unavailable | Skip silently; note in the report header |
-| A default reviewer (codex or copilot) is unavailable | Warn the user and ask whether to proceed with the remaining reviewer(s) or abort |
-| All selected reviewers are unavailable | Abort with a clear error listing which CLIs are missing and how to install them |
+Before running, check availability with `which {cli}`. If a CLI is not found, skip that reviewer and inform the user which tool was unavailable and its install command. Continue with whichever reviewers are available.
 
 Install hints:
 - **codex**: `npm install -g @openai/codex`
