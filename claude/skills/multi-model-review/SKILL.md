@@ -1,24 +1,25 @@
 ---
 name: multi-model-review
-description: Run code review using multiple AI models (Codex/GPT, Gemini, Copilot/Claude) and synthesize results into a unified report showing common findings and per-reviewer unique insights. Trigger when user says "multi-model review", "/multi-model-review", or "review with multiple models". Available reviewers: codex (Codex CLI / GPT), gemini (Gemini CLI), copilot (Copilot CLI / Claude).
+description: Run code review using multiple AI models (Codex/GPT, Gemini via Copilot, Gemini CLI, Claude Code) and synthesize results into a unified report showing common findings and per-reviewer unique insights. Trigger when user says "multi-model review", "/multi-model-review", or "review with multiple models". Available reviewers: codex (Codex CLI / GPT), copilot (Copilot CLI / Gemini), gemini (Gemini CLI), claude (Claude Code CLI).
 ---
 
 # Multi-Model Review
 
 ## Reviewers
 
-| Reviewer | CLI | Default Model | Skill Reference |
-|----------|-----|---------------|-----------------|
-| codex | Codex CLI | gpt-5.3-codex | [codex-review](../codex-review/SKILL.md) |
-| gemini | Gemini CLI | gemini-2.5-pro | [gemini-cli](../gemini-cli/SKILL.md) |
-| copilot | Copilot CLI | gpt-5.3-codex | [copilot-cli](../copilot-cli/SKILL.md) |
+| Reviewer | CLI | Model | Default? | Skill Reference |
+|----------|-----|-------|----------|-----------------|
+| codex | Codex CLI | gpt-5.3-codex | ✅ | [codex-review](../codex-review/SKILL.md) |
+| copilot | Copilot CLI | gemini-2.5-pro | ✅ | [copilot-cli](../copilot-cli/SKILL.md) |
+| gemini | Gemini CLI | gemini-2.5-pro | — | [gemini-cli](../gemini-cli/SKILL.md) |
+| claude | Claude Code CLI | claude-opus-4-6 | — | — |
 
-Default: run all three unless user specifies a subset (e.g., "codex and gemini only").
+Default: run **codex + copilot** (GPT + Gemini via Copilot CLI). Add others with e.g. "add gemini" or "use all reviewers".
 
 ## Workflow
 
 1. **Determine review target** — default: `git diff HEAD`; alternatives below
-2. **Confirm reviewers** — ask if not specified; default to all three
+2. **Confirm reviewers** — ask if not specified; default to codex + copilot
 3. **Build common prompt** — same prompt sent to every reviewer
 4. **Run each reviewer sequentially**, capture full output
 5. **Synthesize** — extract common and unique findings
@@ -79,10 +80,18 @@ gemini -p "{PROMPT}" \
   --approval-mode plan
 ```
 
-### Copilot
+### Copilot (Gemini via Copilot CLI)
 ```bash
 copilot -p "{PROMPT}" \
-  --model gpt-5.3-codex
+  --model gemini-2.5-pro \
+  --allow-tool 'shell(read:*)'
+```
+
+### Claude (Claude Code CLI)
+```bash
+claude -p "{PROMPT}" \
+  --model claude-opus-4-6 \
+  --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```
 
 See each reviewer's skill file for full parameter options and rules.
