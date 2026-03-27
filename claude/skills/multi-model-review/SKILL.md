@@ -21,9 +21,11 @@ Default: run **codex + copilot** (GPT + Gemini via Copilot CLI). Add others with
 1. **Determine review target** — default: `git diff HEAD`; alternatives below
 2. **Confirm reviewers** — ask if not specified; default to codex + copilot
 3. **Build common prompt** — same prompt sent to every reviewer
-4. **Run each reviewer sequentially**, capture full output
+4. **Run all reviewers in parallel** — spawn each as a subagent simultaneously; collect outputs as they finish
 5. **Synthesize** — extract common and unique findings
 6. **Report** — present structured summary
+
+> Running in parallel cuts total review time to the slowest single reviewer rather than the sum of all. Spawn subagents in the same turn so they execute concurrently.
 
 ## Review Target
 
