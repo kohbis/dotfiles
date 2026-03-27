@@ -32,11 +32,6 @@ Default: run **codex + copilot** (GPT + Claude Opus via Copilot CLI). Add others
 
 Before running, check availability with `which {cli}`. If a CLI is not found, skip that reviewer and inform the user which tool was unavailable and its install command. Continue with whichever reviewers are available.
 
-Install hints:
-- **codex**: `npm install -g @openai/codex`
-- **copilot**: `npm install -g @github/copilot-cli` (requires GitHub Copilot subscription)
-- **gemini**: `npm install -g @google/gemini-cli`
-- **claude**: `npm install -g @anthropic-ai/claude-code`
 
 ## Review Target
 
