@@ -1,6 +1,6 @@
 ---
 name: multi-model-review
-description: Run code review using multiple AI models (Codex/GPT, Gemini via Copilot, Gemini CLI, Claude Code) and synthesize results into a unified report showing common findings and per-reviewer unique insights. Trigger when user says "multi-model review", "/multi-model-review", or "review with multiple models". Available reviewers: codex (Codex CLI / GPT), copilot (Copilot CLI / Claude Opus), gemini (Gemini CLI), claude (Claude Code CLI).
+description: Run code review in parallel using multiple AI models and synthesize results into a unified report. Default reviewers: codex (GPT via Codex CLI) + copilot (Claude Opus via Copilot CLI). Optional: gemini (Gemini CLI), claude (Claude Code CLI). Trigger when user says "multi-model review", "/multi-model-review", or "review with multiple models".
 ---
 
 # Multi-Model Review
