@@ -27,25 +27,33 @@ copilot \
 
 | Task Type | Model | Tool Permissions |
 |-----------|-------|-----------------|
-| New feature / coding | claude-sonnet-4-6 | `--allow-tool 'shell(*:*)' --allow-tool write` |
-| Complex architecture / debugging | claude-opus-4-6 | `--allow-tool 'shell(*:*)' --allow-tool write` |
-| Code review / analysis | gpt-5.3-codex | read-only (no `--allow-tool write`) |
-| Quick question | claude-sonnet-4-6 | minimal (no tool flags) |
+| New feature / coding | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
+| Test generation | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
+| Documentation writing | claude-sonnet-4.6 | `--allow-tool 'write(*:*)'` |
+| Complex architecture / debugging | claude-opus-4.6 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
+| Code review / analysis | gpt-5.3-codex | `--allow-tool 'shell(read:*)'` (no write) |
+| GitHub operations | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)'` (no write) |
+| Quick question | claude-sonnet-4.6 | minimal (no tool flags) |
 
 Parameter notes:
 - `-p` flag enables programmatic (non-interactive) mode — use this for automation
-- `--model` selects the underlying model; default to `claude-sonnet-4-6` for most tasks
-- `--allow-tool` grants specific tool access; omit for read-only analysis
+- `--model` selects the underlying model; default to `claude-sonnet-4.6` for most tasks
+- Model IDs use **dot notation** in the CLI: `claude-sonnet-4.6`, `claude-opus-4.6` (not hyphens)
+- `--allow-tool 'write(*:*)'` grants write access to files; `--allow-tool 'shell(*:*)'` grants shell command execution
 - **Never use `--allow-all-tools`** without explicit user confirmation — prefer granular `--allow-tool` flags
-- Use `--trust-dir .` to trust the current working directory when needed
+- `--trust-dir .` is required when copilot needs to read/write files in the current directory that are outside its default trust scope. Typically needed when working outside `$HOME` or in unusual mount paths.
+- **Sonnet → Opus escalation**: Use Opus when the task spans >3 files, involves architectural decisions, or requires understanding complex interdependencies across the codebase.
 
 ## Prompt Format
 
+For coding tasks:
+
 ```
 TASK: {clear, specific action to perform}
-CONTEXT: {tech stack, relevant files/dirs, environment}
+CONTEXT: {tech stack, relevant files/dirs, environment — list specific paths, not entire repos}
 SPEC: {expected behavior, acceptance criteria, edge cases}
-CONSTRAINTS: {style conventions, patterns to follow, what NOT to change}
+CONSTRAINTS: {style conventions, patterns to follow}
+SCOPE: {what NOT to change or touch}
 ```
 
 For review/analysis tasks:
@@ -56,6 +64,16 @@ CONTEXT: {tech stack, environment, constraints}
 FOCUS: {specific areas to examine}
 OUTPUT: {desired format and detail level}
 ```
+
+For GitHub operations:
+
+```
+TASK: {GitHub action to perform}
+CONTEXT: {repo state, branch, relevant history}
+SPEC: {expected output format, labels, target branch}
+```
+
+> **Note:** For simple quick questions, the structured format is optional — plain natural language is sufficient.
 
 ## Rules
 
@@ -70,10 +88,22 @@ OUTPUT: {desired format and detail level}
 
 | Command | Use Case |
 |---------|----------|
-| `/plan` | Create an implementation plan before coding |
-| `/review` | Review code changes or PR diffs |
-| `/delegate` | Delegate a subtask to a background agent |
-| `/fleet` | Run multiple agents in parallel |
+| `/plan` | Create an implementation plan before coding — use first for complex or multi-file tasks |
+| `/review` | Review code changes or PR diffs — use after implementing to catch issues |
+| `/delegate` | Delegate a subtask to a background agent — use when a sub-problem can be solved independently |
+| `/fleet` | Run multiple agents in parallel — use when the task decomposes into independent subtasks (e.g., generate tests for 5 modules simultaneously) |
+
+## Session Continuation
+
+GitHub Copilot CLI does not natively support session resumption. If a task is interrupted or needs continuation:
+- Re-run with the original prompt plus additional instructions appended
+- Use `git diff` to identify what was already completed and scope the continuation prompt accordingly
+
+## When to Use This Skill vs. Alternatives
+
+- For pure coding tasks without GitHub operations → consider `codex-coding`
+- For pure code review without write needs → consider `codex-review`
+- For GitHub-specific operations (PR, issues) → this skill is preferred
 
 ## References
 
