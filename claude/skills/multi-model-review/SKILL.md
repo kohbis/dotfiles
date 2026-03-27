@@ -1,6 +1,6 @@
 ---
 name: multi-model-review
-description: Run code review using multiple AI models (Codex/GPT, Gemini via Copilot, Gemini CLI, Claude Code) and synthesize results into a unified report showing common findings and per-reviewer unique insights. Trigger when user says "multi-model review", "/multi-model-review", or "review with multiple models". Available reviewers: codex (Codex CLI / GPT), copilot (Copilot CLI / Gemini), gemini (Gemini CLI), claude (Claude Code CLI).
+description: Run code review using multiple AI models (Codex/GPT, Gemini via Copilot, Gemini CLI, Claude Code) and synthesize results into a unified report showing common findings and per-reviewer unique insights. Trigger when user says "multi-model review", "/multi-model-review", or "review with multiple models". Available reviewers: codex (Codex CLI / GPT), copilot (Copilot CLI / Claude Opus), gemini (Gemini CLI), claude (Claude Code CLI).
 ---
 
 # Multi-Model Review
@@ -10,11 +10,11 @@ description: Run code review using multiple AI models (Codex/GPT, Gemini via Cop
 | Reviewer | CLI | Model | Default? | Skill Reference |
 |----------|-----|-------|----------|-----------------|
 | codex | Codex CLI | gpt-5.3-codex | ✅ | [codex-review](../codex-review/SKILL.md) |
-| copilot | Copilot CLI | gemini-2.5-pro | ✅ | [copilot-cli](../copilot-cli/SKILL.md) |
+| copilot | Copilot CLI | claude-opus-4-6 | ✅ | [copilot-cli](../copilot-cli/SKILL.md) |
 | gemini | Gemini CLI | gemini-2.5-pro | — | [gemini-cli](../gemini-cli/SKILL.md) |
 | claude | Claude Code CLI | claude-opus-4-6 | — | — |
 
-Default: run **codex + copilot** (GPT + Gemini via Copilot CLI). Add others with e.g. "add gemini" or "use all reviewers".
+Default: run **codex + copilot** (GPT + Claude Opus via Copilot CLI). Add others with e.g. "add gemini" or "use all reviewers".
 
 ## Workflow
 
@@ -93,10 +93,10 @@ gemini -p "{PROMPT}" \
   --approval-mode plan
 ```
 
-### Copilot (Gemini via Copilot CLI)
+### Copilot (Claude Opus via Copilot CLI)
 ```bash
 copilot -p "{PROMPT}" \
-  --model gemini-2.5-pro \
+  --model claude-opus-4-6 \
   --allow-tool 'shell(read:*)'
 ```
 
