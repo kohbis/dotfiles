@@ -9,10 +9,10 @@ description: Run code review using multiple AI models (Codex/GPT, Gemini via Cop
 
 | Reviewer | CLI | Model | Default? | Skill Reference |
 |----------|-----|-------|----------|-----------------|
-| codex | Codex CLI | gpt-5.3-codex | ✅ | [codex-review](../codex-review/SKILL.md) |
-| copilot | Copilot CLI | claude-opus-4-6 | ✅ | [copilot-cli](../copilot-cli/SKILL.md) |
-| gemini | Gemini CLI | gemini-2.5-pro | — | [gemini-cli](../gemini-cli/SKILL.md) |
-| claude | Claude Code CLI | claude-opus-4-6 | — | — |
+| codex | Codex CLI | gpt-5.3-codex | Yes | [codex-review](../codex-review/SKILL.md) |
+| copilot | Copilot CLI | claude-opus-4-6 | Yes | [copilot-cli](../copilot-cli/SKILL.md) |
+| gemini | Gemini CLI | gemini-2.5-pro | No | [gemini-cli](../gemini-cli/SKILL.md) |
+| claude | Claude Code CLI | claude-opus-4-6 | No | — |
 
 Default: run **codex + copilot** (GPT + Claude Opus via Copilot CLI). Add others with e.g. "add gemini" or "use all reviewers".
 
