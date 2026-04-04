@@ -1,6 +1,7 @@
 ---
 name: codex-review
 description: Execute code review, analysis, and technical research using Codex CLI. Trigger only when user explicitly says "codex review" or "/codex-review".
+disable-model-invocation: true
 ---
 
 # Codex Review

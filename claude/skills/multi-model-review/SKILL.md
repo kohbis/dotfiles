@@ -1,6 +1,7 @@
 ---
 name: multi-model-review
 description: Run code review in parallel using multiple AI models and synthesize results into a unified report. Trigger when user says "multi-model review", "/multi-model-review", or "review with multiple models".
+disable-model-invocation: true
 ---
 
 # Multi-Model Review

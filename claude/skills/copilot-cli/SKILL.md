@@ -1,6 +1,7 @@
 ---
 name: copilot-cli
 description: Execute coding, review, and GitHub operations using GitHub Copilot CLI in programmatic mode. Trigger only when user explicitly says "copilot cli" or "/copilot-cli".
+disable-model-invocation: true
 ---
 
 # Copilot CLI
