@@ -1,5 +1,7 @@
 ---
+name: write-pr-description
 description: "Draft a pull request description from git diff and repository PR template."
+disable-model-invocation: true
 ---
 
 # Write PR Description

@@ -1,10 +1,12 @@
 ---
+name: setup-ai-context
 description: "Setup AI Context Management System for sharing project guidelines across Claude Code, GitHub Copilot, and Cursor."
+disable-model-invocation: true
 ---
 
 # AI Context Management System Setup
 
-This command sets up a system to manage and synchronize project context (rules and guidelines) across multiple AI coding assistance tools (Claude Code, GitHub Copilot, Cursor).
+This skill sets up a system to manage and synchronize project context (rules and guidelines) across multiple AI coding assistance tools (Claude Code, GitHub Copilot, Cursor).
 
 ## System Overview
 
@@ -40,7 +42,7 @@ Project Root/
 
 ## Setup Instructions
 
-All template files are located at `~/.claude/templates/ai-context/`.
+All template files are located at `${CLAUDE_SKILL_DIR}/templates/`.
 
 ### 1. Create Directory Structure
 
@@ -52,18 +54,18 @@ mkdir -p .ai-context/overrides scripts
 
 ```bash
 # Configuration
-cp ~/.claude/templates/ai-context/config.json .ai-context/
+cp ${CLAUDE_SKILL_DIR}/templates/config.json .ai-context/
 
 # Base context
-cp ~/.claude/templates/ai-context/base.md .ai-context/
+cp ${CLAUDE_SKILL_DIR}/templates/base.md .ai-context/
 
 # Override files
-cp ~/.claude/templates/ai-context/override-claude.md .ai-context/overrides/claude.md
-cp ~/.claude/templates/ai-context/override-copilot.md .ai-context/overrides/copilot.md
-cp ~/.claude/templates/ai-context/override-cursor.md .ai-context/overrides/cursor.md
+cp ${CLAUDE_SKILL_DIR}/templates/override-claude.md .ai-context/overrides/claude.md
+cp ${CLAUDE_SKILL_DIR}/templates/override-copilot.md .ai-context/overrides/copilot.md
+cp ${CLAUDE_SKILL_DIR}/templates/override-cursor.md .ai-context/overrides/cursor.md
 
 # Sync script
-cp ~/.claude/templates/ai-context/sync-ai-context.js scripts/
+cp ${CLAUDE_SKILL_DIR}/templates/sync-ai-context.js scripts/
 chmod +x scripts/sync-ai-context.js
 ```
 
@@ -130,5 +132,5 @@ Verify generated files: `CLAUDE.md`, `AGENTS.md`, `.github/copilot-instructions.
 | Error | Solution |
 |-------|----------|
 | config.json not found | Verify `.ai-context/config.json` exists and run from project root |
-| base.md not found | `cp ~/.claude/templates/ai-context/base.md .ai-context/` |
+| base.md not found | `cp ${CLAUDE_SKILL_DIR}/templates/base.md .ai-context/` |
 | overrides/*.md not found | Warning only; sync continues with base.md only |

@@ -1,5 +1,7 @@
 ---
+name: git-ship
 description: "Auto-ship with branch creation, push, and PR fully automated. Stage and commit require user confirmation. Blocks on default branch."
+disable-model-invocation: true
 ---
 
 # Git Ship
