@@ -1,6 +1,6 @@
 ---
 name: gh-cli
-description: GitHub CLI (gh) command helper for read-only operations. Use when working with GitHub resources like pull requests, issues, GitHub Actions, repositories, or commits. Trigger with /gh or when user mentions viewing/checking/listing PRs, issues, CI/CD runs, repository information, or GitHub-related queries. Provides comprehensive gh command reference and common usage patterns for read-only operations.
+description: GitHub CLI (gh) command helper for read-only operations. Use when working with GitHub resources like pull requests, issues, GitHub Actions, repositories, or commits.
 ---
 
 # GitHub CLI Helper
