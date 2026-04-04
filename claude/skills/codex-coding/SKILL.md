@@ -1,6 +1,7 @@
 ---
 name: codex-coding
 description: Execute coding tasks — implementing features, fixing bugs, generating tests, scaffolding — using Codex CLI with workspace-write access. Trigger only when user explicitly says "codex coding" or "/codex-coding".
+disable-model-invocation: true
 ---
 
 # Codex Coding

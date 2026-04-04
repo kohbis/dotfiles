@@ -1,6 +1,7 @@
 ---
 name: gemini-cli
 description: Execute coding, review, and analysis tasks using Gemini CLI in non-interactive (headless) mode. Trigger only when user explicitly says "gemini cli" or "/gemini-cli".
+disable-model-invocation: true
 ---
 
 # Gemini CLI
