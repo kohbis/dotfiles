@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Perform code review, bug investigation, infrastructure analysis, and CI/CD optimization without any external tool dependency. Trigger only when user explicitly says "code review" or "/code-review".
+description: Perform code review, bug investigation, infrastructure analysis, and CI/CD optimization. Trigger when user says "code review" or "/code-review", or when reviewing code changes.
 ---
 
 # Code Review
