@@ -7,8 +7,8 @@
   # Add Co-authored-by trailer to the last commit
   # Usage: git coauthor "Agent Name (model)" "email@example.com"
   coauthor = "!f() { NAME=\"${1:-}\"; EMAIL=\"${2:-}\"; if [ -z \"$NAME\" ] || [ -z \"$EMAIL\" ]; then echo 'Usage: git coauthor <name> <email>' >&2; exit 1; fi; git commit --amend --no-edit --trailer \"Co-authored-by: $NAME <$EMAIL>\"; }; f"
-  # Usage: git coauthor-claude [model]  (default: claude-sonnet-4-6)
-  coauthor-claude = "!f() { MODEL=${1:-claude-sonnet-4-6}; git commit --amend --no-edit --trailer \"Co-authored-by: Claude Code ($MODEL) <noreply@anthropic.com>\"; }; f"
+  # Usage: git coauthor-claude [model]  (default: claude-opus-4-6)
+  coauthor-claude = "!f() { MODEL=${1:-claude-opus-4-6}; git commit --amend --no-edit --trailer \"Co-authored-by: Claude Code ($MODEL) <noreply@anthropic.com>\"; }; f"
   coauthor-copilot = "!git commit --amend --no-edit --trailer 'Co-authored-by: GitHub Copilot <copilot[bot]@users.noreply.github.com>'"
   coauthor-codex = "!git commit --amend --no-edit --trailer 'Co-authored-by: Codex CLI <codex[bot]@users.noreply.github.com>'"
   coauthor-gemini = "!git commit --amend --no-edit --trailer 'Co-authored-by: Gemini CLI <gemini-cli[bot]@users.noreply.github.com>'"
