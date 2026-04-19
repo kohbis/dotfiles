@@ -40,6 +40,7 @@ Stage and commit require explicit user confirmation.
      npx git-cz --non-interactive --type <type> [--scope <scope>] --subject <subject>
      ```
    - Omit `--scope` when no meaningful scope applies.
+   - Do NOT include an emoji in `<subject>` — `git-cz` automatically prepends the type emoji, so including one would duplicate it.
 
 4. **Push** *(automatic)*
    - If the current branch is `main` or `master`, stop immediately and report to the user. Do not push.
