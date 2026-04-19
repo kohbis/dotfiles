@@ -21,7 +21,27 @@ Filter with `F=<string>` to target specific files:
 
 ```bash
 make link F=vim     # only vimrc and nvim config
-make unlink F=otel  # only otel-related claude skills
+make unlink F=otel  # only otel-related skills
+```
+
+### Structure
+
+```
+dotfiles/
+├── agents/skills/   # AI skills (source of truth)
+├── claude/          # Claude-specific config (agents/, etc.)
+├── config/          # ~/.config/ entries
+└── ...              # dotfiles (~/.bashrc, ~/.zshrc, etc.)
+```
+
+Skills are linked through `~/.agents/skills/` as a shared hub:
+
+```
+dotfiles/agents/skills/<skill>
+        ↑
+~/.agents/skills/<skill>
+        ↑                    ↑
+~/.claude/skills/<skill>  ~/.codex/skills/<skill>
 ```
 
 ### Private dotfiles (optional)
@@ -34,5 +54,7 @@ Clone your private dotfiles into this repository's directory and `make` will det
 git clone <dotfiles-private-repo> dotfiles-private
 make link
 ```
+
+Skills in `dotfiles-private/agents/skills/` are also linked into `~/.agents/skills/` automatically.
 
 `dotfiles-private/` is excluded from this repository via `.gitignore`.
