@@ -18,10 +18,10 @@ gemini -p "{PROMPT}" \
 
 | Task Type | Model | approval-mode |
 |-----------|-------|--------------|
-| Complex code review / debugging | gemini-2.5-pro | plan |
-| Standard review / analysis | gemini-2.5-flash | plan |
-| Coding (file edits allowed) | gemini-2.5-pro | yolo |
-| Quick question | gemini-2.0-flash | plan |
+| Complex code review / debugging | pro | plan |
+| Standard review / analysis | flash | plan |
+| Coding (file edits allowed) | pro | yolo |
+| Quick question | flash-lite | plan |
 
 Parameter notes:
 - `-p` enables non-interactive (headless) mode — always use for automation
@@ -29,6 +29,8 @@ Parameter notes:
 - `--approval-mode yolo` = auto-approve all actions; use for coding tasks only
 - `-y` is shorthand for `--approval-mode yolo`
 - `--model` defaults to the account's default model if omitted; always specify explicitly
+- Prefer Gemini CLI aliases over pinned preview model names: `pro` for deeper reasoning, `flash` for balanced speed, `flash-lite` for simple tasks
+- `auto` is the recommended interactive default when you want Gemini CLI to route between Gemini 3 models automatically
 
 ## Prompt Format
 

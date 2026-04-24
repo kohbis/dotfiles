@@ -10,12 +10,18 @@ disable-model-invocation: true
 
 | Reviewer | CLI | Model | Default? | Skill Reference |
 |----------|-----|-------|----------|-----------------|
-| codex | Codex CLI | gpt-5.3-codex | Yes | [codex-review](../codex-review/SKILL.md) |
-| copilot | Copilot CLI | claude-opus-4.6 | Yes | [copilot-cli](../copilot-cli/SKILL.md) |
-| gemini | Gemini CLI | gemini-2.5-pro | No | [gemini-cli](../gemini-cli/SKILL.md) |
-| claude | Claude Code CLI | claude-opus-4-6 | No | — |
+| codex | Codex CLI | gpt-5.4 | Yes | [codex-review](../codex-review/SKILL.md) |
+| copilot | Copilot CLI | claude-opus-4.7 | Yes | [copilot-cli](../copilot-cli/SKILL.md) |
+| gemini | Gemini CLI | pro | No | [gemini-cli](../gemini-cli/SKILL.md) |
+| claude | Claude Code CLI | opus | No | — |
 
 Default: run **codex + copilot** (GPT + Claude Opus via Copilot CLI). Add others with e.g. "add gemini" or "use all reviewers".
+
+Model naming policy:
+- Codex: prefer the current explicit model IDs documented in `codex-*` skills
+- Copilot CLI: use versioned model names such as `claude-sonnet-4.6` and `claude-opus-4.7`
+- Gemini CLI: prefer stable aliases such as `pro`, `flash`, and `flash-lite`
+- Claude Code CLI: prefer family aliases such as `opus`, `sonnet`, and `haiku`
 
 ## Workflow
 
@@ -36,8 +42,8 @@ Before running, always present a summary like:
 
 ```
 Reviewers (proposed):
-  ✓ codex    gpt-5.3-codex        [installed]
-  ✓ copilot  claude-opus-4.6      [installed]
+  ✓ codex    gpt-5.4              [installed]
+  ✓ copilot  claude-opus-4.7      [installed]
   ✗ gemini                        [not found]
   ✗ claude                        [not found]
 
@@ -89,7 +95,7 @@ Spawn all selected reviewers as subagents **in the same turn** so they run in pa
 ### Codex (default)
 ```bash
 codex exec \
-  --model gpt-5.3-codex \
+  --model gpt-5.4 \
   --config model_reasoning_effort="high" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -100,21 +106,21 @@ codex exec \
 ### Copilot (default, Claude Opus via Copilot CLI)
 ```bash
 copilot -p "{PROMPT}" \
-  --model claude-opus-4.6 \
+  --model claude-opus-4.7 \
   --allow-tool 'shell(read:*)'
 ```
 
 ### Gemini (optional)
 ```bash
 gemini -p "{PROMPT}" \
-  --model gemini-2.5-pro \
+  --model pro \
   --approval-mode plan
 ```
 
 ### Claude (optional, Claude Code CLI)
 ```bash
 claude -p "{PROMPT}" \
-  --model claude-opus-4-6 \
+  --model opus \
   --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```
 

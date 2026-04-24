@@ -16,10 +16,10 @@ $DIFF
 "
 
 # Run in parallel (spawn both subagents in the same turn)
-codex exec --model gpt-5.3-codex --config model_reasoning_effort="high" \
+codex exec --model gpt-5.4 --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
-copilot -p "$PROMPT" --model claude-opus-4.6 --allow-tool 'shell(read:*)'
+copilot -p "$PROMPT" --model claude-opus-4.7 --allow-tool 'shell(read:*)'
 ```
 
 ## Review a PR (All Reviewers)
@@ -38,14 +38,14 @@ $DIFF
 "
 
 # Run all four in parallel
-codex exec --model gpt-5.3-codex --config model_reasoning_effort="high" \
+codex exec --model gpt-5.4 --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
-copilot -p "$PROMPT" --model claude-opus-4.6 --allow-tool 'shell(read:*)'
+copilot -p "$PROMPT" --model claude-opus-4.7 --allow-tool 'shell(read:*)'
 
-gemini -p "$PROMPT" --model gemini-2.5-pro --approval-mode plan
+gemini -p "$PROMPT" --model pro --approval-mode plan
 
-claude -p "$PROMPT" --model claude-opus-4-6 --allowedTools "Bash(git:*),Read,Glob,Grep"
+claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```
 
 ## Targeted Security Review (codex + gemini)
@@ -58,10 +58,10 @@ FOCUS: Input validation, token handling, privilege escalation risks
 OUTPUT: Security findings by severity with remediation suggestions.
 "
 
-codex exec --model gpt-5.3-codex --config model_reasoning_effort="xhigh" \
+codex exec --model gpt-5.5 --config model_reasoning_effort="xhigh" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
-gemini -p "$PROMPT" --model gemini-2.5-pro --approval-mode plan
+gemini -p "$PROMPT" --model pro --approval-mode plan
 ```
 
 ## Example Synthesized Output
