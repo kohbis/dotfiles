@@ -3,11 +3,11 @@
 ## Example 1: Kubernetes Manifests Review
 
 **Task Type**: Infrastructure analysis
-**Selected Parameters**: `gpt-5.3-codex` + `high` + `read-only`
+**Selected Parameters**: `gpt-5.5` + `high` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.3-codex \
+  --model gpt-5.5 \
   --config model_reasoning_effort="high" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -21,11 +21,11 @@ OUTPUT: List issues by severity with specific remediation steps for each finding
 ## Example 2: API Performance Investigation
 
 **Task Type**: Complex bug investigation
-**Selected Parameters**: `gpt-5.3-codex` + `xhigh` + `read-only`
+**Selected Parameters**: `gpt-5.5` + `xhigh` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.3-codex \
+  --model gpt-5.5 \
   --config model_reasoning_effort="xhigh" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -39,11 +39,11 @@ OUTPUT: Explain root cause, reproduction conditions, and optimization strategy s
 ## Example 3: Database Layer Refactoring
 
 **Task Type**: Large-scale refactoring
-**Selected Parameters**: `gpt-5.3-codex` + `high` + `workspace-write` + `--full-auto`
+**Selected Parameters**: `gpt-5.4` + `high` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.3-codex \
+  --model gpt-5.4 \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --full-auto \
@@ -58,11 +58,11 @@ OUTPUT: Implement repository pattern, add proper error handling, and explain arc
 ## Example 4: CI/CD Pipeline Analysis
 
 **Task Type**: CI/CD optimization
-**Selected Parameters**: `gpt-5.2` + `medium` + `read-only`
+**Selected Parameters**: `gpt-5.4` + `medium` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.2 \
+  --model gpt-5.4 \
   --config model_reasoning_effort="medium" \
   --sandbox read-only \
   --skip-git-repo-check \

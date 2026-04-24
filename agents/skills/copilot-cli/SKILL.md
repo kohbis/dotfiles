@@ -31,15 +31,17 @@ copilot \
 | New feature / coding | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
 | Test generation | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
 | Documentation writing | claude-sonnet-4.6 | `--allow-tool 'write(*:*)'` |
-| Complex architecture / debugging | claude-opus-4.6 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
-| Code review / analysis | gpt-5.3-codex | `--allow-tool 'shell(read:*)'` (no write) |
+| Complex architecture / debugging | claude-opus-4.7 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
+| Code review / analysis | gpt-5.4 | `--allow-tool 'shell(read:*)'` (no write) |
 | GitHub operations | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)'` (no write) |
 | Quick question | claude-sonnet-4.6 | minimal (no tool flags) |
 
 Parameter notes:
 - `-p` flag enables programmatic (non-interactive) mode — use this for automation
-- `--model` selects the underlying model; default to `claude-sonnet-4.6` for most tasks
-- Model IDs use **dot notation** in the CLI: `claude-sonnet-4.6`, `claude-opus-4.6` (not hyphens)
+- `--model` selects the underlying model; GitHub's current default is `claude-sonnet-4.5`, but this skill pins `claude-sonnet-4.6` for everyday tasks
+- Use `claude-opus-4.7` when the task needs deeper reasoning across multiple files or systems
+- Model IDs use **dot notation** in the CLI: `claude-sonnet-4.6`, `claude-opus-4.7` (not hyphens)
+- For Copilot CLI, prefer explicit versioned model names over aliases; do not assume bare aliases like `sonnet`, `opus`, or `haiku` are accepted
 - `--allow-tool 'write(*:*)'` grants write access to files; `--allow-tool 'shell(*:*)'` grants shell command execution
 - **Never use `--allow-all-tools`** without explicit user confirmation — prefer granular `--allow-tool` flags
 - `--trust-dir .` is required when copilot needs to read/write files in the current directory that are outside its default trust scope. Typically needed when working outside `$HOME` or in unusual mount paths.
@@ -80,6 +82,7 @@ SPEC: {expected output format, labels, target branch}
 
 - Always include `--model` to ensure consistent behavior
 - Use `-p` for programmatic execution; omit for interactive exploration
+- Keep Copilot model names version-pinned unless GitHub documents alias support explicitly
 - **Confirm change scope with the user before execution** when using write tools
 - Never use `--allow-all-tools` without explicit user confirmation
 - Prefer granular `--allow-tool` over broad permissions

@@ -18,21 +18,21 @@ SCOPE: Do not modify migration files" \
 ## Example 2: Code Review (Read-Only Shell)
 
 **Task Type**: Code review / analysis
-**Selected Parameters**: `gpt-5.3-codex` + read-only shell (no write)
+**Selected Parameters**: `gpt-5.4` + read-only shell (no write)
 
 ```bash
 copilot -p "TASK: Review the authentication middleware for security issues
 CONTEXT: Node.js/Express app with JWT-based auth, middleware in src/middleware/auth.ts
 FOCUS: Token validation, expiry handling, error responses, header parsing
 OUTPUT: List issues by severity with specific remediation steps" \
-  --model gpt-5.3-codex \
+  --model gpt-5.4 \
   --allow-tool 'shell(read:*)'
 ```
 
 ## Example 3: Bug Fix (Complex Debugging)
 
 **Task Type**: Complex architecture / debugging
-**Selected Parameters**: `claude-opus-4.6` + shell/write tools
+**Selected Parameters**: `claude-opus-4.7` + shell/write tools
 
 ```bash
 copilot -p "TASK: Fix race condition causing duplicate records in order processing
@@ -40,7 +40,7 @@ CONTEXT: Go service, PostgreSQL, order processing in pkg/order/processor.go
 SPEC: Reproduce: send 2 concurrent POST /orders with same idempotency key results in 2 records. Expected: exactly 1 record. Fix using DB-level unique constraint + upsert or advisory lock.
 CONSTRAINTS: Do not change the HTTP handler signature
 SCOPE: Fix must be in processor.go and/or migration only; add a test reproducing the race condition" \
-  --model claude-opus-4.6 \
+  --model claude-opus-4.7 \
   --allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'
 ```
 
@@ -61,7 +61,7 @@ CONSTRAINTS: Use conventional commit style for the title" \
 ## Example 5: Complex Refactoring (Large Scope)
 
 **Task Type**: Complex architecture
-**Selected Parameters**: `claude-opus-4.6` + shell/write tools
+**Selected Parameters**: `claude-opus-4.7` + shell/write tools
 
 > **Tip:** For large-scope refactors, consider using interactive mode with `/plan` first to align on the approach before executing.
 
@@ -71,7 +71,7 @@ CONTEXT: TypeScript/Node.js monorepo, current user service in packages/user-serv
 SPEC: Split into packages/auth-service/ and packages/profile-service/, maintain API compatibility, share types via packages/shared-types/
 CONSTRAINTS: Keep existing API routes unchanged
 SCOPE: Add integration tests for service boundaries; do not touch packages outside user-service/, auth-service/, profile-service/, shared-types/" \
-  --model claude-opus-4.6 \
+  --model claude-opus-4.7 \
   --allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'
 ```
 
@@ -105,12 +105,12 @@ SCOPE: Only add tests to user_test.go; do not modify production code" \
 ## Example 8: Interactive Mode with /plan
 
 **Task Type**: Complex feature (interactive exploration)
-**Selected Parameters**: `claude-opus-4.6` + shell/write tools
+**Selected Parameters**: `claude-opus-4.7` + shell/write tools
 
 ```bash
 # Start interactive session, then use /plan before implementing
 copilot \
-  --model claude-opus-4.6 \
+  --model claude-opus-4.7 \
   --allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'
 ```
 
