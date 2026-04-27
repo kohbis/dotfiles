@@ -62,8 +62,12 @@ list: ## List symbolic link status ([v] linked [-] unlinked)
 		$(call list-claude-dir,$(DOTFILES_DIR),$(subdir)) \
 		$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call list-claude-dir,$(DOTFILES_PRIVATE_DIR),$(subdir))) \
 	)
+	@$(call list-claude-md,$(DOTFILES_DIR))
+	@$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call list-claude-md,$(DOTFILES_PRIVATE_DIR)))
 	@$(call list-skills-via-agents,claude)
 	@echo "==> codex"
+	@$(call list-codex-md,$(DOTFILES_DIR))
+	@$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call list-codex-md,$(DOTFILES_PRIVATE_DIR)))
 	@$(call list-skills-via-agents,codex)
 
 link: link-dotfiles link-config link-agents link-claude link-codex ## Create all symbolic links
@@ -257,6 +261,48 @@ endef
 
 .PHONY: link-claude unlink-claude
 
+# agents/AGENTS.md → ~/.claude/CLAUDE.md (rename on link)
+define list-claude-md
+	if [ -f "$(1)/agents/AGENTS.md" ]; then \
+		if [ -z "$(F)" ] || echo "claude/CLAUDE.md" | grep -q "$(F)"; then \
+			if [ -L "$(HOME)/.claude/CLAUDE.md" ]; then \
+				echo "  [v] .claude/CLAUDE.md"; \
+			else \
+				echo "  [-] .claude/CLAUDE.md"; \
+			fi; \
+		fi; \
+	fi;
+endef
+
+define link-claude-md
+	if [ -f "$(1)/agents/AGENTS.md" ]; then \
+		if [ -z "$(F)" ] || echo "claude/CLAUDE.md" | grep -q "$(F)"; then \
+			mkdir -p "$(HOME)/.claude"; \
+			dst="$(HOME)/.claude/CLAUDE.md"; \
+			if [ -e "$$dst" ]; then \
+				echo "  [-] .claude/CLAUDE.md"; \
+			else \
+				ln -s "$(1)/agents/AGENTS.md" "$$dst"; \
+				echo "  [v] .claude/CLAUDE.md"; \
+			fi; \
+		fi; \
+	fi;
+endef
+
+define unlink-claude-md
+	if [ -f "$(1)/agents/AGENTS.md" ]; then \
+		if [ -z "$(F)" ] || echo "claude/CLAUDE.md" | grep -q "$(F)"; then \
+			dst="$(HOME)/.claude/CLAUDE.md"; \
+			if [ -L "$$dst" ]; then \
+				unlink "$$dst"; \
+				echo "  [v] .claude/CLAUDE.md"; \
+			else \
+				echo "  [-] .claude/CLAUDE.md"; \
+			fi; \
+		fi; \
+	fi;
+endef
+
 define list-claude-dir
 	if [ -d "$(1)/claude/$(2)" ]; then \
 		for src in "$(1)/claude/$(2)"/*; do \
@@ -314,6 +360,8 @@ link-claude: link-agents
 		$(call link-claude-dir,$(DOTFILES_DIR),$(subdir)) \
 		$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call link-claude-dir,$(DOTFILES_PRIVATE_DIR),$(subdir))) \
 	)
+	@$(call link-claude-md,$(DOTFILES_DIR))
+	@$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call link-claude-md,$(DOTFILES_PRIVATE_DIR)))
 	@$(call link-skills-via-agents,claude)
 
 unlink-claude:
@@ -322,15 +370,63 @@ unlink-claude:
 		$(call unlink-claude-dir,$(DOTFILES_DIR),$(subdir)) \
 		$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call unlink-claude-dir,$(DOTFILES_PRIVATE_DIR),$(subdir))) \
 	)
+	@$(call unlink-claude-md,$(DOTFILES_DIR))
+	@$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call unlink-claude-md,$(DOTFILES_PRIVATE_DIR)))
 	@$(call unlink-skills-via-agents,claude)
 
 # --- .codex ---
 # .codex/skills/ contains .system (managed by codex), use individual symlinks via .agents
 
+# agents/AGENTS.md → ~/.codex/AGENTS.md
+define list-codex-md
+	if [ -f "$(1)/agents/AGENTS.md" ]; then \
+		if [ -z "$(F)" ] || echo "codex/AGENTS.md" | grep -q "$(F)"; then \
+			if [ -L "$(HOME)/.codex/AGENTS.md" ]; then \
+				echo "  [v] .codex/AGENTS.md"; \
+			else \
+				echo "  [-] .codex/AGENTS.md"; \
+			fi; \
+		fi; \
+	fi;
+endef
+
+define link-codex-md
+	if [ -f "$(1)/agents/AGENTS.md" ]; then \
+		if [ -z "$(F)" ] || echo "codex/AGENTS.md" | grep -q "$(F)"; then \
+			mkdir -p "$(HOME)/.codex"; \
+			dst="$(HOME)/.codex/AGENTS.md"; \
+			if [ -e "$$dst" ]; then \
+				echo "  [-] .codex/AGENTS.md"; \
+			else \
+				ln -s "$(1)/agents/AGENTS.md" "$$dst"; \
+				echo "  [v] .codex/AGENTS.md"; \
+			fi; \
+		fi; \
+	fi;
+endef
+
+define unlink-codex-md
+	if [ -f "$(1)/agents/AGENTS.md" ]; then \
+		if [ -z "$(F)" ] || echo "codex/AGENTS.md" | grep -q "$(F)"; then \
+			dst="$(HOME)/.codex/AGENTS.md"; \
+			if [ -L "$$dst" ]; then \
+				unlink "$$dst"; \
+				echo "  [v] .codex/AGENTS.md"; \
+			else \
+				echo "  [-] .codex/AGENTS.md"; \
+			fi; \
+		fi; \
+	fi;
+endef
+
 link-codex: link-agents
 	@echo "==> codex"
+	@$(call link-codex-md,$(DOTFILES_DIR))
+	@$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call link-codex-md,$(DOTFILES_PRIVATE_DIR)))
 	@$(call link-skills-via-agents,codex)
 
 unlink-codex:
 	@echo "==> codex"
+	@$(call unlink-codex-md,$(DOTFILES_DIR))
+	@$(if $(wildcard $(DOTFILES_PRIVATE_DIR)),$(call unlink-codex-md,$(DOTFILES_PRIVATE_DIR)))
 	@$(call unlink-skills-via-agents,codex)
