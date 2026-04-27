@@ -1,10 +1,10 @@
 ---
 name: setup-ai-context
-description: "Setup AI Context Management System for sharing project guidelines across Claude Code, GitHub Copilot, and Cursor."
+description: "Setup AI Context Management System for sharing project guidelines across Claude Code, GitHub Copilot, and Cursor. Trigger only when user explicitly says \"setup ai context\" or \"/setup-ai-context\"."
 disable-model-invocation: true
 ---
 
-# AI Context Management System Setup
+# Setup AI Context
 
 This skill sets up a system to manage and synchronize project context (rules and guidelines) across multiple AI coding assistance tools (Claude Code, GitHub Copilot, Cursor).
 

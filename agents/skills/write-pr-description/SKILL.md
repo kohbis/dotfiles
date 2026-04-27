@@ -1,6 +1,6 @@
 ---
 name: write-pr-description
-description: "Draft a pull request description from git diff and repository PR template."
+description: "Draft a pull request description from git diff and repository PR template. Trigger only when user explicitly says \"write pr description\" or \"/write-pr-description\", or when invoked from another skill (e.g. git-ship)."
 disable-model-invocation: true
 ---
 
