@@ -8,7 +8,9 @@ Personal dotfiles repository. Shell configs, editor configs, and AI-agent skills
 
 ```
 dotfiles/
-├── agents/skills/      # AI skills — source of truth
+├── agents/
+│   ├── AGENTS.md       # linked as ~/.claude/CLAUDE.md
+│   └── skills/         # AI skills — source of truth
 ├── claude/             # Claude-specific config (agents/, etc.)
 ├── config/             # linked into ~/.config/<tool>/
 ├── dotfiles-private/   # optional, gitignored, auto-detected
