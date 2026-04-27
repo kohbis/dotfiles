@@ -9,7 +9,7 @@ Personal dotfiles repository. Shell configs, editor configs, and AI-agent skills
 ```
 dotfiles/
 ├── agents/
-│   ├── AGENTS.md       # linked as ~/.claude/CLAUDE.md
+│   ├── AGENTS.md       # global rules — linked as ~/.claude/CLAUDE.md and ~/.codex/AGENTS.md
 │   └── skills/         # AI skills — source of truth
 ├── claude/             # Claude-specific config (agents/, etc.)
 ├── config/             # linked into ~/.config/<tool>/
@@ -28,6 +28,14 @@ dotfiles/agents/skills/<skill>       # edit here
 ```
 
 `dotfiles-private/agents/skills/` is linked into `~/.agents/skills/` the same way when present.
+
+Global agent rules follow the same fan-out pattern:
+
+```
+dotfiles/agents/AGENTS.md            # edit here
+        ↑                    ↑
+~/.claude/CLAUDE.md       ~/.codex/AGENTS.md
+```
 
 ## Key Commands
 
@@ -65,7 +73,7 @@ When a skill references a model name explicitly, follow the convention for the t
 ## Scope & Boundaries
 
 - `dotfiles-private/` is gitignored. Do not commit its contents or add references that assume it exists.
-- Edit skills only at `agents/skills/<skill>/...`. The paths under `~/.agents/`, `~/.claude/skills/`, and `~/.codex/skills/` are symlinks — editing through them is fine mechanically but bypasses git.
+- Edit skills only at `agents/skills/<skill>/...` and global rules only at `agents/AGENTS.md`. The paths under `~/.agents/`, `~/.claude/`, and `~/.codex/` are symlinks — editing through them is fine mechanically but bypasses git.
 - The `.system` directory inside `~/.codex/skills/` is managed by Codex itself; that's why `link-codex` uses individual per-skill symlinks rather than linking the whole `skills/` directory.
 
 ## Notes for AI Agents
