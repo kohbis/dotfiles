@@ -3,7 +3,7 @@ name: scaffold-skill
 description: Interactively scaffold a new Claude Code skill (SKILL.md). Lightweight alternative to /skill-creator — focused on quick creation without evals or benchmarking. Trigger when user says "create command", "new command", "make a command", "add a slash command", "create skill", "new skill", "scaffold skill", or requests creating a new custom skill for Claude Code.
 ---
 
-# Create Skill
+# Scaffold Skill
 
 Interactively scaffold a new Claude Code skill.
 

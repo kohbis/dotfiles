@@ -1,5 +1,13 @@
 # Practical Examples
 
+## Contents
+
+- Example 1: Kubernetes Manifests Review (infrastructure)
+- Example 2: API Performance Investigation (bug investigation)
+- Example 3: Security-Focused Code Review
+- Example 4: CI/CD Pipeline Analysis
+- Example 5: Incremental Follow-up Review
+
 ## Example 1: Kubernetes Manifests Review
 
 **Task Type**: Infrastructure analysis

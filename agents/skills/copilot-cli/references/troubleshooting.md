@@ -1,5 +1,13 @@
 # Troubleshooting
 
+## Contents
+
+- Output Formatting (per task type: coding / review / GitHub ops / no-op)
+- Pre-Execution Checklist
+- Error Handling (failure paths and `--allow-all-tools` guard)
+- Troubleshooting Guide (issue → solution table)
+- Implementation Notes
+
 ## Output Formatting
 
 When reporting Copilot CLI results to user, use this structure:

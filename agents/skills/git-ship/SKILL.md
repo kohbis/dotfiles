@@ -1,6 +1,6 @@
 ---
 name: git-ship
-description: "Auto-ship with branch creation, push, and PR fully automated. Stage and commit require user confirmation. Blocks on default branch."
+description: "Auto-ship with branch creation, push, and PR fully automated. Stage and commit require user confirmation. Blocks on default branch. Trigger only when user explicitly says \"git ship\" or \"/git-ship\"."
 disable-model-invocation: true
 ---
 

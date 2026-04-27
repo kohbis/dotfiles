@@ -1,5 +1,17 @@
 # Practical Examples
 
+## Contents
+
+- Example 1: New Feature Implementation (Programmatic Mode)
+- Example 2: Code Review (Read-Only Shell)
+- Example 3: Bug Fix (Complex Debugging)
+- Example 4: GitHub Operations (PR Creation)
+- Example 5: Complex Refactoring (Large Scope)
+- Example 6: Quick Question (Minimal Tools)
+- Example 7: Test Generation
+- Example 8: Interactive Mode with /plan
+- Example 9: Working Outside $HOME (with --trust-dir)
+
 ## Example 1: New Feature Implementation (Programmatic Mode)
 
 **Task Type**: New feature / coding
