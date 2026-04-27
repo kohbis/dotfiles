@@ -1,7 +1,7 @@
 ---
 name: agents-md-creator
 description: >
-  Create or improve AGENTS.md by analyzing project structure, conventions, and tooling.
+  Creates or improves AGENTS.md by analyzing project structure, conventions, and tooling.
   Also creates CLAUDE.md with @AGENTS.md reference for unified context management.
   Trigger only when user explicitly says "agents-md-creator" or "/agents-md-creator".
 disable-model-invocation: true

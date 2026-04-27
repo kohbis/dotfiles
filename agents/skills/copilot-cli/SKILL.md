@@ -38,7 +38,7 @@ copilot \
 
 Parameter notes:
 - `-p` flag enables programmatic (non-interactive) mode — use this for automation
-- `--model` selects the underlying model; GitHub's current default is `claude-sonnet-4.5`, but this skill pins `claude-sonnet-4.6` for everyday tasks
+- `--model` selects the underlying model; this skill pins `claude-sonnet-4.6` for everyday tasks rather than relying on GitHub's evolving default
 - Use `claude-opus-4.7` when the task needs deeper reasoning across multiple files or systems
 - Model IDs use **dot notation** in the CLI: `claude-sonnet-4.6`, `claude-opus-4.7` (not hyphens)
 - For Copilot CLI, prefer explicit versioned model names over aliases; do not assume bare aliases like `sonnet`, `opus`, or `haiku` are accepted

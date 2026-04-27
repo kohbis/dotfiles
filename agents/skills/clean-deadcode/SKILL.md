@@ -1,6 +1,7 @@
 ---
 name: clean-deadcode
-description: Safely identify and remove dead code with test verification. Trigger when user says "dead code", "unused code", "clean up unused", "remove dead code", or requests finding/removing unused exports, functions, files, or dependencies.
+description: Safely identify and remove dead code with test verification. Trigger only when user explicitly says "clean deadcode", "/clean-deadcode", or directly requests removing/deleting unused exports, functions, files, or dependencies — not on casual mentions of "dead code" in discussion.
+disable-model-invocation: true
 ---
 
 # Clean Deadcode
