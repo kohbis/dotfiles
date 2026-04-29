@@ -10,7 +10,7 @@ disable-model-invocation: true
 
 | Reviewer | CLI | Model | Default? | Skill Reference |
 |----------|-----|-------|----------|-----------------|
-| codex | Codex CLI | gpt-5.4 | Yes | [reviewing-with-codex](../reviewing-with-codex/SKILL.md) |
+| codex | Codex CLI | gpt-5.5 | Yes | [reviewing-with-codex](../reviewing-with-codex/SKILL.md) |
 | copilot | Copilot CLI | claude-opus-4.7 | Yes | [running-copilot-cli](../running-copilot-cli/SKILL.md) |
 | gemini | Gemini CLI | pro | No | [running-gemini-cli](../running-gemini-cli/SKILL.md) |
 | claude | Claude Code CLI | opus | No | — |
@@ -42,7 +42,7 @@ Before running, always present a summary like:
 
 ```
 Reviewers (proposed):
-  ✓ codex    gpt-5.4              [installed]
+  ✓ codex    gpt-5.5              [installed]
   ✓ copilot  claude-opus-4.7      [installed]
   ✗ gemini                        [not found]
   ✗ claude                        [not found]
@@ -95,7 +95,7 @@ Spawn all selected reviewers as subagents **in the same turn** so they run in pa
 ### Codex (default)
 ```bash
 codex exec \
-  --model gpt-5.4 \
+  --model gpt-5.5 \
   --config model_reasoning_effort="high" \
   --sandbox read-only \
   --skip-git-repo-check \

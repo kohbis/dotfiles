@@ -50,7 +50,7 @@ When a skill needs an explicit model name, follow these conventions:
 
 | Tool / CLI | Naming policy | Examples |
 | ---------- | ------------- | -------- |
-| Codex CLI | Use explicit model IDs | `gpt-5.4`, `gpt-5.5`, `gpt-5.4-mini` |
+| Codex CLI | Use explicit model IDs | `gpt-5.5`, `gpt-5.4-mini` |
 | GitHub Copilot CLI | Use explicit versioned model names | `claude-sonnet-4.6`, `claude-opus-4.7` |
 | Gemini CLI | Prefer stable aliases | `pro`, `flash`, `flash-lite`, `auto` |
 | Claude Code CLI | Prefer family aliases | `opus`, `sonnet`, `haiku` |

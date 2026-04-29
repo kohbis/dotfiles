@@ -39,11 +39,11 @@ OUTPUT: Explain root cause, reproduction conditions, and optimization strategy s
 ## Example 3: Database Layer Refactoring
 
 **Task Type**: Large-scale refactoring
-**Selected Parameters**: `gpt-5.4` + `high` + `workspace-write` + `--full-auto`
+**Selected Parameters**: `gpt-5.5` + `high` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.4 \
+  --model gpt-5.5 \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --full-auto \
@@ -58,11 +58,11 @@ OUTPUT: Implement repository pattern, add proper error handling, and explain arc
 ## Example 4: CI/CD Pipeline Analysis
 
 **Task Type**: CI/CD optimization
-**Selected Parameters**: `gpt-5.4` + `medium` + `read-only`
+**Selected Parameters**: `gpt-5.5` + `medium` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.4 \
+  --model gpt-5.5 \
   --config model_reasoning_effort="medium" \
   --sandbox read-only \
   --skip-git-repo-check \

@@ -24,15 +24,14 @@ codex exec \
 
 | Task Type | Model | Reasoning | Sandbox | --full-auto |
 |-----------|-------|-----------|---------|-------------|
-| New feature implementation | gpt-5.4 | high | workspace-write | YES |
+| New feature implementation | gpt-5.5 | high | workspace-write | YES |
 | Bug fix | gpt-5.5 | xhigh | workspace-write | YES |
-| Test generation | gpt-5.4 | medium | workspace-write | YES |
-| Scaffolding | gpt-5.4 | medium | workspace-write | YES |
+| Test generation | gpt-5.5 | medium | workspace-write | YES |
+| Scaffolding | gpt-5.5 | medium | workspace-write | YES |
 | Small changes | gpt-5.4-mini | medium | workspace-write | YES |
 
 Parameter notes:
-- `gpt-5.4` is the default for everyday coding tasks
-- Use `gpt-5.5` when the implementation requires deeper reasoning, debugging, or broader codebase context
+- `gpt-5.5` is the default; raise `model_reasoning_effort` to `xhigh` when the implementation requires deeper reasoning, debugging, or broader codebase context
 - Use `gpt-5.4-mini` for simple or localized changes where speed matters more than depth
 - Always use `workspace-write` + `--full-auto` — this skill is for executing changes
 - `danger-full-access` (network access) requires explicit user confirmation
