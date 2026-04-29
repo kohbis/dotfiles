@@ -16,7 +16,7 @@ $DIFF
 "
 
 # Run in parallel (spawn both subagents in the same turn)
-codex exec --model gpt-5.4 --config model_reasoning_effort="high" \
+codex exec --model gpt-5.5 --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
 copilot -p "$PROMPT" --model claude-opus-4.7 --allow-tool 'shell(read:*)'
@@ -38,7 +38,7 @@ $DIFF
 "
 
 # Run all four in parallel
-codex exec --model gpt-5.4 --config model_reasoning_effort="high" \
+codex exec --model gpt-5.5 --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
 copilot -p "$PROMPT" --model claude-opus-4.7 --allow-tool 'shell(read:*)'

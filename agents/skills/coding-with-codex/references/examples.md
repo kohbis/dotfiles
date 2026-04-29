@@ -3,11 +3,11 @@
 ## Example 1: New Feature Implementation (API Endpoint)
 
 **Task Type**: New feature implementation
-**Selected Parameters**: `gpt-5.4` + `high` + `workspace-write` + `--full-auto`
+**Selected Parameters**: `gpt-5.5` + `high` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.4 \
+  --model gpt-5.5 \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --full-auto \
@@ -41,11 +41,11 @@ CONSTRAINTS: Do not change the HTTP handler signature; fix must be in processor.
 ## Example 3: Test Suite Generation
 
 **Task Type**: Test generation
-**Selected Parameters**: `gpt-5.4` + `medium` + `workspace-write` + `--full-auto`
+**Selected Parameters**: `gpt-5.5` + `medium` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.4 \
+  --model gpt-5.5 \
   --config model_reasoning_effort="medium" \
   --sandbox workspace-write \
   --full-auto \
@@ -60,11 +60,11 @@ CONSTRAINTS: Match existing test file naming (*_test.go), use table-driven tests
 ## Example 4: Refactoring (Adding Type Safety)
 
 **Task Type**: New feature implementation (type safety refactor)
-**Selected Parameters**: `gpt-5.4` + `high` + `workspace-write` + `--full-auto`
+**Selected Parameters**: `gpt-5.5` + `high` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.4 \
+  --model gpt-5.5 \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --full-auto \

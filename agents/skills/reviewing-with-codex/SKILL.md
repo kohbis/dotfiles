@@ -25,14 +25,13 @@ codex exec \
 | Task Type | Model | Reasoning | Sandbox | --full-auto |
 |-----------|-------|-----------|---------|-------------|
 | Complex bug investigation | gpt-5.5 | xhigh | read-only | NO |
-| Standard code review | gpt-5.4 | high | read-only | NO |
+| Standard code review | gpt-5.5 | high | read-only | NO |
 | Infrastructure analysis | gpt-5.5 | high | read-only | NO |
-| CI/CD optimization | gpt-5.4 | medium | read-only | NO |
+| CI/CD optimization | gpt-5.5 | medium | read-only | NO |
 | Quick code question | gpt-5.4-mini | medium | read-only | NO |
 
 Parameter notes:
-- `gpt-5.4` is the default for everyday review and analysis
-- Use `gpt-5.5` for deep investigations, cross-cutting infrastructure analysis, and research-heavy review
+- `gpt-5.5` is the default; raise `model_reasoning_effort` to `xhigh` for deep investigations, cross-cutting infrastructure analysis, and research-heavy review
 - Use `gpt-5.4-mini` for quick, low-risk questions where latency matters
 - Default sandbox to `read-only`; for file editing tasks use the `coding-with-codex` skill instead
 - `danger-full-access` (network access) requires explicit user confirmation
