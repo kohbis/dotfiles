@@ -1,13 +1,13 @@
 ---
-name: creating-agents-md
+name: writing-agents-md
 description: >
-  Creates or improves AGENTS.md by analyzing project structure, conventions, and tooling.
+  Writes or improves AGENTS.md by analyzing project structure, conventions, and tooling.
   Also creates CLAUDE.md with @AGENTS.md reference for unified context management.
-  Trigger only when user explicitly says "creating agents md" or "/creating-agents-md".
+  Trigger only when user explicitly says "writing agents md" or "/writing-agents-md".
 disable-model-invocation: true
 ---
 
-# Creating AGENTS.md
+# Writing AGENTS.md
 
 Create or improve AGENTS.md for a project, and optionally create CLAUDE.md that references it.
 

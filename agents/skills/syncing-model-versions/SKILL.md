@@ -1,10 +1,10 @@
 ---
-name: updating-ai-model-skills
-description: Syncs model IDs, aliases, reasoning levels, and the README naming policy across this repo's AI CLI skills (Codex, Copilot CLI, Gemini CLI, Claude Code) when any upstream tool changes its model lineup. Trigger when the user says "updating ai model skills", "/updating-ai-model-skills", or describes a model rename/addition/removal that needs to land in the skill docs.
+name: syncing-model-versions
+description: Syncs model IDs, aliases, reasoning levels, and the README naming policy across this repo's AI CLI skills (Codex, Copilot CLI, Gemini CLI, Claude Code) when any upstream tool changes its model lineup. Trigger when the user says "syncing model versions", "/syncing-model-versions", or describes a model rename/addition/removal that needs to land in the skill docs.
 disable-model-invocation: true
 ---
 
-# Updating AI Model Skills
+# Syncing Model Versions
 
 Keep the AI-CLI skills and the shared naming policy in `README.md` aligned when one of Codex, Copilot CLI, Gemini CLI, or Claude Code changes its model lineup.
 
