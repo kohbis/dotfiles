@@ -23,6 +23,35 @@ F :=
 
 .PHONY: help list link unlink relink link-agents unlink-agents link-claude unlink-claude link-codex unlink-codex
 
+define list-link
+	if [ -L "$(2)" ] && [ "$$(readlink "$(2)")" = "$(1)" ]; then \
+		echo "  [v] $(3)"; \
+	else \
+		echo "  [-] $(3)"; \
+	fi;
+endef
+
+define ensure-link
+	if [ -L "$(2)" ]; then \
+		if [ "$$(readlink "$(2)")" != "$(1)" ]; then \
+			unlink "$(2)" && ln -s "$(1)" "$(2)"; \
+		fi; \
+		if [ -L "$(2)" ] && [ "$$(readlink "$(2)")" = "$(1)" ]; then \
+			echo "  [v] $(3)"; \
+		else \
+			echo "  [-] $(3)"; \
+		fi; \
+	elif [ -e "$(2)" ]; then \
+		echo "  [-] $(3)"; \
+	else \
+		if ln -s "$(1)" "$(2)"; then \
+			echo "  [v] $(3)"; \
+		else \
+			echo "  [-] $(3)"; \
+		fi; \
+	fi;
+endef
+
 help: ## Show this help
 	@grep -E '^[a-z]+:.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
 	@echo ""
@@ -32,11 +61,7 @@ list: ## List symbolic link status ([v] linked [-] unlinked)
 	@echo "==> dotfiles"
 	@$(foreach f,$(DOT_FILES), \
 		if [ -z "$(F)" ] || echo "$(f)" | grep -q "$(F)"; then \
-			if [ -L "$(HOME)/.$(f)" ]; then \
-				echo "  [v] .$(f)"; \
-			else \
-				echo "  [-] .$(f)"; \
-			fi; \
+			$(call list-link,$(DOTFILES_DIR)/$(f),$(HOME)/.$(f),.$(f)) \
 		fi; \
 	)
 	@echo "==> config"
@@ -45,11 +70,8 @@ list: ## List symbolic link status ([v] linked [-] unlinked)
 			for src in "$(DOTFILES_DIR)/config/$(tool)"/*; do \
 				name=$$(basename "$$src"); \
 				if [ -z "$(F)" ] || echo "$(tool)/$$name" | grep -q "$(F)"; then \
-					if [ -L "$(HOME)/.config/$(tool)/$$name" ]; then \
-						echo "  [v] .config/$(tool)/$$name"; \
-					else \
-						echo "  [-] .config/$(tool)/$$name"; \
-					fi; \
+					dst="$(HOME)/.config/$(tool)/$$name"; \
+					$(call list-link,$$src,$$dst,.config/$(tool)/$$name) \
 				fi; \
 			done; \
 		fi; \
@@ -86,12 +108,7 @@ link-dotfiles:
 	@echo "==> dotfiles"
 	@$(foreach f,$(DOT_FILES), \
 		if [ -z "$(F)" ] || echo "$(f)" | grep -q "$(F)"; then \
-			if [ -e "$(HOME)/.$(f)" ]; then \
-				echo "  [-] .$(f)"; \
-			else \
-				ln -s "$(DOTFILES_DIR)/$(f)" "$(HOME)/.$(f)"; \
-				echo "  [v] .$(f)"; \
-			fi; \
+			$(call ensure-link,$(DOTFILES_DIR)/$(f),$(HOME)/.$(f),.$(f)) \
 		fi; \
 	)
 
@@ -121,12 +138,7 @@ link-config:
 				name=$$(basename "$$src"); \
 				if [ -z "$(F)" ] || echo "$(tool)/$$name" | grep -q "$(F)"; then \
 					dst="$(HOME)/.config/$(tool)/$$name"; \
-					if [ -e "$$dst" ]; then \
-						echo "  [-] .config/$(tool)/$$name"; \
-					else \
-						ln -s "$$src" "$$dst"; \
-						echo "  [v] .config/$(tool)/$$name"; \
-					fi; \
+					$(call ensure-link,$$src,$$dst,.config/$(tool)/$$name) \
 				fi; \
 			done; \
 		fi; \
@@ -159,11 +171,7 @@ define list-agents-skills
 			name=$$(basename "$$src"); \
 			if [ -z "$(F)" ] || echo "skills/$$name" | grep -q "$(F)"; then \
 				dst="$(AGENTS_DIR)/skills/$$name"; \
-				if [ -L "$$dst" ]; then \
-					echo "  [v] .agents/skills/$$name"; \
-				else \
-					echo "  [-] .agents/skills/$$name"; \
-				fi; \
+				$(call list-link,$$src,$$dst,.agents/skills/$$name) \
 			fi; \
 		done; \
 	fi;
@@ -176,12 +184,7 @@ define link-agents-skills
 			name=$$(basename "$$src"); \
 			if [ -z "$(F)" ] || echo "skills/$$name" | grep -q "$(F)"; then \
 				dst="$(AGENTS_DIR)/skills/$$name"; \
-				if [ -e "$$dst" ]; then \
-					echo "  [-] .agents/skills/$$name"; \
-				else \
-					ln -s "$$src" "$$dst"; \
-					echo "  [v] .agents/skills/$$name"; \
-				fi; \
+				$(call ensure-link,$$src,$$dst,.agents/skills/$$name) \
 			fi; \
 		done; \
 	fi;
@@ -218,14 +221,11 @@ unlink-agents:
 
 define list-skills-via-agents
 	for src in "$(AGENTS_DIR)/skills"/*; do \
+		[ -e "$$src" ] || continue; \
 		name=$$(basename "$$src"); \
 		if [ -z "$(F)" ] || echo "skills/$$name" | grep -q "$(F)"; then \
 			dst="$(HOME)/.$(1)/skills/$$name"; \
-			if [ -L "$$dst" ]; then \
-				echo "  [v] .$(1)/skills/$$name"; \
-			else \
-				echo "  [-] .$(1)/skills/$$name"; \
-			fi; \
+			$(call list-link,$$src,$$dst,.$(1)/skills/$$name) \
 		fi; \
 	done;
 endef
@@ -233,15 +233,11 @@ endef
 define link-skills-via-agents
 	mkdir -p "$(HOME)/.$(1)/skills"; \
 	for src in "$(AGENTS_DIR)/skills"/*; do \
+		[ -e "$$src" ] || continue; \
 		name=$$(basename "$$src"); \
 		if [ -z "$(F)" ] || echo "skills/$$name" | grep -q "$(F)"; then \
 			dst="$(HOME)/.$(1)/skills/$$name"; \
-			if [ -e "$$dst" ]; then \
-				echo "  [-] .$(1)/skills/$$name"; \
-			else \
-				ln -s "$$src" "$$dst"; \
-				echo "  [v] .$(1)/skills/$$name"; \
-			fi; \
+			$(call ensure-link,$$src,$$dst,.$(1)/skills/$$name) \
 		fi; \
 	done;
 endef
@@ -265,11 +261,8 @@ endef
 define list-claude-md
 	if [ -f "$(1)/agents/AGENTS.md" ]; then \
 		if [ -z "$(F)" ] || echo "claude/CLAUDE.md" | grep -q "$(F)"; then \
-			if [ -L "$(HOME)/.claude/CLAUDE.md" ]; then \
-				echo "  [v] .claude/CLAUDE.md"; \
-			else \
-				echo "  [-] .claude/CLAUDE.md"; \
-			fi; \
+			dst="$(HOME)/.claude/CLAUDE.md"; \
+			$(call list-link,$(1)/agents/AGENTS.md,$$dst,.claude/CLAUDE.md) \
 		fi; \
 	fi;
 endef
@@ -279,12 +272,7 @@ define link-claude-md
 		if [ -z "$(F)" ] || echo "claude/CLAUDE.md" | grep -q "$(F)"; then \
 			mkdir -p "$(HOME)/.claude"; \
 			dst="$(HOME)/.claude/CLAUDE.md"; \
-			if [ -e "$$dst" ]; then \
-				echo "  [-] .claude/CLAUDE.md"; \
-			else \
-				ln -s "$(1)/agents/AGENTS.md" "$$dst"; \
-				echo "  [v] .claude/CLAUDE.md"; \
-			fi; \
+			$(call ensure-link,$(1)/agents/AGENTS.md,$$dst,.claude/CLAUDE.md) \
 		fi; \
 	fi;
 endef
@@ -309,11 +297,7 @@ define list-claude-dir
 			name=$$(basename "$$src"); \
 			if [ -z "$(F)" ] || echo "$(2)/$$name" | grep -q "$(F)"; then \
 				dst="$(HOME)/.claude/$(2)/$$name"; \
-				if [ -L "$$dst" ]; then \
-					echo "  [v] .claude/$(2)/$$name"; \
-				else \
-					echo "  [-] .claude/$(2)/$$name"; \
-				fi; \
+				$(call list-link,$$src,$$dst,.claude/$(2)/$$name) \
 			fi; \
 		done; \
 	fi;
@@ -326,12 +310,7 @@ define link-claude-dir
 			name=$$(basename "$$src"); \
 			if [ -z "$(F)" ] || echo "$(2)/$$name" | grep -q "$(F)"; then \
 				dst="$(HOME)/.claude/$(2)/$$name"; \
-				if [ -e "$$dst" ]; then \
-					echo "  [-] .claude/$(2)/$$name"; \
-				else \
-					ln -s "$$src" "$$dst"; \
-					echo "  [v] .claude/$(2)/$$name"; \
-				fi; \
+				$(call ensure-link,$$src,$$dst,.claude/$(2)/$$name) \
 			fi; \
 		done; \
 	fi;
@@ -381,11 +360,8 @@ unlink-claude:
 define list-codex-md
 	if [ -f "$(1)/agents/AGENTS.md" ]; then \
 		if [ -z "$(F)" ] || echo "codex/AGENTS.md" | grep -q "$(F)"; then \
-			if [ -L "$(HOME)/.codex/AGENTS.md" ]; then \
-				echo "  [v] .codex/AGENTS.md"; \
-			else \
-				echo "  [-] .codex/AGENTS.md"; \
-			fi; \
+			dst="$(HOME)/.codex/AGENTS.md"; \
+			$(call list-link,$(1)/agents/AGENTS.md,$$dst,.codex/AGENTS.md) \
 		fi; \
 	fi;
 endef
@@ -395,12 +371,7 @@ define link-codex-md
 		if [ -z "$(F)" ] || echo "codex/AGENTS.md" | grep -q "$(F)"; then \
 			mkdir -p "$(HOME)/.codex"; \
 			dst="$(HOME)/.codex/AGENTS.md"; \
-			if [ -e "$$dst" ]; then \
-				echo "  [-] .codex/AGENTS.md"; \
-			else \
-				ln -s "$(1)/agents/AGENTS.md" "$$dst"; \
-				echo "  [v] .codex/AGENTS.md"; \
-			fi; \
+			$(call ensure-link,$(1)/agents/AGENTS.md,$$dst,.codex/AGENTS.md) \
 		fi; \
 	fi;
 endef
