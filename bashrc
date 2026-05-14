@@ -68,11 +68,11 @@ if [ -n "$HOMEBREW_PREFIX" ] && [ -f "$HOMEBREW_PREFIX/etc/bash_completion.d/git
 fi
 
 # Linux (Ubuntu/Debian)
-if [ -f /usr/share/doc/git/contrib/completion/git-completion.bash ]; then
-  source /usr/share/doc/git/contrib/completion/git-completion.bash
+if [ -f /usr/share/bash-completion/completions/git ]; then
+  source /usr/share/bash-completion/completions/git
 fi
-if [ -f /usr/share/git-core/contrib/completion/git-prompt.sh ]; then
-  source /usr/share/git-core/contrib/completion/git-prompt.sh
+if [ -f /usr/lib/git-core/git-sh-prompt ]; then
+  source /usr/lib/git-core/git-sh-prompt
 fi
 
 GIT_PS1_SHOWDIRTYSTATE=1
