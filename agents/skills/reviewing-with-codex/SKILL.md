@@ -17,8 +17,10 @@ codex exec \
   --skip-git-repo-check \
   -C {WORKING_DIR} \
   "{PROMPT}" \
-  {SUPPRESS_FLAG}
+  2>/dev/null
 ```
+
+Codex writes the final assistant message to stdout and routes the progress UI, exec trace, and `tokens used` block to stderr. When the calling shell combines stdout and stderr into a single bounded capture buffer, the verbose stderr can crowd out or truncate the final stdout line, so the template suppresses stderr by default to keep the answer reliably extractable. Re-run without `2>/dev/null` when codex exits non-zero so the error is visible.
 
 ## Parameter Selection
 
@@ -36,7 +38,7 @@ Parameter notes:
 - Default sandbox to `read-only`; for file editing tasks use the `coding-with-codex` skill instead
 - `danger-full-access` (network access) requires explicit user confirmation
 - Add `--full-auto` only with `workspace-write`
-- Append `2>/dev/null` only if user requests hidden output
+- Keep `2>/dev/null` on by default; drop it only when investigating a non-zero exit from codex
 
 ## Prompt Format
 
