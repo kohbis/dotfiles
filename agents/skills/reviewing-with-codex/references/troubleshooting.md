@@ -41,7 +41,8 @@ When reporting Codex results to user, use this structure:
 | Timeout on large codebase | Add `--timeout` flag or narrow scope |
 | Permission denied | Check sandbox mode setting |
 | Invalid model | Verify model name with `codex --help` |
-| Want to hide reasoning | Add `2>/dev/null` at end |
+| Final answer missing from output | The template already appends `2>/dev/null`; if the answer is still empty, re-run without it to surface the underlying error |
+| Want to inspect progress/exec trace | Drop the `2>/dev/null` suffix to surface stderr |
 | Need to edit files | Use the `coding-with-codex` skill instead |
 | Need network access | Use `danger-full-access` with user confirmation |
 | Session context lost | Use `resume --last` to continue |

@@ -15,7 +15,8 @@ codex exec \
   "TASK: Review Kubernetes manifests and Helm charts for production deployment
 CONTEXT: Microservices architecture with 15+ services, multi-environment deployment
 FOCUS: Resource limits, security policies, high availability configuration, secret management
-OUTPUT: List issues by severity with specific remediation steps for each finding"
+OUTPUT: List issues by severity with specific remediation steps for each finding" \
+  2>/dev/null
 ```
 
 ## Example 2: API Performance Investigation
@@ -33,7 +34,8 @@ codex exec \
   "TASK: Identify the cause of API response time degradation
 CONTEXT: Go microservice with PostgreSQL, response time increased from 50ms to 2s under load
 FOCUS: Database query patterns, connection pooling, caching layer, N+1 query problems
-OUTPUT: Explain root cause, reproduction conditions, and optimization strategy step by step"
+OUTPUT: Explain root cause, reproduction conditions, and optimization strategy step by step" \
+  2>/dev/null
 ```
 
 ## Example 3: Database Layer Refactoring
@@ -52,7 +54,8 @@ codex exec \
   "TASK: Refactor database access layer to implement repository pattern
 CONTEXT: Direct database queries scattered across service layer causing tight coupling and testing difficulties
 FOCUS: pkg/repository/ and pkg/service/ directories
-OUTPUT: Implement repository pattern, add proper error handling, and explain architectural improvements"
+OUTPUT: Implement repository pattern, add proper error handling, and explain architectural improvements" \
+  2>/dev/null
 ```
 
 ## Example 4: CI/CD Pipeline Analysis
@@ -70,7 +73,8 @@ codex exec \
   "TASK: Analyze CI/CD pipeline configuration and identify optimization opportunities
 CONTEXT: GitHub Actions workflow for multi-service deployment, build time is 25+ minutes
 FOCUS: .github/workflows/ directory, Docker build process, test execution strategy
-OUTPUT: Identify bottlenecks and suggest specific optimization techniques with expected time savings"
+OUTPUT: Identify bottlenecks and suggest specific optimization techniques with expected time savings" \
+  2>/dev/null
 ```
 
 ## Example 5: Session Continuation
