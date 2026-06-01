@@ -1,117 +1,104 @@
-# Practical Examples
+# Worked Examples
+
+Concrete findings by review type. These show the *shape* of a good finding (what → why → fix → location) and the things worth looking for in each domain — not a script to follow verbatim.
 
 ## Contents
 
-- Example 1: Kubernetes Manifests Review (infrastructure)
-- Example 2: API Performance Investigation (bug investigation)
-- Example 3: Security-Focused Code Review
-- Example 4: CI/CD Pipeline Analysis
-- Example 5: Incremental Follow-up Review
+- Example 1: Security-focused code review
+- Example 2: Kubernetes manifest review (infrastructure)
+- Example 3: CI/CD pipeline optimization
+- Example 4: Performance bug investigation
+- Example 5: Incremental follow-up
 
-## Example 1: Kubernetes Manifests Review
+## Example 1: Security-focused code review
 
-**Task Type**: Infrastructure analysis
+Node.js/Express REST API, JWT auth, PostgreSQL user store. Scope inferred from `git diff` touching `src/auth/` and `src/repositories/`.
 
-**Prompt structure:**
+Worth looking for:
+- JWT secret hardcoded or committed (should come from env)
+- Missing token-expiry validation
+- SQL built by string concatenation instead of parameterized queries
+- No rate limiting on auth endpoints
+- Auth failures not logged
+
+Sample findings:
 ```
-TASK: Review Kubernetes manifests and Helm charts for production deployment
-CONTEXT: Microservices architecture with 15+ services, multi-environment deployment
-FOCUS: Resource limits, security policies, high availability configuration, secret management
-OUTPUT: List issues by severity with specific remediation steps for each finding
-```
+## Verdict
+Auth logic is sound, but one SQL injection in the login path needs fixing before merge.
 
-**Expected output format:**
-```
-## Key Findings
+## Findings
 
 ### Critical
-- No resource limits on api-service: Pod can consume unlimited memory (manifests/api-service.yaml:34)
+- SQL injection in login lookup: user-supplied `email` is concatenated into the query, allowing auth bypass — use a parameterized query ($1) (src/repositories/users.ts:42)
 
 ### High
-- Secrets stored as plaintext env vars: Use secretKeyRef instead (manifests/worker.yaml:22)
+- JWT secret read from a hardcoded fallback when env is unset: leaks a forgeable signing key — fail fast if `JWT_SECRET` is missing (src/auth/jwt.ts:11)
 
 ### Medium
-- Missing readiness probe on db-service: May route traffic before ready (manifests/db-service.yaml:18)
-
-## Recommended Actions
-1. Add resource requests/limits to all Deployments
-2. Migrate env vars to Secret references
-
-## Next Steps
-- Review network policies for inter-service communication
+- ~ No rate limiting on `/login`: enables credential stuffing — add express-rate-limit (src/routes/auth.ts:18)
 ```
 
----
+## Example 2: Kubernetes manifest review
 
-## Example 2: API Performance Investigation
+Microservices, multi-environment deployment. Scope = changed manifests under `manifests/`.
 
-**Task Type**: Complex bug investigation
+Worth looking for: resource requests/limits, secret references vs plaintext env, readiness/liveness probes, replica count + PDB, network policies.
 
-**Prompt structure:**
 ```
-TASK: Identify the cause of API response time degradation
-CONTEXT: Go microservice with PostgreSQL, response time increased from 50ms to 2s under load
-FOCUS: Database query patterns, connection pooling, caching layer, N+1 query problems
-OUTPUT: Explain root cause, reproduction conditions, and optimization strategy step by step
-```
+## Verdict
+Deployments are functional but two production-readiness gaps (no memory limit, plaintext secret) should be closed.
 
-**Key areas to examine:**
-- ORM-generated queries (check for SELECT N+1 patterns)
-- Connection pool configuration (`max_open_conns`, `max_idle_conns`)
-- Missing indexes on frequently queried columns
-- Unbounded result sets without pagination
+## Findings
 
----
+### Critical
+- No resource limits on api-service: a leak can starve the node — add requests/limits (manifests/api-service.yaml:34)
 
-## Example 3: Security-Focused Code Review
+### High
+- DB password as plaintext env var: exposed in `kubectl describe` — use secretKeyRef (manifests/worker.yaml:22)
 
-**Task Type**: Code review
-
-**Prompt structure:**
-```
-TASK: Security review of authentication and authorization implementation
-CONTEXT: Node.js/Express REST API, JWT-based auth, PostgreSQL user store
-FOCUS: src/auth/, src/middleware/auth.ts, SQL queries in src/repositories/
-OUTPUT: Security findings with CVE references where applicable and concrete fixes
+### Medium
+- Missing readiness probe on db-service: traffic may route before ready — add a readiness probe (manifests/db-service.yaml:18)
 ```
 
-**Common findings to look for:**
-- JWT secret hardcoded or in source (should be env var)
-- Missing token expiry validation
-- SQL queries using string concatenation instead of parameterized queries
-- Missing rate limiting on auth endpoints
-- Insufficient logging for auth failures
+## Example 3: CI/CD pipeline optimization
 
----
+GitHub Actions, multi-service, ~25 min builds. Scope = `.github/workflows/`.
 
-## Example 4: CI/CD Pipeline Analysis
+Common optimizations and the *why*:
+- Run lint/type-check before heavy tests — fail fast, save minutes on broken PRs
+- Cache `node_modules` / Go modules between runs — avoids repeated installs
+- Docker layer caching with `cache-from` — skips unchanged image layers
+- Split test jobs to run in parallel — wall-clock reduction
+- Path filters to skip unchanged services — don't rebuild what didn't change
 
-**Task Type**: CI/CD optimization
-
-**Prompt structure:**
+Frame each as a finding with the expected time saved where you can estimate it, e.g.:
 ```
-TASK: Analyze CI/CD pipeline configuration and identify optimization opportunities
-CONTEXT: GitHub Actions workflow for multi-service deployment, build time is 25+ minutes
-FOCUS: .github/workflows/ directory, Docker build process, test execution strategy
-OUTPUT: Identify bottlenecks and suggest specific optimization techniques with expected time savings
+### High
+- Tests run before lint, so a lint-only failure still pays the full 18-min test cost — reorder to lint → test (fail fast) (.github/workflows/ci.yml:30)
 ```
 
-**Common optimizations:**
-- Split test jobs to run in parallel
-- Cache `node_modules` / Go modules between runs
-- Use Docker layer caching with `cache-from`
-- Run lint/type-check before heavier test suites (fail fast)
-- Skip unchanged services using path filters
+## Example 4: Performance bug investigation
 
----
+Go + PostgreSQL service; p95 latency rose 50ms → 2s under load. This is investigation, not a checklist — trace the path and report root cause.
 
-## Example 5: Incremental Follow-up Review
+Examine: ORM-generated queries (SELECT N+1), connection pool config (`max_open_conns`, `max_idle_conns`), missing indexes on hot columns, unbounded result sets without pagination.
 
-After an initial review, continue the analysis by asking:
+Report the root cause, how to reproduce it, and the fix — confidence-marked if you couldn't confirm under load:
+```
+## Verdict
+Latency regression is an N+1 introduced in the orders list endpoint; confirmed by query count, fix is an eager join.
+
+### Critical
+- N+1 in `ListOrders`: one query per order to fetch its customer (100 orders = 101 queries) — preload customers with a join (src/repositories/orders.go:88)
+```
+
+## Example 5: Incremental follow-up
+
+After an initial review, the user often narrows in. Continue in the same format, reusing established context:
 
 ```
 Based on the findings, can you also:
-- Check if the same N+1 pattern exists in src/repositories/orders.ts
+- Check the same N+1 pattern in src/repositories/orders.go
 - Review the migration files for missing indexes
-- Estimate the impact of adding a Redis cache layer
+- Estimate the impact of a Redis cache layer
 ```
