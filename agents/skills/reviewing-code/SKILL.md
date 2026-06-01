@@ -5,88 +5,79 @@ description: Performs code review, bug investigation, infrastructure analysis, a
 
 # Reviewing Code
 
-## Review Types
+Tool-agnostic review that runs anywhere — no external CLI required. This is the default for an inline review you can deliver right now.
 
-| Task Type | Focus Areas | Output Style |
-|-----------|-------------|--------------|
-| Code review | Quality, security, maintainability | Findings by severity |
-| Bug investigation | Root cause, reproduction path | Step-by-step analysis |
-| Infrastructure analysis | Resource config, security policies, HA | Issues with remediation |
-| CI/CD optimization | Build time, test strategy, bottlenecks | Optimization suggestions |
+## When to use this skill vs. siblings
 
-## Workflow
+| Want | Use |
+|------|-----|
+| An immediate review, here, no dependencies | **this skill** |
+| Deeper reasoning on a gnarly/cross-cutting bug, delegated to Codex | `reviewing-with-codex` |
+| Consensus across several models on a high-stakes change | `reviewing-with-multi-models` |
 
-### 1. Gather Context
+If a review starts to feel too deep or too important for a single inline pass, say so and suggest escalating — don't grind.
 
-Ask the user for:
-- Target files or directories to review
-- Tech stack and environment
-- Specific concerns or focus areas
-- Desired output format
+## 1. Establish scope — infer first, ask only when blocked
 
-### 2. Analyze
+Front-loading questions stalls a review that could already be moving, so figure out what to review from context instead of interrogating the user:
 
-Read relevant files and examine:
+- **Default scope is the current change set.** Run `git status` and `git diff` to see uncommitted work; for a branch or PR, use `git diff <base>...HEAD`. Review what changed and the code it touches, not the whole repo.
+- **Detect the stack yourself** from file extensions and manifests (`package.json`, `go.mod`, `Cargo.toml`, `pyproject.toml`, k8s YAML, `.github/workflows/`). The tech is usually obvious from the files.
+- **Ask only when genuinely stuck** — e.g. no VCS changes and no path given, or signals conflict. Then ask one targeted question, not a checklist.
 
-**Code Review Checklist:**
+## 2. Analyze — apply the right lenses
+
+Read enough surrounding code to judge each finding in context. Pick the lenses that fit what changed rather than running every list mechanically.
+
+**Code:**
 - Security: input validation, injection risks, secrets exposure, auth/authz
-- Performance: algorithmic complexity, N+1 queries, caching opportunities, memory leaks
-- Maintainability: naming clarity, function size, duplication, test coverage
+- Correctness: edge cases, off-by-one, nil/undefined, concurrency races
+- Performance: algorithmic complexity, N+1 queries, caching, memory growth
+- Maintainability: naming, function size, duplication, test coverage
 - Error handling: failure modes, logging, graceful degradation
-- API contracts: interface consistency, backward compatibility, documentation
+- API contracts: interface consistency, backward compatibility, docs
 
-**Infrastructure Checklist:**
-- Resource limits (CPU/memory requests and limits)
-- Security policies (RBAC, network policies, pod security)
-- High availability (replicas, PDB, health checks)
-- Secret management (no hardcoded credentials, proper secret references)
+**Infrastructure:** resource requests/limits, RBAC and network/pod-security policies, HA (replicas, PDB, health/readiness probes), secret management (references, not hardcoded credentials).
 
-**CI/CD Checklist:**
-- Parallelization opportunities
-- Cache utilization (dependencies, Docker layers)
-- Test execution strategy (fast feedback first)
-- Unnecessary steps or redundant jobs
+**CI/CD:** parallelization, dependency and Docker-layer caching, fast-feedback ordering (lint/type-check before heavy suites), redundant or skippable steps via path filters.
 
-### 3. Report Findings
+## 3. Judge before you report — signal over volume
 
-Use the following output format:
+A review that's 90% nits trains the reader to ignore the 10% that matters, so spend judgment on what's worth their attention:
+
+- **Verify a finding is real.** Read the call site before flagging a "bug" — the case may already be guarded elsewhere. Don't report what you haven't confirmed.
+- **Prioritize by impact × likelihood**, not by how easy something was to spot.
+- **Don't inflate nits.** Style preferences are Low at most; never Critical/High.
+- **Mark confidence.** Separate "this is a bug" from "worth double-checking" so the reader knows where to look hard.
+
+## 4. Report
+
+Lead with the verdict so the reader gets the gist before the list. Use `~` to flag a finding you're not fully sure of.
 
 ```
-## Key Findings
+## Verdict
+[1-2 sentences: overall state + the single most important thing to address]
+
+## Findings
 
 ### Critical
-- [issue]: [explanation] (file:line)
+- [what]: [why it matters] — [suggested fix] (file:line)
 
 ### High
-- [issue]: [explanation] (file:line)
+- [what]: [why it matters] — [suggested fix] (file:line)
 
 ### Medium
-- [issue]: [explanation] (file:line)
+- ...
 
 ### Low / Suggestions
-- [issue]: [explanation] (file:line)
-
-## Recommended Actions
-
-1. [action] — [rationale]
-2. [action] — [rationale]
+- ...
 
 ## Next Steps
-
-- [follow-up task or investigation]
+- [follow-up worth doing, if any]
 ```
 
-## Prompt Format
-
-When the user provides a review request, structure it internally as:
-
-```
-TASK: {clear, specific action}
-CONTEXT: {tech stack, environment, constraints}
-FOCUS: {specific files, directories, or concerns}
-OUTPUT: {desired format and detail level}
-```
+Drop empty severity sections rather than printing "none". If there's nothing material to flag, say so plainly instead of manufacturing findings.
 
 ## References
 
-- [examples](references/examples.md) - Practical usage patterns by review type
+- [examples](references/examples.md) — worked findings by review type (security, infra, CI/CD, bug investigation)
