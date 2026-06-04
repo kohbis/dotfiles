@@ -37,18 +37,16 @@ CODE CHANGES:
 $DIFF
 "
 
-# Run all four in parallel
+# Run all three in parallel
 codex exec --model gpt-5.5 --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
 copilot -p "$PROMPT" --model claude-opus-4.7 --allow-tool 'shell(read:*)'
 
-gemini -p "$PROMPT" --model pro --approval-mode plan
-
 claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```
 
-## Targeted Security Review (codex + gemini)
+## Targeted Security Review (codex + claude)
 
 ```bash
 PROMPT="
@@ -61,7 +59,7 @@ OUTPUT: Security findings by severity with remediation suggestions.
 codex exec --model gpt-5.5 --config model_reasoning_effort="xhigh" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
-gemini -p "$PROMPT" --model pro --approval-mode plan
+claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```
 
 ## Example Synthesized Output
