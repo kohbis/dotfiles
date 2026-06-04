@@ -67,7 +67,6 @@ When a skill references a model name explicitly, follow the convention for the t
 | ------------------ | --------------------------------------- | ---------------------------------------------- |
 | Codex CLI          | Explicit model IDs                      | `gpt-5.4`, `gpt-5.5`, `gpt-5.4-mini`           |
 | GitHub Copilot CLI | Explicit versioned names                | `claude-sonnet-4.6`, `claude-opus-4.7`         |
-| Gemini CLI         | Prefer stable aliases                   | `pro`, `flash`, `flash-lite`, `auto`           |
 | Claude Code CLI    | Prefer family aliases                   | `opus`, `sonnet`, `haiku`                      |
 
 ## Scope & Boundaries

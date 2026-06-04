@@ -52,13 +52,11 @@ When a skill needs an explicit model name, follow these conventions:
 | ---------- | ------------- | -------- |
 | Codex CLI | Use explicit model IDs | `gpt-5.5`, `gpt-5.4-mini` |
 | GitHub Copilot CLI | Use explicit versioned model names | `claude-sonnet-4.6`, `claude-opus-4.7` |
-| Gemini CLI | Prefer stable aliases | `pro`, `flash`, `flash-lite`, `auto` |
 | Claude Code CLI | Prefer family aliases | `opus`, `sonnet`, `haiku` |
 
 Rationale:
 - Codex skills currently use concrete OpenAI model IDs rather than family aliases.
 - Copilot CLI should stay version-pinned unless GitHub documents alias support explicitly.
-- Gemini CLI is more stable when using its alias-based routing.
 - Claude Code CLI is intended to use family-level aliases rather than pinned release names.
 
 ### Private dotfiles (optional)
