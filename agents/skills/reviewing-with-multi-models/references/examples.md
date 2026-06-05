@@ -19,7 +19,7 @@ $DIFF
 codex exec --model gpt-5.5 --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
-copilot -p "$PROMPT" --model claude-opus-4.7 --allow-tool 'shell(read:*)'
+copilot -p "$PROMPT" --model claude-opus-4.8 --allow-tool 'shell(read:*)'
 ```
 
 ## Review a PR (All Reviewers)
@@ -41,7 +41,7 @@ $DIFF
 codex exec --model gpt-5.5 --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
-copilot -p "$PROMPT" --model claude-opus-4.7 --allow-tool 'shell(read:*)'
+copilot -p "$PROMPT" --model claude-opus-4.8 --allow-tool 'shell(read:*)'
 
 claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```

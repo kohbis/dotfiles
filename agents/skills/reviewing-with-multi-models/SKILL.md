@@ -11,14 +11,14 @@ disable-model-invocation: true
 | Reviewer | CLI | Model | Default? | Skill Reference |
 |----------|-----|-------|----------|-----------------|
 | codex | Codex CLI | gpt-5.5 | Yes | [reviewing-with-codex](../reviewing-with-codex/SKILL.md) |
-| copilot | Copilot CLI | claude-opus-4.7 | Yes | [running-copilot-cli](../running-copilot-cli/SKILL.md) |
+| copilot | Copilot CLI | claude-opus-4.8 | Yes | [running-copilot-cli](../running-copilot-cli/SKILL.md) |
 | claude | Claude Code CLI | opus | No | — |
 
 Default: run **codex + copilot** (GPT + Claude Opus via Copilot CLI). Add others with e.g. "add claude" or "use all reviewers".
 
 Model naming policy:
 - Codex: prefer the current explicit model IDs documented in `codex-*` skills
-- Copilot CLI: use versioned model names such as `claude-sonnet-4.6` and `claude-opus-4.7`
+- Copilot CLI: use versioned model names such as `claude-sonnet-4.6` and `claude-opus-4.8`
 - Claude Code CLI: prefer family aliases such as `opus`, `sonnet`, and `haiku`
 
 ## Workflow
@@ -41,7 +41,7 @@ Before running, always present a summary like:
 ```
 Reviewers (proposed):
   ✓ codex    gpt-5.5              [installed]
-  ✓ copilot  claude-opus-4.7      [installed]
+  ✓ copilot  claude-opus-4.8      [installed]
   ✗ claude                        [not found]
 
 Proceed with codex + copilot? (or specify different reviewers/models)
@@ -103,7 +103,7 @@ codex exec \
 ### Copilot (default, Claude Opus via Copilot CLI)
 ```bash
 copilot -p "{PROMPT}" \
-  --model claude-opus-4.7 \
+  --model claude-opus-4.8 \
   --allow-tool 'shell(read:*)'
 ```
 
