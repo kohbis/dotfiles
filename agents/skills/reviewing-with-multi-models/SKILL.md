@@ -6,6 +6,17 @@ disable-model-invocation: true
 
 # Reviewing with Multi-Models
 
+## Boundaries — deliver the synthesis, don't publish it
+
+Unless the user gives an explicit instruction to do so, this skill produces a synthesized review for the user to read and does not publish anything to GitHub. Posting a comment or approval is an outward-facing action with real consequences — it notifies people, can gate a merge, and is awkward to retract — so absent a clear instruction that call belongs to the user, not the reviewer. Without such an instruction, neither the orchestrator nor any reviewer subagent should run write operations such as:
+
+- `gh pr review` / `gh pr review --approve` — approving or requesting changes on a PR
+- `gh pr comment` / `gh pr review --comment` — posting review comments
+- `gh issue comment` — commenting on an issue
+- `gh api ...` calls that do the equivalent
+
+Deliver the synthesized findings in the conversation. If the user wants them on GitHub, they post them — or they explicitly ask you to, in which case confirm the exact PR/target first. Read-only commands (`git diff`, `gh pr diff`) are how reviewers gather the target and stay allowed.
+
 ## Reviewers
 
 | Reviewer | CLI | Model | Default? | Skill Reference |
