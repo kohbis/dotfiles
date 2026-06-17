@@ -1,6 +1,6 @@
 ---
 name: scaffolding-skills
-description: Interactively scaffolds a new Claude Code skill (SKILL.md). Lightweight alternative to /skill-creator — focused on quick creation without evals or benchmarking. Trigger when user says "scaffolding skills", "/scaffolding-skills", "create skill", "new skill", "scaffold skill", "create command", "new command", "make a command", "add a slash command", or requests creating a new custom skill for Claude Code.
+description: Quickly scaffolds a new Claude Code skill (SKILL.md) through a short interactive interview. Use this for fast creation without evals or benchmarking — for iterative test-driven skill development, use /skill-creator instead. Trigger when user says "scaffolding skills", "/scaffolding-skills", "create skill", "new skill", "scaffold skill", "create command", "new command", "make a command", "add a slash command", or requests creating a new custom skill for Claude Code.
 ---
 
 # Scaffolding Skills

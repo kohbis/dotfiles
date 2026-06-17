@@ -1,6 +1,6 @@
 ---
 name: reviewing-code
-description: Performs code review, bug investigation, infrastructure analysis, and CI/CD optimization. Trigger when user says "reviewing code", "/reviewing-code", "code review", or when reviewing code changes.
+description: Structured code review with severity-based findings, multi-lens analysis (security, correctness, performance, infra, CI/CD), and scope inference from git state. Hub for the review skill family — escalates to /reviewing-with-codex or /reviewing-with-multi-models when depth or consensus is needed. Use over /code-review (effort-level based, supports --comment/--fix) and /review (PR-oriented) when you want a thorough inline review with structured output. Trigger when user says "reviewing code", "/reviewing-code", "code review", "review this", or when reviewing code changes.
 ---
 
 # Reviewing Code
