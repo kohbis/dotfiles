@@ -6,8 +6,9 @@ disable-model-invocation: true
 
 # Writing PR Descriptions
 
-Create a pull request description that follows the repository template.
-Prioritize explaining value and intent over listing implementation details.
+Write a PR description that tells reviewers what they cannot learn from the diff alone.
+
+Reviewers will read the diff — they can see every line added, removed, or moved. A PR description that restates the diff is noise. The description exists to carry the context that lives in the author's head but not in the code: the motivation, the rejected alternatives, the non-obvious risks, and the things the reviewer should pay extra attention to.
 
 ## Workflow
 
@@ -15,32 +16,58 @@ Prioritize explaining value and intent over listing implementation details.
 2. Collect change context:
    - `git diff --name-status {target}...HEAD`
    - `git diff --stat {target}...HEAD`
-   - Key code changes and tests added/updated
+   - `git log --oneline {target}...HEAD`
+   - Read key changed files to understand intent (not to summarize them)
+   - Use commit messages, issue refs, branch names, and user-provided context to fill in motivation and decisions. When context is unavailable, write `TODO` rather than inferring
 3. Find PR template in this order:
    - `.github/pull_request_template.md`
    - `.github/PULL_REQUEST_TEMPLATE.md`
    - `.github/PULL_REQUEST_TEMPLATE/*.md` (pick the most relevant one)
-4. Draft PR body by filling template sections with concrete, verifiable details.
-   - Lead with problem, intent, and user/business impact
-   - Explain why this approach was chosen and what trade-offs were accepted
-   - Keep low-level implementation detail to the minimum needed for review
-5. If no template exists, use this fallback structure:
-   - Why this change
-   - Expected impact
-   - Key decisions and trade-offs
-   - What changed (brief)
-   - Testing
-   - Risks
-   - Checklist
-6. Validate quality before finalizing:
-   - No vague statements
-   - Include test commands actually run
-   - Include impact/risk and rollback note when relevant
-   - Ensure each section answers "so what?" for reviewers
+4. Draft the PR body following the template (or fallback structure below).
+5. Before finalizing, review every sentence against the filter: "Could a reviewer learn this from the diff in under 30 seconds?" If yes, cut it or rewrite it to explain why it matters — unless the sentence is needed to satisfy a template section or to anchor risk, test scope, or review guidance.
 
-## Output Rules
+## What belongs in a PR description
 
-- Output in Markdown only.
-- Keep it concise and reviewer-focused.
-- Do not invent results; mark unknown facts as `TODO`.
-- Prefer outcome-oriented language over implementation-oriented language.
+When a PR template exists, follow its structure. Preserve all headings and checklists unless clearly optional. Remove instructional comments (e.g. `<!-- describe your changes -->`). Use `N/A` or `TODO` for required sections that lack evidence. Fill each section with the kind of content listed below, adapted to what the template asks for. If a template section asks for "changes" or "summary," describe outcomes and review intent rather than listing file-by-file edits.
+
+When no template exists, weave these elements into the fallback structure:
+
+- **Why** this change exists — the problem, the trigger, the user/business need
+- **Why this approach** over alternatives — rejected options, trade-offs accepted
+- **What's not obvious from the diff** — subtle interactions, ordering dependencies, migration concerns, performance implications
+- **Where to look first** — guide the reviewer's attention to the parts that matter most
+- **Risks and rollback** — what could go wrong, how to revert safely
+- **Testing done** — commands actually run and their results. If no test evidence is available, write `TODO` rather than guessing
+
+## What does NOT belong
+
+These are things the diff already shows. Writing them adds length without adding understanding.
+
+- Lists of files changed or added
+- "Added function X", "Updated class Y", "Renamed Z to W"
+- Restating what the code does line by line
+- Describing type signatures, imports, or structural changes
+- "Refactored X to use Y" when the diff makes it obvious
+
+**Example — bad:**
+> - Added `validateInput()` function to `utils.ts`
+> - Updated `handler.ts` to call `validateInput()` before processing
+> - Added tests for `validateInput()` in `utils.test.ts`
+
+**Example — good:**
+> Input validation was missing from the handler, allowing malformed payloads to reach the database layer. Validation is done at the handler boundary rather than the DB layer because we want to return user-friendly 400 errors, not 500s.
+
+## Fallback structure (when no template exists)
+
+- **Why** — Problem and motivation
+- **Approach** — Key decisions and trade-offs
+- **Reviewer guidance** — Where to focus, non-obvious things
+- **Testing** — What was tested and how
+- **Risks** — What could break, rollback plan
+
+## Output rules
+
+- Markdown only.
+- Concise — every sentence should earn its place.
+- Do not invent facts, issue links, or test results; mark unknowns as `TODO`.
+- Use authorial context and active phrasing; avoid detached narration like "This PR adds…".
