@@ -10,6 +10,8 @@ Write a PR description that tells reviewers what they cannot learn from the diff
 
 Reviewers will read the diff — they can see every line added, removed, or moved. A PR description that restates the diff is noise. The description exists to carry the context that lives in the author's head but not in the code: the motivation, the rejected alternatives, the non-obvious risks, and the things the reviewer should pay extra attention to.
 
+Everything you write should be about the change itself and its durable context — the concern of the PR. It is not a log of what you personally did while making the change. The fact that you ran the tests locally and they passed, which commands you typed, how long it took, what your machine printed — none of that is the reviewer's concern. It isn't verifiable, it doesn't survive past the moment you wrote it, and CI reports its own results anyway. Keep the description focused on what the change is and why, so it stays true and useful long after the branch is merged.
+
 ## Workflow
 
 1. Detect current branch and target branch (default: `main`).
@@ -24,7 +26,10 @@ Reviewers will read the diff — they can see every line added, removed, or move
    - `.github/PULL_REQUEST_TEMPLATE.md`
    - `.github/PULL_REQUEST_TEMPLATE/*.md` (pick the most relevant one)
 4. Draft the PR body following the template (or fallback structure below).
-5. Before finalizing, review every sentence against the filter: "Could a reviewer learn this from the diff in under 30 seconds?" If yes, cut it or rewrite it to explain why it matters — unless the sentence is needed to satisfy a template section or to anchor risk, test scope, or review guidance.
+5. Before finalizing, run every sentence through two filters:
+   - "Could a reviewer learn this from the diff in under 30 seconds?" If yes, cut it or rewrite it to explain why it matters.
+   - "Is this about the change, or about what I did while making it?" If it describes your local process — tests you ran, commands you typed, results you saw — cut it.
+   Keep a sentence only if it carries durable context (motivation, decisions, risk, review guidance) or is needed to satisfy a template section.
 
 ## Ticket ID prefix (PR title & branch name)
 
@@ -46,11 +51,10 @@ When no template exists, weave these elements into the fallback structure:
 - **What's not obvious from the diff** — subtle interactions, ordering dependencies, migration concerns, performance implications
 - **Where to look first** — guide the reviewer's attention to the parts that matter most
 - **Risks and rollback** — what could go wrong, how to revert safely
-- **Testing done** — commands actually run and their results. If no test evidence is available, write `TODO` rather than guessing
 
 ## What does NOT belong
 
-These are things the diff already shows. Writing them adds length without adding understanding.
+**Things the diff already shows.** Writing them adds length without adding understanding.
 
 - Lists of files changed or added
 - "Added function X", "Updated class Y", "Renamed Z to W"
@@ -58,10 +62,20 @@ These are things the diff already shows. Writing them adds length without adding
 - Describing type signatures, imports, or structural changes
 - "Refactored X to use Y" when the diff makes it obvious
 
+**Things that aren't the PR's concern.** These are transient facts about your local session, not durable context about the change. The reviewer can't verify them and they add nothing to understanding the code.
+
+- Local test results — "ran the test suite locally, all pass", "tests green on my machine"
+- Commands you typed while working, or a play-by-play of your process
+- Time spent, dead ends explored, or how the change was arrived at mechanically
+- CI/build status — CI reports this itself; don't restate it
+
+Even when a template has a "Testing" or "Verification" section, don't fill it with local pass/fail claims. Instead describe what a reviewer should verify or how to reproduce the scenario, or write `TODO` — never fabricate results.
+
 **Example — bad:**
-> - Added `validateInput()` function to `utils.ts`
-> - Updated `handler.ts` to call `validateInput()` before processing
-> - Added tests for `validateInput()` in `utils.test.ts`
+> - Added a `validateInput` function to the utils module
+> - Updated the request handler to call `validateInput` before processing
+> - Added tests for `validateInput`
+> - Ran the test suite locally, all tests pass ✅
 
 **Example — good:**
 > Input validation was missing from the handler, allowing malformed payloads to reach the database layer. Validation is done at the handler boundary rather than the DB layer because we want to return user-friendly 400 errors, not 500s.
@@ -71,7 +85,6 @@ These are things the diff already shows. Writing them adds length without adding
 - **Why** — Problem and motivation
 - **Approach** — Key decisions and trade-offs
 - **Reviewer guidance** — Where to focus, non-obvious things
-- **Testing** — What was tested and how
 - **Risks** — What could break, rollback plan
 
 ## Output rules
