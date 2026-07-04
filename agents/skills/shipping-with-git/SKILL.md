@@ -20,6 +20,7 @@ Stage and commit require explicit user confirmation.
 2. **Create branch** *(automatic)*
    - Analyze `git status` and `git diff` to infer the type (`feat` / `fix` / `chore` / `refactor` / `docs` / `test` / `ci` / `perf` / `style`) and a short kebab-case description of the changes.
    - Determine branch name in the format `<type>/<short-description>` (e.g. `feat/add-shipping-with-git-command`).
+   - If the user supplied a ticket ID in `XXX-123` format (e.g. as a command argument or in conversation), use `xxx123-<short-description>` instead — the ID lowercased with the hyphen removed, plus a trailing hyphen, in place of the `<type>/` prefix (e.g. `xxx123-add-shipping-with-git-command`).
    - Check whether the branch already exists.
    - If it does not exist, run `git switch -c <branch-name>` and report the created branch name.
    - If it already exists, stop and ask the user whether to switch to it or choose a different name.
@@ -51,6 +52,7 @@ Stage and commit require explicit user confirmation.
 
 6. **Open PR** *(automatic)*
    - Build the PR title as `<type>: <subject>` when there is no scope, or `<type>(<scope>): <subject>` when scope is present.
+   - If a ticket ID in `XXX-123` format was supplied, prefix the title with `[XXX-123] ` (e.g. `[XXX-123] feat: add shipping-with-git command`).
    - Run:
      ```
      gh pr create --title "<pr-title>" --body "<pr-body>" -w
