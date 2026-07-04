@@ -26,6 +26,15 @@ Reviewers will read the diff — they can see every line added, removed, or move
 4. Draft the PR body following the template (or fallback structure below).
 5. Before finalizing, review every sentence against the filter: "Could a reviewer learn this from the diff in under 30 seconds?" If yes, cut it or rewrite it to explain why it matters — unless the sentence is needed to satisfy a template section or to anchor risk, test scope, or review guidance.
 
+## Ticket ID prefix (PR title & branch name)
+
+When the user supplies a ticket ID in `XXX-123` format (letters, hyphen, digits — e.g. Jira-style), it identifies the change for tracking, so both the PR title and the branch name must carry it:
+
+- **PR title** — prefix with `[XXX-123]`, e.g. `[XXX-123] Fix null pointer in session handler`.
+- **Branch name** — prefix with the ID lowercased and the hyphen removed, plus a trailing hyphen, e.g. `xxx123-fix-session-null-pointer`.
+
+If the user gives no ticket ID, skip both prefixes rather than inventing one.
+
 ## What belongs in a PR description
 
 When a PR template exists, follow its structure. Preserve all headings and checklists unless clearly optional. Remove instructional comments (e.g. `<!-- describe your changes -->`). Use `N/A` or `TODO` for required sections that lack evidence. Fill each section with the kind of content listed below, adapted to what the template asks for. If a template section asks for "changes" or "summary," describe outcomes and review intent rather than listing file-by-file edits.
