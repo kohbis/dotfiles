@@ -54,6 +54,8 @@ When no template exists, weave these elements into the fallback structure:
 
 ## What does NOT belong
 
+**Hard rule: never restate what the code already shows.** This is the single most-violated rule, and the pressure to break it is strongest inside any template section whose heading names "changes," "summary," or "what was done." Such a heading feels like it demands a list of edits — resist that. It is really asking "what did this change accomplish, and what should I look at": answer with outcomes and review intent, never a file-by-file or function-by-function inventory. If every sentence you wrote under such a heading could be reconstructed by reading the diff, you have written noise; delete it and write the *why* instead, or leave `TODO`.
+
 **Things the diff already shows.** Writing them adds length without adding understanding.
 
 - Lists of files changed or added
@@ -91,5 +93,6 @@ Even when a template has a "Testing" or "Verification" section, don't fill it wi
 
 - Markdown only.
 - Concise — every sentence should earn its place.
+- One sentence per line — never pack multiple sentences onto a single line. Break after each sentence's end (`.` / `。`) with a newline. This keeps the markdown diff-friendly: a later edit to one sentence touches one line, so reviewers see exactly what changed. (Markdown still renders consecutive lines as one paragraph, so this doesn't affect the rendered layout — leave a blank line only where you intend a real paragraph break.)
 - Do not invent facts, issue links, or test results; mark unknowns as `TODO`.
 - Use authorial context and active phrasing; avoid detached narration like "This PR adds…".
