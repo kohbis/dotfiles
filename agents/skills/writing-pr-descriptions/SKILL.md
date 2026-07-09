@@ -1,7 +1,6 @@
 ---
 name: writing-pr-descriptions
-description: "Drafts a pull request description from git diff and repository PR template. Trigger only when user explicitly says \"writing pr descriptions\" or \"/writing-pr-descriptions\", or when invoked from another skill (e.g. shipping-with-git)."
-disable-model-invocation: true
+description: "Drafts a pull request description from the current branch's git diff and the repository's PR template. Use whenever the user asks to write, draft, generate, or create a PR/pull request description — including natural requests like \"create a PR\", \"open a PR for this\", or \"write up this PR\" — even if they don't name this skill explicitly. Also trigger when invoked from another skill (e.g. shipping-with-git)."
 ---
 
 # Writing PR Descriptions
