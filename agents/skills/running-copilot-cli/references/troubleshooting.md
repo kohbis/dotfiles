@@ -103,7 +103,7 @@ Before running a task, verify:
 |-------|----------|
 | Command not found | Install: `gh extension install github/gh-copilot` or check PATH |
 | Authentication error | Run `gh auth login` to authenticate |
-| Model not available | Verify model name with `copilot --help`; use dot notation (e.g., `claude-sonnet-4.6`) |
+| Model not available | Verify model name with `copilot --help`; use dot notation (e.g., `claude-opus-4.8`) |
 | Permission denied on tool | Add appropriate `--allow-tool` flag |
 | Timeout on large codebase | Narrow scope in prompt CONTEXT/CONSTRAINTS |
 | Tool not recognized | Check tool name spelling; use `--allow-tool 'shell(*:*)'` for shell access |

@@ -28,19 +28,19 @@ copilot \
 
 | Task Type | Model | Tool Permissions |
 |-----------|-------|-----------------|
-| New feature / coding | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
-| Test generation | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
-| Documentation writing | claude-sonnet-4.6 | `--allow-tool 'write(*:*)'` |
+| New feature / coding | claude-sonnet-5 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
+| Test generation | claude-sonnet-5 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
+| Documentation writing | claude-sonnet-5 | `--allow-tool 'write(*:*)'` |
 | Complex architecture / debugging | claude-opus-4.8 | `--allow-tool 'shell(*:*)' --allow-tool 'write(*:*)'` |
-| Code review / analysis | gpt-5.4 | `--allow-tool 'shell(read:*)'` (no write) |
-| GitHub operations | claude-sonnet-4.6 | `--allow-tool 'shell(*:*)'` (no write) |
-| Quick question | claude-sonnet-4.6 | minimal (no tool flags) |
+| Code review / analysis | gpt-5.6-sol | `--allow-tool 'shell(read:*)'` (no write) |
+| GitHub operations | claude-sonnet-5 | `--allow-tool 'shell(*:*)'` (no write) |
+| Quick question | claude-sonnet-5 | minimal (no tool flags) |
 
 Parameter notes:
 - `-p` flag enables programmatic (non-interactive) mode — use this for automation
-- `--model` selects the underlying model; this skill pins `claude-sonnet-4.6` for everyday tasks rather than relying on GitHub's evolving default
+- `--model` selects the underlying model; this skill pins `claude-sonnet-5` for everyday tasks rather than relying on GitHub's evolving default
 - Use `claude-opus-4.8` when the task needs deeper reasoning across multiple files or systems
-- Model IDs use **dot notation** in the CLI: `claude-sonnet-4.6`, `claude-opus-4.8` (not hyphens)
+- Model IDs use **dot notation** in the CLI: `claude-sonnet-5`, `claude-opus-4.8` (not hyphens)
 - For Copilot CLI, prefer explicit versioned model names over aliases; do not assume bare aliases like `sonnet`, `opus`, or `haiku` are accepted
 - `--allow-tool 'write(*:*)'` grants write access to files; `--allow-tool 'shell(*:*)'` grants shell command execution
 - **Never use `--allow-all-tools`** without explicit user confirmation — prefer granular `--allow-tool` flags

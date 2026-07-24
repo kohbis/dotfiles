@@ -21,7 +21,7 @@ Deliver the synthesized findings in the conversation. If the user wants them on 
 
 | Reviewer | CLI | Model | Default? | Skill Reference |
 |----------|-----|-------|----------|-----------------|
-| codex | Codex CLI | gpt-5.5 | Yes | [reviewing-with-codex](../reviewing-with-codex/SKILL.md) |
+| codex | Codex CLI | gpt-5.6-sol | Yes | [reviewing-with-codex](../reviewing-with-codex/SKILL.md) |
 | copilot | Copilot CLI | claude-opus-4.8 | Yes | [running-copilot-cli](../running-copilot-cli/SKILL.md) |
 | claude | Claude Code CLI | opus | No | — |
 
@@ -29,8 +29,8 @@ Default: run **codex + copilot** (GPT + Claude Opus via Copilot CLI). Add others
 
 Model naming policy:
 - Codex: prefer the current explicit model IDs documented in `codex-*` skills
-- Copilot CLI: use versioned model names such as `claude-sonnet-4.6` and `claude-opus-4.8`
-- Claude Code CLI: prefer family aliases such as `opus`, `sonnet`, and `haiku`
+- Copilot CLI: use versioned model names such as `claude-sonnet-5` and `claude-opus-4.8`
+- Claude Code CLI: prefer family aliases such as `opus`, `sonnet`, `haiku`, and `fable`
 
 ## Workflow
 
@@ -51,7 +51,7 @@ Before running, always present a summary like:
 
 ```
 Reviewers (proposed):
-  ✓ codex    gpt-5.5              [installed]
+  ✓ codex    gpt-5.6-sol              [installed]
   ✓ copilot  claude-opus-4.8      [installed]
   ✗ claude                        [not found]
 
@@ -103,7 +103,7 @@ Spawn all selected reviewers as subagents **in the same turn** so they run in pa
 ### Codex (default)
 ```bash
 codex exec \
-  --model gpt-5.5 \
+  --model gpt-5.6-sol \
   --config model_reasoning_effort="high" \
   --sandbox read-only \
   --skip-git-repo-check \
