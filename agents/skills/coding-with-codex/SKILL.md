@@ -24,15 +24,16 @@ codex exec \
 
 | Task Type | Model | Reasoning | Sandbox | --full-auto |
 |-----------|-------|-----------|---------|-------------|
-| New feature implementation | gpt-5.5 | high | workspace-write | YES |
-| Bug fix | gpt-5.5 | xhigh | workspace-write | YES |
-| Test generation | gpt-5.5 | medium | workspace-write | YES |
-| Scaffolding | gpt-5.5 | medium | workspace-write | YES |
-| Small changes | gpt-5.4-mini | medium | workspace-write | YES |
+| New feature implementation | gpt-5.6-sol | high | workspace-write | YES |
+| Bug fix | gpt-5.6-sol | xhigh | workspace-write | YES |
+| Test generation | gpt-5.6-terra | medium | workspace-write | YES |
+| Scaffolding | gpt-5.6-terra | medium | workspace-write | YES |
+| Small changes | gpt-5.6-luna | medium | workspace-write | YES |
 
 Parameter notes:
-- `gpt-5.5` is the default; raise `model_reasoning_effort` to `xhigh` when the implementation requires deeper reasoning, debugging, or broader codebase context
-- Use `gpt-5.4-mini` for simple or localized changes where speed matters more than depth
+- `gpt-5.6-sol` is the default (frontier); raise `model_reasoning_effort` to `xhigh` when the implementation requires deeper reasoning, debugging, or broader codebase context
+- `gpt-5.6-terra` is the balanced tier for everyday `medium`-effort work such as test generation and scaffolding
+- Use `gpt-5.6-luna` for simple or localized changes where speed matters more than depth
 - Always use `workspace-write` + `--full-auto` — this skill is for executing changes
 - `danger-full-access` (network access) requires explicit user confirmation
 - Append `2>/dev/null` only if user requests hidden output

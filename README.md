@@ -50,9 +50,9 @@ When a skill needs an explicit model name, follow these conventions:
 
 | Tool / CLI | Naming policy | Examples |
 | ---------- | ------------- | -------- |
-| Codex CLI | Use explicit model IDs | `gpt-5.5`, `gpt-5.4-mini` |
-| GitHub Copilot CLI | Use explicit versioned model names | `claude-sonnet-4.6`, `claude-opus-4.8` |
-| Claude Code CLI | Prefer family aliases | `opus`, `sonnet`, `haiku` |
+| Codex CLI | Use explicit model IDs | `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna` |
+| GitHub Copilot CLI | Use explicit versioned model names | `claude-sonnet-5`, `claude-opus-4.8` |
+| Claude Code CLI | Prefer family aliases | `opus`, `sonnet`, `haiku`, `fable` |
 
 Rationale:
 - Codex skills currently use concrete OpenAI model IDs rather than family aliases.

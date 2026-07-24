@@ -16,7 +16,7 @@ $DIFF
 "
 
 # Run in parallel (spawn both subagents in the same turn)
-codex exec --model gpt-5.5 --config model_reasoning_effort="high" \
+codex exec --model gpt-5.6-sol --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
 copilot -p "$PROMPT" --model claude-opus-4.8 --allow-tool 'shell(read:*)'
@@ -38,7 +38,7 @@ $DIFF
 "
 
 # Run all three in parallel
-codex exec --model gpt-5.5 --config model_reasoning_effort="high" \
+codex exec --model gpt-5.6-sol --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
 copilot -p "$PROMPT" --model claude-opus-4.8 --allow-tool 'shell(read:*)'
@@ -56,7 +56,7 @@ FOCUS: Input validation, token handling, privilege escalation risks
 OUTPUT: Security findings by severity with remediation suggestions.
 "
 
-codex exec --model gpt-5.5 --config model_reasoning_effort="xhigh" \
+codex exec --model gpt-5.6-sol --config model_reasoning_effort="xhigh" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
 claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
