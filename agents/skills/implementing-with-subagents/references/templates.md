@@ -22,7 +22,8 @@ you're running, so don't fill gaps with guesses.
 2. Add tests per the writing-tests skill.
 3. Run them; make them pass.
 4. Commit a checkpoint.
-5. Re-read your own diff against the task before reporting; fix what you find.
+5. Before reporting, confirm your diff covers every requirement in the task and
+   nothing beyond it. One pass — fix what it surfaces, then report.
 
 ## Stay in scope
 Follow the plan's file layout and the surrounding code's patterns. If a file

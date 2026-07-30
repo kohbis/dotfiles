@@ -52,14 +52,18 @@ Read enough surrounding code to judge each finding in context. Pick the lenses t
 
 **CI/CD:** parallelization, dependency and Docker-layer caching, fast-feedback ordering (lint/type-check before heavy suites), redundant or skippable steps via path filters.
 
-## 3. Judge before you report — signal over volume
+## 3. Collect, then filter — two passes, not one
 
-A review that's 90% nits trains the reader to ignore the 10% that matters, so spend judgment on what's worth their attention:
+Run these as two separate steps. Merging them makes you suppress findings while you're still looking, which loses real issues.
 
-- **Verify a finding is real.** Read the call site before flagging a "bug" — the case may already be guarded elsewhere. Don't report what you haven't confirmed.
+**Collect.** Note everything the lenses surface. Don't filter for severity or second-guess whether something is worth mentioning yet — that's the next step's job.
+
+**Filter.** Then work the list down, because a review that's 90% nits trains the reader to ignore the 10% that matters:
+
+- **Confirm each finding before it ships.** Read the call site — the case may already be guarded elsewhere. Anything you couldn't confirm is dropped or marked with `~`, never stated as fact.
 - **Prioritize by impact × likelihood**, not by how easy something was to spot.
 - **Don't inflate nits.** Style preferences are Low at most; never Critical/High.
-- **Mark confidence.** Separate "this is a bug" from "worth double-checking" so the reader knows where to look hard.
+- **Mark confidence.** Separate "this is a bug" from "worth a second look" so the reader knows where to look hard.
 
 ## 4. Report
 
