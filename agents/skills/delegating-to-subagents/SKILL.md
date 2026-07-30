@@ -25,6 +25,8 @@ The main session acts as architect and controller. Push context-heavy and mechan
 - Tightly-coupled work that requires shared state across steps.
 - Anything that needs user clarification mid-task.
 - Trivial quick edits where coordination overhead exceeds the benefit.
+- Anything you can finish yourself in a handful of tool calls.
+- Verifying or double-checking your own output — do that inline, not by spawning an agent.
 - The hard architectural core of a problem.
 - Final audit and integration of results.
 
@@ -44,11 +46,13 @@ When a more specific sibling skill fits, prefer it over this general guide: `imp
 
 ## Model selection
 
-| Task | Model | Notes |
-|------|-------|-------|
-| Read-only broad exploration / search | `haiku` | Use the read-only **Explore** agent type |
-| Standard implementation / multi-file edits with a clear spec | `sonnet` | Workhorse for standard work |
-| Hard implementation, design, final audit/review | `opus`, or do it yourself in the main session | Keep the especially hard parts in main |
+| Task | Model | Effort | Notes |
+|------|-------|--------|-------|
+| Read-only broad exploration / search | `haiku` | `low` | Use the read-only **Explore** agent type |
+| Standard implementation / multi-file edits with a clear spec | `sonnet` | `medium` | Workhorse for standard work |
+| Hard implementation, design, final audit/review | `opus`, or do it yourself in the main session | `high`–`xhigh` | Keep the especially hard parts in main |
+
+Effort is an axis independent of model, and it's the primary lever for cost and latency — reach for it before jumping a model tier. Raise it for demanding agentic work; don't carry over defaults from a previous model without re-checking them against your own tasks. The Codex equivalent is `model_reasoning_effort` (see `coding-with-codex`).
 
 Agent type and model are independent axes: the **Explore** agent type is read-only and ideal for search, while the model is chosen separately by task difficulty. Claude Code uses family aliases (`opus`/`sonnet`/`haiku`/`fable`); routing mechanical work to cheaper models keeps the parent's context window from filling with bulk output that never needs to return in detail.
 
@@ -65,6 +69,7 @@ Require each subagent to end its final message with a status line followed by th
 
 - Don't delegate while requirements are ambiguous — the agent can't ask, so it misfires.
 - Don't delegate outward-facing or irreversible actions; confirm them in the parent.
+- Prefer the smallest fan-out that covers the work — one agent if one suffices. Delegation multiplies cost and wall-clock, so it pays off on genuinely independent, sizeable tracks, not on small tasks.
 - Parallel sibling agents are mutually invisible with no shared state — never have two agents edit the same file at once.
 - Returns are summaries only; if details are needed later, have the agent persist them to a file as an artifact.
 - Subagents can't spawn subagents (no nesting) — don't design a plan that assumes they can.

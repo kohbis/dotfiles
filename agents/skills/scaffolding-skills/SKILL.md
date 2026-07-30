@@ -47,7 +47,7 @@ Use $ARGUMENTS to accept user input (e.g., `/my-skill some args`).
 | `agent` | Subagent type when `context: fork` (`Explore`, `Plan`, `general-purpose`, or custom). |
 | `allowed-tools` | Tools allowed without approval. Space-separated or YAML list. |
 | `model` | Model override. |
-| `effort` | Effort level: `low`, `medium`, `high`, `max`. |
+| `effort` | Effort level: `low`, `medium`, `high`, `xhigh`, `max`. |
 | `argument-hint` | Autocomplete hint (e.g., `[issue-number]`). |
 | `paths` | Glob patterns limiting when this skill auto-activates. |
 
