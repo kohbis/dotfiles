@@ -24,11 +24,54 @@ Everything you write should be about the change itself and its durable context �
    - `.github/pull_request_template.md`
    - `.github/PULL_REQUEST_TEMPLATE.md`
    - `.github/PULL_REQUEST_TEMPLATE/*.md` (pick the most relevant one)
-4. Draft the PR body following the template (or fallback structure below).
-5. Before finalizing, run every sentence through two filters:
+4. Judge how much the change actually needs (see *Scale the description to the change*), then draft to that shape following the template or the fallback structure below.
+5. Before finalizing, run every sentence through three filters:
    - "Could a reviewer learn this from the diff in under 30 seconds?" If yes, cut it or rewrite it to explain why it matters.
    - "Is this about the change, or about what I did while making it?" If it describes your local process — tests you ran, commands you typed, results you saw — cut it.
+   - "Did I already say this under another heading?" If yes, keep the instance that fits best and cut the other.
    Keep a sentence only if it carries durable context (motivation, decisions, risk, review guidance) or is needed to satisfy a template section.
+   When the draft is too long, the fix is deleting sentences, not compressing them into denser ones.
+
+## Scale the description to the change
+
+Length should track how much undocumented thinking the change carries, not how big the diff is.
+A 600-line mechanical rename can be one sentence.
+A five-line change to retry logic can need a paragraph.
+Sizing by diff volume is what produces descriptions that are long and still say nothing.
+
+Pick the smallest shape that carries the context:
+
+- **Self-evident change** (typo, version bump, mechanical rename, regenerated file) — one or two sentences, no headings at all.
+  There is no hidden reasoning to transmit, so a section skeleton adds scrolling and nothing else.
+- **Ordinary change** — a short paragraph of why, plus a reviewer note only when something is genuinely non-obvious.
+  Two or three headings at most, and only the ones with real content.
+- **Substantial or risky change** (migration, new external dependency, behavior change under load, security-relevant) — here the full fallback structure earns its place.
+  This is the only tier where a long description is the right answer, and even here aim for something a reviewer absorbs in under a minute.
+
+**Headings are a menu, not a checklist.** Drop any heading you would have to pad.
+A section filled with hedged filler ("no significant risks expected", "the approach was straightforward") costs the reviewer more than its absence would.
+If you cannot name a rejected alternative, there wasn't one — omit **Approach** rather than inventing a trade-off.
+
+**A bigger diff usually means less to write, not more.** When many files change for one reason, state the reason once instead of walking the areas.
+Resist the pull to give each directory, layer, or commit its own bullet: that just reproduces `git diff --stat` in prose.
+If the change genuinely holds several independent concerns, name them in one line — and consider that it's a sign the PR wants splitting — rather than growing a section per concern.
+
+**With a template, the headings are fixed but the volume isn't.** One or two sentences under a heading is a complete answer, and `N/A` is a complete answer.
+Don't grow a section to match the size of its neighbors, and don't restate one motivation under three headings.
+
+**Example — a dependency bump, over-inflated:**
+> ## Why
+> Keeping dependencies up to date is important for security and long-term maintainability of the project.
+> ## Approach
+> Bumped the version in the lockfile, which was the simplest and most direct approach available.
+> ## Reviewer guidance
+> Please review the lockfile diff and confirm the version is correct.
+> ## Risks
+> Low risk overall. Rollback is straightforward by reverting the commit.
+
+**Example — same change, right-sized:**
+> Bumps `lodash` to 4.17.21 for the prototype-pollution fix (CVE-2020-8203).
+> No call sites needed changes.
 
 ## Ticket ID prefix (PR title & branch name)
 
@@ -83,15 +126,20 @@ Even when a template has a "Testing" or "Verification" section, don't fill it wi
 
 ## Fallback structure (when no template exists)
 
+Use only the headings that have something to say — this is the full set, not a required set.
+**Why** is the one that almost always earns its place; the others appear when the change actually raises them.
+
 - **Why** — Problem and motivation
 - **Approach** — Key decisions and trade-offs
 - **Reviewer guidance** — Where to focus, non-obvious things
 - **Risks** — What could break, rollback plan
 
+For a self-evident change, skip the headings entirely and write the one or two sentences that explain it.
+
 ## Output rules
 
 - Markdown only.
-- Concise — every sentence should earn its place.
+- Concise — every sentence earns its place, and the body is no longer than the change warrants.
 - One sentence per line — never pack multiple sentences onto a single line. Break after each sentence's end (`.` / `。`) with a newline. This keeps the markdown diff-friendly: a later edit to one sentence touches one line, so reviewers see exactly what changed. (Markdown still renders consecutive lines as one paragraph, so this doesn't affect the rendered layout — leave a blank line only where you intend a real paragraph break.)
 - Do not invent facts, issue links, or test results; mark unknowns as `TODO`.
 - Use authorial context and active phrasing; avoid detached narration like "This PR adds…".
