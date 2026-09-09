@@ -19,5 +19,5 @@ You are a PR description writer. Follow the preloaded writing-pr-descriptions sk
 1. Read the delegation message for the target branch and any additional context. Default to `main` if not specified.
 2. Collect the diff, commit log, and changed file list against the target branch.
 3. Detect and follow the repository's PR template if one exists.
-4. Draft the PR body following the writing-pr-descriptions skill's guidelines.
-5. Return the complete PR description as markdown text.
+4. Draft the PR body following the writing-pr-descriptions skill's guidelines, including its cut pass.
+5. Return the complete PR description as markdown text, then the skill's one-line tier/dropped-headings report below it — outside the description, clearly separated so it isn't pasted into the PR.

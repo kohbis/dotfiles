@@ -5,11 +5,11 @@ description: "Drafts a pull request description from the current branch's git di
 
 # Writing PR Descriptions
 
-Write a PR description that tells reviewers what they cannot learn from the diff alone.
+Write only what a reviewer cannot get from the diff.
 
-Reviewers will read the diff — they can see every line added, removed, or moved. A PR description that restates the diff is noise. The description exists to carry the context that lives in the author's head but not in the code: the motivation, the rejected alternatives, the non-obvious risks, and the things the reviewer should pay extra attention to.
+The reviewer will read the diff, so restating it is noise. The description carries what lives in the author's head and nowhere in the code: why the change exists, which alternative was rejected, what breaks if it's wrong, where to look first. Nothing else earns space — not a tour of the files, not what you did while making the change.
 
-Everything you write should be about the change itself and its durable context — the concern of the PR. It is not a log of what you personally did while making the change. The fact that you ran the tests locally and they passed, which commands you typed, how long it took, what your machine printed — none of that is the reviewer's concern. It isn't verifiable, it doesn't survive past the moment you wrote it, and CI reports its own results anyway. Keep the description focused on what the change is and why, so it stays true and useful long after the branch is merged.
+The default failure is a description that is longer than the change deserves, so treat brevity as the job rather than a finishing touch.
 
 ## Workflow
 
@@ -19,47 +19,45 @@ Everything you write should be about the change itself and its durable context �
    - `git diff --stat {target}...HEAD`
    - `git log --oneline {target}...HEAD`
    - Read key changed files to understand intent (not to summarize them)
-   - Use commit messages, issue refs, branch names, and user-provided context to fill in motivation and decisions. When context is unavailable, write `TODO` rather than inferring
-3. Find PR template in this order:
-   - `.github/pull_request_template.md`
-   - `.github/PULL_REQUEST_TEMPLATE.md`
-   - `.github/PULL_REQUEST_TEMPLATE/*.md` (pick the most relevant one)
-4. Judge how much the change actually needs (see *Scale the description to the change*), then draft to that shape following the template or the fallback structure below.
-5. Before finalizing, run every sentence through three filters:
-   - "Could a reviewer learn this from the diff in under 30 seconds?" If yes, cut it or rewrite it to explain why it matters.
-   - "Is this about the change, or about what I did while making it?" If it describes your local process — tests you ran, commands you typed, results you saw — cut it.
-   - "Did I already say this under another heading?" If yes, keep the instance that fits best and cut the other.
-   Keep a sentence only if it carries durable context (motivation, decisions, risk, review guidance) or is needed to satisfy a template section.
-   When the draft is too long, the fix is deleting sentences, not compressing them into denser ones.
+   - Use commit messages, issue refs, branch names, and user-provided context for motivation and decisions. When context is unavailable, write `TODO` rather than inferring
+3. Find the PR template, in order: `.github/pull_request_template.md`, `.github/PULL_REQUEST_TEMPLATE.md`, `.github/PULL_REQUEST_TEMPLATE/*.md` (pick the most relevant). **When one exists, its structure wins over anything below.** Keep every heading and checklist unless clearly marked optional, strip instructional comments (`<!-- describe your changes -->`), and answer a section you have nothing for with `N/A` — the tiers and heading conditions below then govern only how much you write under each heading, never which headings exist.
+4. Pick a size tier (below) and draft to it.
+5. **Cut pass — do this on the draft before showing anything.** Take each sentence and delete it if any of these is true:
+   - a reviewer could learn it from the diff in under 30 seconds
+   - it describes your session rather than the change (tests you ran, commands, results, time spent)
+   - you already said it under another heading
+   - you wrote it because a heading was empty, not because you had something to say
+   Then drop any heading left with nothing under it — except a template's headings, which stay and take `N/A`. Deleting is the only fix — never rewrite a cut sentence into a denser one.
+6. Report the outcome in one line in chat, not in the description: which tier you chose and which headings you dropped. If you dropped none, say so — that usually means the cut pass didn't really happen.
 
-## Scale the description to the change
+## How much to write
 
-Length should track how much undocumented thinking the change carries, not how big the diff is.
-A 600-line mechanical rename can be one sentence.
-A five-line change to retry logic can need a paragraph.
-Sizing by diff volume is what produces descriptions that are long and still say nothing.
+Length tracks how much undocumented thinking the change carries, never diff volume. A 600-line mechanical rename is one sentence; a five-line change to retry logic can need a paragraph. The word counts below are targets to aim under, not quotas to fill.
 
-Pick the smallest shape that carries the context:
+- **Self-evident** (typo, version bump, mechanical rename, regenerated file, config value) — one or two sentences, no headings, ~30 words. There is no hidden reasoning to transmit, so a section skeleton adds scrolling and nothing else.
+- **Ordinary** — a paragraph of why, plus at most one reviewer note. Under ~120 words. Most PRs land here.
+- **Substantial or risky** (migration, new external dependency, behavior change under load, security-relevant) — the full structure earns its place. Still under ~250 words: a reviewer should absorb it in under a minute.
 
-- **Self-evident change** (typo, version bump, mechanical rename, regenerated file) — one or two sentences, no headings at all.
-  There is no hidden reasoning to transmit, so a section skeleton adds scrolling and nothing else.
-- **Ordinary change** — a short paragraph of why, plus a reviewer note only when something is genuinely non-obvious.
-  Two or three headings at most, and only the ones with real content.
-- **Substantial or risky change** (migration, new external dependency, behavior change under load, security-relevant) — here the full fallback structure earns its place.
-  This is the only tier where a long description is the right answer, and even here aim for something a reviewer absorbs in under a minute.
+**A bigger diff usually means less to write, not more.** When many files change for one reason, state the reason once instead of walking the areas — a bullet per directory, layer, or commit just reproduces `git diff --stat` in prose. If the change really holds several independent concerns, name them in one line and consider that the PR wants splitting.
 
-**Headings are a menu, not a checklist.** Drop any heading you would have to pad.
-A section filled with hedged filler ("no significant risks expected", "the approach was straightforward") costs the reviewer more than its absence would.
-If you cannot name a rejected alternative, there wasn't one — omit **Approach** rather than inventing a trade-off.
+## Earn each heading
 
-**A bigger diff usually means less to write, not more.** When many files change for one reason, state the reason once instead of walking the areas.
-Resist the pull to give each directory, layer, or commit its own bullet: that just reproduces `git diff --stat` in prose.
-If the change genuinely holds several independent concerns, name them in one line — and consider that it's a sign the PR wants splitting — rather than growing a section per concern.
+This applies when no template exists. With a template, its headings are already settled — skip to the paragraph below the table.
 
-**With a template, the headings are fixed but the volume isn't.** One or two sentences under a heading is a complete answer, and `N/A` is a complete answer.
-Don't grow a section to match the size of its neighbors, and don't restate one motivation under three headings.
+Headings are a menu. Include one only when its condition holds:
 
-**Example — a dependency bump, over-inflated:**
+| Heading | Include it when |
+| --- | --- |
+| **Why** | almost always — the problem or trigger isn't in the diff |
+| **Approach** | you can name the alternative you rejected. If you can't, there wasn't one |
+| **Reviewer guidance** | you can point at something specific a careful diff read would still miss |
+| **Risks** | you can name a concrete failure mode, not "low risk overall" |
+
+Hedged filler ("no significant risks expected", "the approach was straightforward") costs the reviewer more than the heading's absence would.
+
+**With a template the headings are fixed but the volume isn't.** One sentence under a heading is a complete answer, and so is `N/A`. Don't grow a section to match its neighbors, don't restate one motivation under three headings, and use `TODO` where you lack evidence rather than filling the space.
+
+**Example — dependency bump, over-inflated:**
 > ## Why
 > Keeping dependencies up to date is important for security and long-term maintainability of the project.
 > ## Approach
@@ -73,47 +71,17 @@ Don't grow a section to match the size of its neighbors, and don't restate one m
 > Bumps `lodash` to 4.17.21 for the prototype-pollution fix (CVE-2020-8203).
 > No call sites needed changes.
 
-## Ticket ID prefix (PR title & branch name)
+## Never restate the diff
 
-When the user supplies a ticket ID in `XXX-123` format (letters, hyphen, digits — e.g. Jira-style), it identifies the change for tracking, so both the PR title and the branch name must carry it:
+This is the most-violated rule, and the pressure peaks under any template heading named "changes", "summary", or "what was done". Such a heading reads like a demand for an inventory of edits; it is really asking *what did this accomplish, and what should I look at*. Answer with outcomes and review intent. If a sentence you wrote there could be reconstructed from the diff, it is noise — delete it and write the why, or leave `TODO`.
 
-- **PR title** — prefix with `[XXX-123]`, e.g. `[XXX-123] Fix null pointer in session handler`.
-- **Branch name** — prefix with the ID lowercased and the hyphen removed, plus a trailing hyphen, e.g. `xxx123-fix-session-null-pointer`.
+Never write:
 
-If the user gives no ticket ID, skip both prefixes rather than inventing one.
-
-## What belongs in a PR description
-
-When a PR template exists, follow its structure. Preserve all headings and checklists unless clearly optional. Remove instructional comments (e.g. `<!-- describe your changes -->`). Use `N/A` or `TODO` for required sections that lack evidence. Fill each section with the kind of content listed below, adapted to what the template asks for. If a template section asks for "changes" or "summary," describe outcomes and review intent rather than listing file-by-file edits.
-
-When no template exists, weave these elements into the fallback structure:
-
-- **Why** this change exists — the problem, the trigger, the user/business need
-- **Why this approach** over alternatives — rejected options, trade-offs accepted
-- **What's not obvious from the diff** — subtle interactions, ordering dependencies, migration concerns, performance implications
-- **Where to look first** — guide the reviewer's attention to the parts that matter most
-- **Risks and rollback** — what could go wrong, how to revert safely
-
-## What does NOT belong
-
-**Hard rule: never restate what the code already shows.** This is the single most-violated rule, and the pressure to break it is strongest inside any template section whose heading names "changes," "summary," or "what was done." Such a heading feels like it demands a list of edits — resist that. It is really asking "what did this change accomplish, and what should I look at": answer with outcomes and review intent, never a file-by-file or function-by-function inventory. If every sentence you wrote under such a heading could be reconstructed by reading the diff, you have written noise; delete it and write the *why* instead, or leave `TODO`.
-
-**Things the diff already shows.** Writing them adds length without adding understanding.
-
-- Lists of files changed or added
+- lists of files changed or added
 - "Added function X", "Updated class Y", "Renamed Z to W"
-- Restating what the code does line by line
-- Describing type signatures, imports, or structural changes
+- what the code does, line by line
+- type signatures, imports, or structural changes
 - "Refactored X to use Y" when the diff makes it obvious
-
-**Things that aren't the PR's concern.** These are transient facts about your local session, not durable context about the change. The reviewer can't verify them and they add nothing to understanding the code.
-
-- Local test results — "ran the test suite locally, all pass", "tests green on my machine"
-- Commands you typed while working, or a play-by-play of your process
-- Time spent, dead ends explored, or how the change was arrived at mechanically
-- CI/build status — CI reports this itself; don't restate it
-
-Even when a template has a "Testing" or "Verification" section, don't fill it with local pass/fail claims. Instead describe what a reviewer should verify or how to reproduce the scenario, or write `TODO` — never fabricate results.
 
 **Example — bad:**
 > - Added a `validateInput` function to the utils module
@@ -122,24 +90,44 @@ Even when a template has a "Testing" or "Verification" section, don't fill it wi
 > - Ran the test suite locally, all tests pass ✅
 
 **Example — good:**
-> Input validation was missing from the handler, allowing malformed payloads to reach the database layer. Validation is done at the handler boundary rather than the DB layer because we want to return user-friendly 400 errors, not 500s.
+> Input validation was missing from the handler, allowing malformed payloads to reach the database layer.
+> Validation lives at the handler boundary rather than the DB layer so we return user-friendly 400s instead of 500s.
 
-## Fallback structure (when no template exists)
+## Never report your local session
 
-Use only the headings that have something to say — this is the full set, not a required set.
-**Why** is the one that almost always earns its place; the others appear when the change actually raises them.
+These are transient facts about your machine, not durable context about the change. The reviewer can't verify them, CI reports its own results, and they read as false a week later.
 
-- **Why** — Problem and motivation
-- **Approach** — Key decisions and trade-offs
-- **Reviewer guidance** — Where to focus, non-obvious things
-- **Risks** — What could break, rollback plan
+- local test results — "ran the test suite locally, all pass", "tests green on my machine"
+- commands you typed, or a play-by-play of your process
+- time spent, dead ends explored, how the change was mechanically arrived at
+- CI/build status
 
-For a self-evident change, skip the headings entirely and write the one or two sentences that explain it.
+A "Testing" or "Verification" section is not an exception. Describe what a reviewer should verify or how to reproduce the scenario, or write `TODO` — never fabricate results.
+
+## Ticket ID prefix (PR title & branch name)
+
+When the user supplies a ticket ID in `XXX-123` format (letters, hyphen, digits — e.g. Jira-style), it identifies the change for tracking, so both the title and the branch carry it:
+
+- **PR title** — prefix `[XXX-123]`, e.g. `[XXX-123] Fix null pointer in session handler`.
+- **Branch name** — the ID lowercased with the hyphen removed, plus a trailing hyphen, e.g. `xxx123-fix-session-null-pointer`.
+
+With no ticket ID, skip both prefixes rather than inventing one.
+
+## Fallback structure (no template)
+
+Use only the headings that pass *Earn each heading* — this is the full set, not a required set.
+
+- **Why** — problem and motivation
+- **Approach** — key decisions and trade-offs
+- **Reviewer guidance** — where to focus, non-obvious things
+- **Risks** — what could break, rollback plan
+
+For a self-evident change, skip headings entirely and write the one or two sentences that explain it.
 
 ## Output rules
 
 - Markdown only.
-- Concise — every sentence earns its place, and the body is no longer than the change warrants.
-- One sentence per line — never pack multiple sentences onto a single line. Break after each sentence's end (`.` / `。`) with a newline. This keeps the markdown diff-friendly: a later edit to one sentence touches one line, so reviewers see exactly what changed. (Markdown still renders consecutive lines as one paragraph, so this doesn't affect the rendered layout — leave a blank line only where you intend a real paragraph break.)
-- Do not invent facts, issue links, or test results; mark unknowns as `TODO`.
-- Use authorial context and active phrasing; avoid detached narration like "This PR adds…".
+- No longer than the change warrants — see the tier targets above.
+- One sentence per line — break after each `.` / `。`. A later edit then touches one line, so the markdown diff shows exactly what changed. (Consecutive lines still render as one paragraph; leave a blank line only for a real paragraph break.)
+- Don't invent facts, issue links, or test results; mark unknowns as `TODO`.
+- Write with authorial voice and active phrasing; avoid detached narration like "This PR adds…".
