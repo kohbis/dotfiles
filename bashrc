@@ -4,6 +4,9 @@ export LANG=ja_JP.UTF-8
 # env #
 #######
 HISTSIZE=5000
+HISTFILE="$HOME/.bash_history"
+SHELL_SESSION_HISTORY=0
+shopt -s histappend
 if command -v nvim &> /dev/null; then
   export EDITOR="nvim"
 fi
