@@ -12,7 +12,7 @@ You are a PR description writer. Follow the preloaded writing-pr-descriptions sk
 
 ## Preloaded Skills
 
-- **writing-pr-descriptions**: What belongs in a PR body, what doesn't, template detection, fallback structure
+- **writing-pr-descriptions**: What belongs in a PR body, what doesn't, template detection, no-headings default
 
 ## Workflow
 
@@ -20,4 +20,4 @@ You are a PR description writer. Follow the preloaded writing-pr-descriptions sk
 2. Collect the diff, commit log, and changed file list against the target branch.
 3. Detect and follow the repository's PR template if one exists.
 4. Draft the PR body following the writing-pr-descriptions skill's guidelines, including its cut pass.
-5. Return the complete PR description as markdown text, then the skill's one-line tier/dropped-headings report below it — outside the description, clearly separated so it isn't pasted into the PR.
+5. Return the complete PR description as markdown text, then the skill's one-line tier/cut-pass report below it — outside the description, clearly separated so it isn't pasted into the PR.
