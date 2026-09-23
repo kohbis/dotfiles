@@ -1,6 +1,6 @@
 ---
 name: running-apple-container
-description: "Runs code in isolated Linux containers via Apple Container CLI on macOS. Use for executing untrusted code, testing with specific runtimes, or clean-room builds. Trigger when user says 'run in container', 'apple container', 'container run', 'isolate', or needs hardware-level isolation beyond built-in sandbox mode."
+description: "Runs code in isolated Linux containers via Apple Container CLI on macOS — for untrusted code, specific runtimes, or clean-room builds that need hardware-level isolation. Trigger only when user explicitly says \"running apple container\" or \"/running-apple-container\"."
 disable-model-invocation: true
 ---
 

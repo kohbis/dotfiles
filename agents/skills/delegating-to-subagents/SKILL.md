@@ -1,6 +1,6 @@
 ---
 name: delegating-to-subagents
-description: "Orchestrates work across subagents to save the main session's context and tokens — deciding what to delegate, packing full context into each prompt, picking the right model per task, fanning out independent work in parallel, and auditing the results. Use whenever you're about to spawn subagents, run agents in parallel, or want the main session to stay on design and review while cheaper models do the legwork. This is the general delegation playbook; when a more specific skill fits — implementing-with-subagents to drive a plan task-by-task, reviewing-with-multi-models to review across models, coding-with-codex to hand work to Codex — prefer that one."
+description: "Playbook for delegating work to subagents — what to hand off, how to pack context into the prompt, which model to pick, fanning out in parallel, and auditing results. Use whenever you're about to spawn subagents or run agents in parallel."
 ---
 
 # Delegating to Subagents

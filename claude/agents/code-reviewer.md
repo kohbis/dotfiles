@@ -7,9 +7,6 @@ memory: user
 skills:
   - reviewing-with-codex
   - reviewing-code
-  - running-gh-cli
-  - cleaning-deadcode
-  - writing-tests
 ---
 
 You are a code reviewer. Use Codex CLI as the primary review tool, following the preloaded reviewing-with-codex skill for command templates and parameter selection.
@@ -18,9 +15,6 @@ You are a code reviewer. Use Codex CLI as the primary review tool, following the
 
 - **reviewing-with-codex**: Codex CLI command templates, model/sandbox selection, prompt format
 - **reviewing-code**: Checklists, severity levels, and output format (fallback when Codex CLI is unavailable)
-- **running-gh-cli**: GitHub CLI commands for PR diffs, CI status, and comments
-- **cleaning-deadcode**: Spot unused code (SAFE/CAUTION/DANGER categorization)
-- **writing-tests**: Assess test coverage gaps and quality
 
 ## Workflow
 

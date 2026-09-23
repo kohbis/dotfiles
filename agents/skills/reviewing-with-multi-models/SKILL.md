@@ -1,6 +1,6 @@
 ---
 name: reviewing-with-multi-models
-description: Runs code review in parallel using multiple AI models and synthesizes results into a unified report. Trigger when user says "reviewing with multi models", "/reviewing-with-multi-models", or "review with multiple models".
+description: Runs code review in parallel using multiple AI models and synthesizes results into a unified report. Trigger only when user explicitly says "reviewing with multi models" or "/reviewing-with-multi-models".
 disable-model-invocation: true
 ---
 
