@@ -180,6 +180,11 @@ endef
 define link-agents-skills
 	if [ -d "$(1)/agents/skills" ]; then \
 		mkdir -p "$(AGENTS_DIR)/skills"; \
+		for dst in "$(AGENTS_DIR)/skills"/*; do \
+			[ -L "$$dst" ] && [ ! -e "$$dst" ] || continue; \
+			case "$$(readlink "$$dst")" in "$(1)/agents/skills/"*) ;; *) continue ;; esac; \
+			unlink "$$dst" && echo "  [x] .agents/skills/$$(basename "$$dst") (dangling, removed)"; \
+		done; \
 		for src in "$(1)/agents/skills"/*; do \
 			name=$$(basename "$$src"); \
 			if [ -z "$(F)" ] || echo "skills/$$name" | grep -q "$(F)"; then \
@@ -232,6 +237,11 @@ endef
 
 define link-skills-via-agents
 	mkdir -p "$(HOME)/.$(1)/skills"; \
+	for dst in "$(HOME)/.$(1)/skills"/*; do \
+		[ -L "$$dst" ] && [ ! -e "$$dst" ] || continue; \
+		case "$$(readlink "$$dst")" in "$(AGENTS_DIR)/skills/"*) ;; *) continue ;; esac; \
+		unlink "$$dst" && echo "  [x] .$(1)/skills/$$(basename "$$dst") (dangling, removed)"; \
+	done; \
 	for src in "$(AGENTS_DIR)/skills"/*; do \
 		[ -e "$$src" ] || continue; \
 		name=$$(basename "$$src"); \

@@ -22,7 +22,7 @@ Run one implementer at a time. Two subagents editing the same working tree share
 
 Record the current HEAD before each task so you can scope its review later. Then, per task:
 
-1. Dispatch a fresh implementer subagent with the task pasted in full (never a pointer to the plan file — the prompt is its only input). See `references/templates.md`. It implements the task, tests it (`writing-tests`), commits a checkpoint, and reports a status.
+1. Dispatch a fresh implementer subagent with the task pasted in full (never a pointer to the plan file — the prompt is its only input). See `references/templates.md`. It implements the task, tests it, commits a checkpoint, and reports a status.
 2. Read the status and respond — see Status handling.
 3. Verify in two passes, in this order:
    - **Requirements** — does the change actually do what the task asked, nothing missing and nothing extra? Confirm by reading the code, not by trusting the report.
@@ -59,6 +59,6 @@ Match the model to each task's difficulty — see the table in `delegating-to-su
 
 - `references/templates.md` — the implementer dispatch skeleton and the two verification passes
 - `delegating-to-subagents` — dispatch mechanics this skill builds on
-- `writing-tests`, `reviewing-code` — how the implementer tests and how the craftsmanship pass reviews
+- `reviewing-code` — how the craftsmanship pass reviews
 - `managing-git-worktrees` — give a task its own checkout when isolation helps
 - `shipping-with-git` — the gated ship step once all tasks pass
