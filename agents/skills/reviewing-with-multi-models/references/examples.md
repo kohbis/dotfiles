@@ -1,8 +1,8 @@
 # Multi-Model Review Examples
 
-`{CODEX_MODEL}` and `{COPILOT_MODEL}` are the model IDs from the Reviewers table in SKILL.md.
+`{CODEX_MODEL}` is the Codex model ID from the Reviewers table in SKILL.md.
 
-## Review Uncommitted Changes (Default: codex + copilot)
+## Review Uncommitted Changes (Default: codex + claude)
 
 ```bash
 DIFF=$(git diff HEAD)
@@ -21,10 +21,10 @@ $DIFF
 codex exec --model {CODEX_MODEL} --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
 
-copilot -p "$PROMPT" --model {COPILOT_MODEL} --allow-tool 'shell(read:*)'
+claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```
 
-## Review a PR (All Reviewers)
+## Review a PR
 
 ```bash
 DIFF=$(gh pr diff 42)
@@ -39,16 +39,14 @@ CODE CHANGES:
 $DIFF
 "
 
-# Run all three in parallel
+# Run both in parallel
 codex exec --model {CODEX_MODEL} --config model_reasoning_effort="high" \
   --sandbox read-only --skip-git-repo-check -C . "$PROMPT"
-
-copilot -p "$PROMPT" --model {COPILOT_MODEL} --allow-tool 'shell(read:*)'
 
 claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```
 
-## Targeted Security Review (codex + claude)
+## Targeted Security Review (higher Codex effort)
 
 ```bash
 PROMPT="
@@ -69,7 +67,7 @@ claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
 ```markdown
 ## Multi-Model Review Summary
 
-**Reviewers:** codex, copilot
+**Reviewers:** codex, claude
 **Target:** git diff HEAD (4 files, +120/-30 lines)
 
 ### Common Findings (2+ reviewers)
@@ -79,7 +77,7 @@ claude -p "$PROMPT" --model opus --allowedTools "Bash(git:*),Read,Glob,Grep"
 ### Codex Unique Findings
 - [minor] Loop in `src/utils/transform.ts:15` could be replaced with `Array.flatMap` for clarity
 
-### Copilot Unique Findings
+### Claude Unique Findings
 - [major] JWT secret falls back to a hardcoded string in `src/auth/config.ts:7` if env var is unset — potential security issue in misconfigured deployments
 
 ### Overall Assessment

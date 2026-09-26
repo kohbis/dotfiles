@@ -66,7 +66,6 @@ When a skill references a model name explicitly, follow the convention for the t
 | Tool / CLI         | Naming policy            |
 | ------------------ | ------------------------ |
 | Codex CLI          | Explicit model IDs       |
-| GitHub Copilot CLI | Explicit versioned names |
 | Claude Code CLI    | Prefer family aliases    |
 
 ## Scope & Boundaries

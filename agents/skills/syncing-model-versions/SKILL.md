@@ -1,12 +1,12 @@
 ---
 name: syncing-model-versions
-description: Syncs model IDs, aliases, reasoning levels, and the README naming policy across this repo's AI CLI skills (Codex, Copilot CLI, Claude Code) when any upstream tool changes its model lineup. Trigger when the user says "syncing model versions", "/syncing-model-versions", or describes a model rename/addition/removal that needs to land in the skill docs.
+description: Syncs model IDs, aliases, reasoning levels, and the README naming policy across this repo's AI CLI skills (Codex, Claude Code) when any upstream tool changes its model lineup. Trigger when the user says "syncing model versions", "/syncing-model-versions", or describes a model rename/addition/removal that needs to land in the skill docs.
 disable-model-invocation: true
 ---
 
 # Syncing Model Versions
 
-Keep the AI-CLI skills and the shared naming policy in `README.md` aligned when one of Codex, Copilot CLI, or Claude Code changes its model lineup.
+Keep the AI-CLI skills and the shared naming policy in `README.md` aligned when Codex or Claude Code changes its model lineup.
 
 The skills are the contract these CLIs operate under — if a model ID or alias drifts, every downstream invocation (including `reviewing-with-multi-models`) silently uses the wrong model or fails. Treat this as a documentation-consistency job, not a creative one.
 
@@ -30,7 +30,7 @@ Don't work from a remembered list of skills — the set that references models d
    If these conflict, say so; don't silently pick one.
 4. **Pick one naming style per tool** and apply it consistently. The style is defined in `README.md` → **Model Naming Policy**. If the user is asking you to *change* the style, update the README table and rationale first, then propagate.
 5. **Edit only the Models tables.** Each CLI skill keeps its model IDs in one **Models** table (tier → ID), and `reviewing-with-multi-models` keeps its reviewer IDs in the **Reviewers** table. Everything else refers to a tier or uses a `{MODEL}` placeholder. Change the IDs there, and if the search turns up an ID anywhere else, replace it with the tier name or placeholder rather than updating it.
-6. **Check cross-skill references.** `reviewing-with-multi-models` names reviewer models directly; they must match whatever `reviewing-with-codex` / `running-copilot-cli` now say.
+6. **Check cross-skill references.** `reviewing-with-multi-models` names reviewer models directly; they must match whatever `reviewing-with-codex` now says.
 7. **Re-search** for the old name after editing, so nothing stale hides in a reference doc.
 8. **Report** which files changed, which names are now canonical, and any source-of-truth conflicts from step 3.
 
@@ -38,7 +38,7 @@ Don't work from a remembered list of skills — the set that references models d
 
 - **Don't mix aliases and pinned names for the same CLI** unless the tool itself requires it. Mixing is how drift starts.
 - **One change = one coherent edit.** If a CLI drops a model, every Models table and Reviewers table that lists it moves in the same pass. Partial updates are worse than no update.
-- **Version-pinned names are a deliberate choice, not laziness.** If you leave something pinned (e.g., a Copilot model per the README policy), note it in the report so the reviewer knows it was considered.
+- **Version-pinned names are a deliberate choice, not laziness.** If you leave something pinned (e.g., a Codex model ID per the README policy), note it in the report so the reviewer knows it was considered.
 - **Don't invent names.** If you can't confirm a name from the three sources in step 3, ask.
 
 ## Search patterns
@@ -50,7 +50,7 @@ rg -ni --no-heading -- 'gpt-[0-9]|claude-[a-z0-9.-]+|\b(opus|sonnet|haiku|fable)
   agents/skills README.md
 ```
 
-Caveat: this deliberately casts wide. `claude-[a-z0-9.-]+` catches versioned names like `claude-sonnet-4.6` and `claude-opus-4.8`; the bare-alias branch catches Claude Code family aliases (`opus`/`sonnet`/`haiku`/`fable`) used without the `claude-` prefix — which is how most skills name Claude Code models. The bare aliases also appear in ordinary prose, so expect false positives and decide per-match; missing a real model reference is worse than skimming a few extra hits.
+Caveat: this deliberately casts wide. `claude-[a-z0-9.-]+` catches any versioned Claude name that slips in; the bare-alias branch catches Claude Code family aliases (`opus`/`sonnet`/`haiku`/`fable`) used without the `claude-` prefix — which is how most skills name Claude Code models. The bare aliases also appear in ordinary prose, so expect false positives and decide per-match; missing a real model reference is worse than skimming a few extra hits.
 
 After a rename, verify the old name is gone:
 

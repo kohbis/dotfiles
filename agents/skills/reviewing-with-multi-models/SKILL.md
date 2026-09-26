@@ -22,10 +22,9 @@ Deliver the synthesized findings in the conversation. If the user wants them on 
 | Reviewer | CLI | Model | Default? | Skill Reference |
 |----------|-----|-------|----------|-----------------|
 | codex | Codex CLI | gpt-5.6-sol | Yes | [reviewing-with-codex](../reviewing-with-codex/SKILL.md) |
-| copilot | Copilot CLI | claude-opus-4.8 | Yes | [running-copilot-cli](../running-copilot-cli/SKILL.md) |
-| claude | Claude Code CLI | opus | No | — |
+| claude | Claude Code CLI | opus | Yes | — |
 
-Default: run **codex + copilot** (GPT + Claude Opus via Copilot CLI). Add others with e.g. "add claude" or "use all reviewers".
+Default: run **codex + claude** (GPT + Claude Opus).
 
 ## Workflow
 
@@ -45,10 +44,9 @@ Before running, always present a summary like:
 ```
 Reviewers (proposed):
   ✓ codex    <model>   [installed]
-  ✓ copilot  <model>   [installed]
   ✗ claude             [not found]
 
-Proceed with codex + copilot? (or specify different reviewers/models)
+Proceed with codex only? (or specify different reviewers/models)
 ```
 
 If the user confirms or does not respond with changes, proceed with the proposed configuration.
@@ -91,7 +89,7 @@ CODE CHANGES:
 
 ## Running Each Reviewer
 
-`{CODEX_MODEL}` and `{COPILOT_MODEL}` are the model IDs from the Reviewers table.
+`{CODEX_MODEL}` is the Codex model ID from the Reviewers table.
 
 Spawn all selected reviewers as subagents **in the same turn** so they run in parallel.
 
@@ -106,14 +104,7 @@ codex exec \
   "{PROMPT}"
 ```
 
-### Copilot (default, Claude Opus via Copilot CLI)
-```bash
-copilot -p "{PROMPT}" \
-  --model {COPILOT_MODEL} \
-  --allow-tool 'shell(read:*)'
-```
-
-### Claude (optional, Claude Code CLI)
+### Claude (default, Claude Code CLI)
 ```bash
 claude -p "{PROMPT}" \
   --model opus \
@@ -153,7 +144,7 @@ After collecting all outputs:
 ### Codex Unique Findings
 - [minor] {issue description}
 
-### Copilot Unique Findings
+### Claude Unique Findings
 - (none)
 
 ### Overall Assessment
