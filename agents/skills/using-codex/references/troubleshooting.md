@@ -2,7 +2,7 @@
 
 ## Output Formatting
 
-When reporting Codex results to the user, use the structure for the mode.
+When reporting Codex results to the user, use the structure for the mode. Drop any section you have nothing for rather than filling it.
 
 Review:
 
@@ -68,11 +68,3 @@ Coding:
 | Need network access | Use `danger-full-access` with user confirmation |
 | Session context lost | Use `resume --last` to continue |
 | Too many files changed | Narrow scope in the CONSTRAINTS section of the prompt |
-
-## Implementation Notes
-
-1. **Always use Bash tool** to execute codex commands
-2. **Summarize** results or changed files before presenting to user
-3. **Preserve error messages** if execution fails (share with user verbatim)
-4. **Maintain conversation context** when using resume
-5. **Suggest `git diff`** after a coding run so the user can review changes

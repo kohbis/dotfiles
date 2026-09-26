@@ -11,7 +11,7 @@ The main session acts as architect and controller. Push context-heavy and mechan
 
 - Subagents cannot ask the user questions — resolve all ambiguity before delegating.
 - Outward-facing or irreversible actions (push, PR creation, publish, delete) stay in the main session where the user can confirm. Don't delegate them.
-- Background subagents auto-deny permission prompts, so never hand them side-effectful work.
+- A background subagent's permission prompts surface in the main session and wait for the user, so background work that needs permissions stalls until someone answers. Keep background subagents to work that needs none.
 
 ## When to delegate
 
@@ -74,7 +74,7 @@ Require each subagent to end its final message with a status line followed by th
 - Prefer the smallest fan-out that covers the work — one agent if one suffices. Delegation multiplies cost and wall-clock, so it pays off on genuinely independent, sizeable tracks, not on small tasks.
 - Parallel sibling agents are mutually invisible with no shared state — never have two agents edit the same file at once.
 - Returns are summaries only; if details are needed later, have the agent persist them to a file as an artifact.
-- Subagents can't spawn subagents (no nesting) — don't design a plan that assumes they can.
+- Subagents can delegate further, but each layer returns only a summary to the one above — keep nesting shallow so the parent can still audit the work.
 - Never blindly retry a stuck task — change the approach first.
 
 ## References
