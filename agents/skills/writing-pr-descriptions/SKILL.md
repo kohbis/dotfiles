@@ -9,7 +9,7 @@ Write only what a reviewer cannot get from the diff.
 
 The reviewer will read the diff, so restating it is noise. The description carries what lives in the author's head and nowhere in the code: why the change exists, which alternative was rejected, what breaks if it's wrong, which part is substantive when most of the diff is mechanical. Nothing else earns space — not a tour of the files, not what you did while making the change.
 
-The default failure is a description that is longer than the change deserves, so treat brevity as the job rather than a finishing touch.
+Unless the user asks for more, the description is one or two sentences saying why the change exists — for every PR, whatever its size. Brevity is the default, not a finishing touch.
 
 ## Workflow
 
@@ -21,35 +21,37 @@ The default failure is a description that is longer than the change deserves, so
    - Read key changed files to understand intent (not to summarize them)
    - Use commit messages, issue refs, branch names, and user-provided context for motivation and decisions. When context is unavailable, write `TODO` rather than inferring
 3. Find the PR template, in order: `.github/pull_request_template.md`, `.github/PULL_REQUEST_TEMPLATE.md`, `.github/PULL_REQUEST_TEMPLATE/*.md` (pick the most relevant). Whether one exists decides the structure — see *Structure*.
-4. Pick a size tier (below) and draft to it.
+4. Draft the default form — one or two sentences — unless the user asked for more (see *How much to write*).
 5. **Cut pass — do this on the draft before showing anything.** Take each sentence and delete it if any of these is true:
    - a reviewer could learn it from the diff in under 30 seconds
    - it describes your session rather than the change (tests you ran, commands, results, time spent)
    - you already said it elsewhere in the description
    - you wrote it to fill a slot (a template heading, a "risks" point), not because you had something to say
    Deleting is the only fix — never rewrite a cut sentence into a denser one.
-6. Report the outcome in one line in chat, not in the description: which tier you chose and what the cut pass removed. If it removed nothing, say so — that usually means the cut pass didn't really happen.
+6. Report the outcome in one line in chat, not in the description: default or longer form (and why, if longer), and what the cut pass removed. If it removed nothing, say so — that usually means the cut pass didn't really happen.
 
 ## How much to write
 
-Length tracks how much undocumented thinking the change carries, never diff volume. A 600-line mechanical rename is one sentence; a five-line change to retry logic can need a paragraph. The word counts below are targets to aim under, not quotas to fill.
+**Default: one or two sentences, ~30 words, whatever the size of the change.** Say why the change exists; the diff, the commit messages, and the reviewer's own questions cover the rest. When most of the diff is mechanical, the second sentence can say where the real change is — e.g. "The real change is in `retry.go`; the rest is regenerated code." When the change holds several independent concerns, name them in that one line rather than expanding — the PR probably wants splitting.
 
-- **Self-evident** (typo, version bump, mechanical rename, regenerated file, config value) — one or two sentences, ~30 words. There is no hidden reasoning to transmit.
-- **Ordinary** — one paragraph of why. Under ~120 words. Most PRs land here.
-- **Substantial or risky** (migration, new external dependency, behavior change under load, security-relevant) — two or three short paragraphs covering the points below that apply. Still under ~250 words: a reviewer should absorb it in under a minute.
+**Longer form, only when the user asks** — "詳しく", "more detail", "explain the approach", naming points or sections to cover. Then length tracks how much undocumented thinking the change carries, never diff volume; the word counts are ceilings, not quotas:
 
-**A bigger diff usually means less to write, not more.** When many files change for one reason, state the reason once instead of walking the areas — a bullet per directory, layer, or commit just reproduces `git diff --stat` in prose. If most of the diff is mechanical (generated files, renames, formatting), say in one sentence where the substantive change is — e.g. "The real change is in `retry.go`; the rest is regenerated code." If the change really holds several independent concerns, name them in one line and consider that the PR wants splitting.
+- **Ordinary** — one paragraph of why, under ~120 words.
+- **Substantial or risky** (migration, new external dependency, behavior change under load, security-relevant) — two or three short paragraphs covering the points below that apply, under ~250 words.
+
+Even then, a bigger diff usually means less to write, not more: state a shared reason once instead of walking directories, layers, or commits.
 
 ## Structure
 
-**Without a template**, write plain paragraphs — no `##` headings, no bold pseudo-headings (`**Why:**`), no section-per-topic bullets — at every tier.
+**Without a template**, write plain paragraphs — no `##` headings, no bold pseudo-headings (`**Why:**`), no section-per-topic bullets — in both forms.
 Use sections only when the user explicitly asks for a structure; then follow exactly the structure given.
 
 **With a template**, its structure wins over anything else here.
 Keep every heading and checklist unless clearly marked optional, strip instructional comments (`<!-- describe your changes -->`), and answer a section you have nothing for with `N/A`.
 The headings are fixed but the volume isn't: one sentence under a heading is a complete answer, so don't grow a section to match its neighbors or restate one motivation under three headings.
 
-The points below are a menu for what to say, in this order, whether as prose or under a template's headings.
+In the default form, say only the why.
+In the longer form, the points below are a menu for what to say, in this order, whether as prose or under a template's headings.
 Include one only when its condition holds:
 
 | Point | Include it when |
