@@ -29,7 +29,7 @@ Don't work from a remembered list of skills — the set that references models d
    3. Official docs (WebFetch) — only when 1 and 2 don't settle it.
    If these conflict, say so; don't silently pick one.
 4. **Pick one naming style per tool** and apply it consistently. The style is defined in `README.md` → **Model Naming Policy**. If the user is asking you to *change* the style, update the README table and rationale first, then propagate.
-5. **Update in pairs.** A model change in a parameter-selection table should land together with every command example that uses it — otherwise the skill ships an example that invokes a model it doesn't document.
+5. **Edit only the Models tables.** Each CLI skill keeps its model IDs in one **Models** table (tier → ID), and `reviewing-with-multi-models` keeps its reviewer IDs in the **Reviewers** table. Everything else refers to a tier or uses a `{MODEL}` placeholder. Change the IDs there, and if the search turns up an ID anywhere else, replace it with the tier name or placeholder rather than updating it.
 6. **Check cross-skill references.** `reviewing-with-multi-models` names reviewer models directly; they must match whatever `reviewing-with-codex` / `running-copilot-cli` now say.
 7. **Re-search** for the old name after editing, so nothing stale hides in a reference doc.
 8. **Report** which files changed, which names are now canonical, and any source-of-truth conflicts from step 3.
@@ -37,7 +37,7 @@ Don't work from a remembered list of skills — the set that references models d
 ## Editing principles
 
 - **Don't mix aliases and pinned names for the same CLI** unless the tool itself requires it. Mixing is how drift starts.
-- **One change = one coherent edit.** If a CLI drops `gpt-5.3`, the table entry, the command example, and any `references/examples.md` using it all move in the same pass. Partial updates are worse than no update.
+- **One change = one coherent edit.** If a CLI drops a model, every Models table and Reviewers table that lists it moves in the same pass. Partial updates are worse than no update.
 - **Version-pinned names are a deliberate choice, not laziness.** If you leave something pinned (e.g., a Copilot model per the README policy), note it in the report so the reviewer knows it was considered.
 - **Don't invent names.** If you can't confirm a name from the three sources in step 3, ask.
 
@@ -63,6 +63,6 @@ rg -n --no-heading -- '<old-model-name>' agents/skills README.md
 ## What to report back
 
 - Files updated, grouped by CLI.
-- New canonical names per CLI, cross-referenced against `README.md`'s naming-policy table.
+- New canonical names per CLI, and confirmation that they follow the naming style in `README.md`'s naming-policy table.
 - Anything left intentionally pinned, with a one-line why.
 - Any conflicts between the user's stated names, local `--help` output, and official docs.

@@ -1,13 +1,15 @@
 # Practical Examples
 
+`{MODEL}` is the model ID for the selected tier — see the Models table in SKILL.md.
+
 ## Example 1: Kubernetes Manifests Review
 
 **Task Type**: Infrastructure analysis
-**Selected Parameters**: `gpt-5.6-sol` + `high` + `read-only`
+**Selected Parameters**: frontier tier + `high` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.6-sol \
+  --model {MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -22,11 +24,11 @@ OUTPUT: List issues by severity with specific remediation steps for each finding
 ## Example 2: API Performance Investigation
 
 **Task Type**: Complex bug investigation
-**Selected Parameters**: `gpt-5.6-sol` + `xhigh` + `read-only`
+**Selected Parameters**: frontier tier + `xhigh` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.6-sol \
+  --model {MODEL} \
   --config model_reasoning_effort="xhigh" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -41,11 +43,11 @@ OUTPUT: Explain root cause, reproduction conditions, and optimization strategy s
 ## Example 3: Database Layer Refactoring
 
 **Task Type**: Large-scale refactoring
-**Selected Parameters**: `gpt-5.6-sol` + `high` + `workspace-write` + `--full-auto`
+**Selected Parameters**: frontier tier + `high` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.6-sol \
+  --model {MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --full-auto \
@@ -61,11 +63,11 @@ OUTPUT: Implement repository pattern, add proper error handling, and explain arc
 ## Example 4: CI/CD Pipeline Analysis
 
 **Task Type**: CI/CD optimization
-**Selected Parameters**: `gpt-5.6-terra` + `medium` + `read-only`
+**Selected Parameters**: balanced tier + `medium` + `read-only`
 
 ```bash
 codex exec \
-  --model gpt-5.6-terra \
+  --model {MODEL} \
   --config model_reasoning_effort="medium" \
   --sandbox read-only \
   --skip-git-repo-check \

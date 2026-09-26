@@ -27,11 +27,6 @@ Deliver the synthesized findings in the conversation. If the user wants them on 
 
 Default: run **codex + copilot** (GPT + Claude Opus via Copilot CLI). Add others with e.g. "add claude" or "use all reviewers".
 
-Model naming policy:
-- Codex: prefer the current explicit model IDs documented in `codex-*` skills
-- Copilot CLI: use versioned model names such as `claude-sonnet-5` and `claude-opus-4.8`
-- Claude Code CLI: prefer family aliases such as `opus`, `sonnet`, `haiku`, and `fable`
-
 ## Workflow
 
 1. **Determine review target** — default: `git diff HEAD`; alternatives below
@@ -43,17 +38,15 @@ Model naming policy:
 7. **Synthesize** — normalize severity, extract common and unique findings, verify file:line references
 8. **Report** — present structured summary
 
-> Parallel execution: spawn all reviewer subagents in a single turn so they run concurrently. Do not wait for one to finish before starting the next.
-
 ## Confirming Reviewers with the User
 
 Before running, always present a summary like:
 
 ```
 Reviewers (proposed):
-  ✓ codex    gpt-5.6-sol              [installed]
-  ✓ copilot  claude-opus-4.8      [installed]
-  ✗ claude                        [not found]
+  ✓ codex    <model>   [installed]
+  ✓ copilot  <model>   [installed]
+  ✗ claude             [not found]
 
 Proceed with codex + copilot? (or specify different reviewers/models)
 ```
@@ -98,12 +91,14 @@ CODE CHANGES:
 
 ## Running Each Reviewer
 
+`{CODEX_MODEL}` and `{COPILOT_MODEL}` are the model IDs from the Reviewers table.
+
 Spawn all selected reviewers as subagents **in the same turn** so they run in parallel.
 
 ### Codex (default)
 ```bash
 codex exec \
-  --model gpt-5.6-sol \
+  --model {CODEX_MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -114,7 +109,7 @@ codex exec \
 ### Copilot (default, Claude Opus via Copilot CLI)
 ```bash
 copilot -p "{PROMPT}" \
-  --model claude-opus-4.8 \
+  --model {COPILOT_MODEL} \
   --allow-tool 'shell(read:*)'
 ```
 

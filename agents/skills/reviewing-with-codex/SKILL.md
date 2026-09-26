@@ -33,20 +33,30 @@ codex exec \
 
 Codex writes the final assistant message to stdout and routes the progress UI, exec trace, and `tokens used` block to stderr. When the calling shell combines stdout and stderr into a single bounded capture buffer, the verbose stderr can crowd out or truncate the final stdout line, so the template suppresses stderr by default to keep the answer reliably extractable. Re-run without `2>/dev/null` when codex exits non-zero so the error is visible.
 
+## Models
+
+Model IDs live only in this table; everything else in this skill refers to the tier.
+
+| Tier | Model ID |
+|------|----------|
+| frontier | `gpt-5.6-sol` |
+| balanced | `gpt-5.6-terra` |
+| fast | `gpt-5.6-luna` |
+
 ## Parameter Selection
 
-| Task Type | Model | Reasoning | Sandbox | --full-auto |
+| Task Type | Tier | Reasoning | Sandbox | --full-auto |
 |-----------|-------|-----------|---------|-------------|
-| Complex bug investigation | gpt-5.6-sol | xhigh | read-only | NO |
-| Standard code review | gpt-5.6-sol | high | read-only | NO |
-| Infrastructure analysis | gpt-5.6-sol | high | read-only | NO |
-| CI/CD optimization | gpt-5.6-terra | medium | read-only | NO |
-| Quick code question | gpt-5.6-luna | medium | read-only | NO |
+| Complex bug investigation | frontier | xhigh | read-only | NO |
+| Standard code review | frontier | high | read-only | NO |
+| Infrastructure analysis | frontier | high | read-only | NO |
+| CI/CD optimization | balanced | medium | read-only | NO |
+| Quick code question | fast | medium | read-only | NO |
 
 Parameter notes:
-- `gpt-5.6-sol` is the default (frontier); raise `model_reasoning_effort` to `xhigh` for deep investigations, cross-cutting infrastructure analysis, and research-heavy review
-- `gpt-5.6-terra` is the balanced tier for everyday `medium`-effort review such as CI/CD optimization
-- Use `gpt-5.6-luna` for quick, low-risk questions where latency matters
+- frontier is the default; raise `model_reasoning_effort` to `xhigh` for deep investigations, cross-cutting infrastructure analysis, and research-heavy review
+- balanced is the tier for everyday `medium`-effort review such as CI/CD optimization
+- Use fast for quick, low-risk questions where latency matters
 - Default sandbox to `read-only`; for file editing tasks use the `coding-with-codex` skill instead
 - `danger-full-access` (network access) requires explicit user confirmation
 - Add `--full-auto` only with `workspace-write`

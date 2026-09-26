@@ -63,11 +63,11 @@ Sub-targets exist for each domain and can be run individually: `link-dotfiles`, 
 
 When a skill references a model name explicitly, follow the convention for the target tool. Mismatched names cause the tool to reject or silently mis-route the request.
 
-| Tool / CLI         | Naming policy                           | Examples                                       |
-| ------------------ | --------------------------------------- | ---------------------------------------------- |
-| Codex CLI          | Explicit model IDs                      | `gpt-5.4`, `gpt-5.5`, `gpt-5.4-mini`           |
-| GitHub Copilot CLI | Explicit versioned names                | `claude-sonnet-4.6`, `claude-opus-4.7`         |
-| Claude Code CLI    | Prefer family aliases                   | `opus`, `sonnet`, `haiku`                      |
+| Tool / CLI         | Naming policy            |
+| ------------------ | ------------------------ |
+| Codex CLI          | Explicit model IDs       |
+| GitHub Copilot CLI | Explicit versioned names |
+| Claude Code CLI    | Prefer family aliases    |
 
 ## Scope & Boundaries
 
