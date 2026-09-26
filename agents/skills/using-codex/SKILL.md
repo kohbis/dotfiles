@@ -9,7 +9,7 @@ disable-model-invocation: true
 Two modes, chosen by what the task does to the files:
 
 - **Review** — review, analysis, investigation, research. Sandbox `read-only`; Codex changes nothing.
-- **Coding** — implementation, bug fixes, tests, scaffolding. Sandbox `workspace-write` with `--approve-for-me`.
+- **Coding** — implementation, bug fixes, tests, scaffolding. Sandbox `workspace-write`: Codex can write inside `-C {WORKING_DIR}` and nowhere else.
 
 ## Boundaries — deliver the review, don't publish it
 
@@ -31,15 +31,13 @@ codex exec \
   --model {MODEL} \
   --config model_reasoning_effort="{LEVEL}" \
   --sandbox {SANDBOX_MODE} \
-  {APPROVE_FLAG} \
   --skip-git-repo-check \
   -C {WORKING_DIR} \
   "{PROMPT}" \
   2>/dev/null
 ```
 
-- `{SANDBOX_MODE}`: `read-only` for review, `workspace-write` for coding.
-- `{APPROVE_FLAG}`: `--approve-for-me` in coding mode (routes approval requests through automatic review inside the workspace-write sandbox); omit it in review mode.
+`{SANDBOX_MODE}` is `read-only` for review and `workspace-write` for coding.
 
 Codex writes the final assistant message to stdout and routes the progress UI, exec trace, and `tokens used` block to stderr. When the calling shell combines stdout and stderr into a single bounded capture buffer, the verbose stderr can crowd out or truncate the final stdout line, so the template suppresses stderr by default to keep the answer reliably extractable. Re-run without `2>/dev/null` when codex exits non-zero so the error is visible.
 
@@ -98,7 +96,7 @@ CONSTRAINTS: {style conventions, patterns to follow, what NOT to change}
 
 - Always include `--skip-git-repo-check`, `--model`, `--config model_reasoning_effort`, `--sandbox`
 - Never use `danger-full-access` without user confirmation
-- Use `--approve-for-me` only with `workspace-write`, never with `read-only`
+- Never add `--approve-for-me`: it cannot be combined with `--sandbox`, and it auto-approves writes outside the working directory
 
 ## Session Continuation
 

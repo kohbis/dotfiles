@@ -1,6 +1,6 @@
 ---
 name: managing-git-worktrees
-description: "Manages git worktrees — creating, listing, removing, and navigating them with a consistent sibling-directory layout. Use whenever the user mentions worktrees, parallel branch checkouts, working on multiple branches at once, or git worktree commands, even if they don't say 'worktree' explicitly."
+description: "Manages git worktrees the user checks out for themselves — creating, listing, removing, and navigating them with a sibling-directory layout (<repo>.worktrees/<branch>). Use when the user asks to create, list, or remove a worktree, or to check out several branches side by side. Not for running Claude itself in an isolated worktree (\"work in a worktree\", claude --worktree, subagent isolation) — Claude Code's built-in worktrees handle that."
 ---
 
 # Managing Git Worktrees
@@ -8,6 +8,8 @@ description: "Manages git worktrees — creating, listing, removing, and navigat
 Help the user create, list, remove, and navigate git worktrees so they can check out several branches at once without stashing or re-cloning.
 
 Worktrees let one repository have multiple working directories, each on its own branch. The hard part is keeping them organized and cleaning them up without losing uncommitted work — this skill standardizes both.
+
+This covers worktrees the user works in directly. When Claude itself should work in isolation — the user says "work in a worktree", starts `claude --worktree`, or subagents need separate checkouts — use Claude Code's built-in worktrees (`EnterWorktree`, created under `.claude/worktrees/`) instead of this layout. Claude Code asks the user for approval before entering a worktree outside `.claude/worktrees/`, which includes this skill's sibling layout.
 
 ## Layout convention
 

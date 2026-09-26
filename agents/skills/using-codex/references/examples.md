@@ -43,14 +43,13 @@ OUTPUT: Explain root cause, reproduction conditions, and optimization strategy s
 ## Example 3: New Feature Implementation (API Endpoint)
 
 **Mode**: Coding — new feature implementation
-**Selected Parameters**: frontier tier + `high` + `workspace-write` + `--approve-for-me`
+**Selected Parameters**: frontier tier + `high` + `workspace-write`
 
 ```bash
 codex exec \
   --model {MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
-  --approve-for-me \
   --skip-git-repo-check \
   -C . \
   "TASK: Implement POST /api/v1/users endpoint for user registration
@@ -63,14 +62,13 @@ CONSTRAINTS: Follow existing handler patterns in internal/handler/user.go, use e
 ## Example 4: Test Suite Generation
 
 **Mode**: Coding — test generation
-**Selected Parameters**: balanced tier + `medium` + `workspace-write` + `--approve-for-me`
+**Selected Parameters**: balanced tier + `medium` + `workspace-write`
 
 ```bash
 codex exec \
   --model {MODEL} \
   --config model_reasoning_effort="medium" \
   --sandbox workspace-write \
-  --approve-for-me \
   --skip-git-repo-check \
   -C . \
   "TASK: Generate unit tests for pkg/pricing/ package
