@@ -78,4 +78,5 @@ When a skill references a model name explicitly, follow the convention for the t
 
 - After adding or renaming a skill under `agents/skills/`, run `make link` (or `make link F=<name>`) so the new symlinks propagate to `~/.agents/`, `~/.claude/skills/`, and `~/.codex/skills/`.
 - `make list` is the fastest way to verify link state after changes — `[v]` is linked, `[-]` is unlinked.
+- Codex model IDs live only in the **Models** table of `agents/skills/using-codex/SKILL.md`; everywhere else, refer to a tier (`frontier` / `balanced` / `fast`) or use a `{MODEL}` placeholder. When Codex's model lineup changes, edit that table and grep for the old ID.
 - The Makefile discovers `claude/` subdirectories and `config/` tools dynamically via `find`, so adding a new subdirectory under either is picked up without editing the Makefile.

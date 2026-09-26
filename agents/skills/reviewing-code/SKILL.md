@@ -23,8 +23,8 @@ Deliver the findings in the conversation. If the user wants them on GitHub, they
 | Want | Use |
 |------|-----|
 | An immediate review, here, no dependencies | **this skill** |
-| Deeper reasoning on a gnarly/cross-cutting bug, delegated to Codex | `reviewing-with-codex` |
-| Consensus across several models on a high-stakes change | `reviewing-with-multi-models` |
+| Deeper reasoning on a gnarly/cross-cutting bug, delegated to Codex | `using-codex` (review mode) |
+| A second opinion from another model family on a high-stakes change | this skill + Codex — see *Second opinion* below |
 
 If a review starts to feel too deep or too important for a single inline pass, say so and suggest escalating — don't grind.
 
@@ -38,19 +38,7 @@ Front-loading questions stalls a review that could already be moving, so figure 
 
 ## 2. Analyze — apply the right lenses
 
-Read enough surrounding code to judge each finding in context. Pick the lenses that fit what changed rather than running every list mechanically.
-
-**Code:**
-- Security: input validation, injection risks, secrets exposure, auth/authz
-- Correctness: edge cases, off-by-one, nil/undefined, concurrency races
-- Performance: algorithmic complexity, N+1 queries, caching, memory growth
-- Maintainability: naming, function size, duplication, test coverage
-- Error handling: failure modes, logging, graceful degradation
-- API contracts: interface consistency, backward compatibility, docs
-
-**Infrastructure:** resource requests/limits, RBAC and network/pod-security policies, HA (replicas, PDB, health/readiness probes), secret management (references, not hardcoded credentials).
-
-**CI/CD:** parallelization, dependency and Docker-layer caching, fast-feedback ordering (lint/type-check before heavy suites), redundant or skippable steps via path filters.
+Read enough surrounding code to judge each finding in context. Pick the lenses that fit what changed rather than running every one mechanically: for code — security, correctness, performance, maintainability (including test coverage), error handling, and API contracts; for infrastructure — resource limits, access policies, availability, and secret handling; for CI/CD — caching, parallelism, and fail-fast ordering.
 
 ## 3. Collect, then filter — two passes, not one
 
@@ -93,6 +81,14 @@ Lead with the verdict so the reader gets the gist before the list. Use `~` to fl
 
 Drop empty severity sections rather than printing "none". If there's nothing material to flag, say so plainly instead of manufacturing findings.
 
-## References
+## Second opinion
 
-- [examples](references/examples.md) — worked findings by review type (security, infra, CI/CD, bug investigation)
+For a high-stakes change, add an independent pass from a different model family: run `using-codex` in review mode on the same target and scope, in parallel with your own review. The diff goes to an external CLI, so warn the user first if it may contain secrets or PII.
+
+Then merge the two into one report in the format above:
+
+- Map Codex's severities onto Critical / High / Medium / Low.
+- Treat findings as the same when they share a root cause in the same file or function, even if worded differently.
+- Lead with findings both reviewers raised — independent agreement is the strongest signal. Keep single-reviewer findings and note which reviewer raised them.
+- Confirm every `file:line` against the actual diff; drop any that don't exist in the reviewed changes.
+- If Codex fails or times out, say so and report your own review.
