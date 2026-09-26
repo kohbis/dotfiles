@@ -51,12 +51,10 @@ When a skill needs an explicit model name, follow these conventions:
 | Tool / CLI | Naming policy |
 | ---------- | ------------- |
 | Codex CLI | Use explicit model IDs |
-| GitHub Copilot CLI | Use explicit versioned model names |
 | Claude Code CLI | Prefer family aliases |
 
 Rationale:
 - Codex skills currently use concrete OpenAI model IDs rather than family aliases.
-- Copilot CLI should stay version-pinned unless GitHub documents alias support explicitly.
 - Claude Code CLI is intended to use family-level aliases rather than pinned release names.
 
 ### Private dotfiles (optional)
