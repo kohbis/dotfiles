@@ -4,7 +4,7 @@
 
 ## Example 1: Kubernetes Manifests Review
 
-**Task Type**: Infrastructure analysis
+**Mode**: Review — infrastructure analysis
 **Selected Parameters**: frontier tier + `high` + `read-only`
 
 ```bash
@@ -23,7 +23,7 @@ OUTPUT: List issues by severity with specific remediation steps for each finding
 
 ## Example 2: API Performance Investigation
 
-**Task Type**: Complex bug investigation
+**Mode**: Review — complex bug investigation
 **Selected Parameters**: frontier tier + `xhigh` + `read-only`
 
 ```bash
@@ -40,48 +40,49 @@ OUTPUT: Explain root cause, reproduction conditions, and optimization strategy s
   2>/dev/null
 ```
 
-## Example 3: Database Layer Refactoring
+## Example 3: New Feature Implementation (API Endpoint)
 
-**Task Type**: Large-scale refactoring
-**Selected Parameters**: frontier tier + `high` + `workspace-write` + `--full-auto`
+**Mode**: Coding — new feature implementation
+**Selected Parameters**: frontier tier + `high` + `workspace-write` + `--approve-for-me`
 
 ```bash
 codex exec \
   --model {MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
-  --full-auto \
+  --approve-for-me \
   --skip-git-repo-check \
   -C . \
-  "TASK: Refactor database access layer to implement repository pattern
-CONTEXT: Direct database queries scattered across service layer causing tight coupling and testing difficulties
-FOCUS: pkg/repository/ and pkg/service/ directories
-OUTPUT: Implement repository pattern, add proper error handling, and explain architectural improvements" \
+  "TASK: Implement POST /api/v1/users endpoint for user registration
+CONTEXT: Go HTTP server using chi router, PostgreSQL via sqlx, existing handlers in internal/handler/
+SPEC: Accept JSON body {email, password, name}, validate input, hash password with bcrypt, insert to users table, return 201 with user ID; return 400 on validation error, 409 on duplicate email
+CONSTRAINTS: Follow existing handler patterns in internal/handler/user.go, use existing db.User model, do not modify migration files" \
   2>/dev/null
 ```
 
-## Example 4: CI/CD Pipeline Analysis
+## Example 4: Test Suite Generation
 
-**Task Type**: CI/CD optimization
-**Selected Parameters**: balanced tier + `medium` + `read-only`
+**Mode**: Coding — test generation
+**Selected Parameters**: balanced tier + `medium` + `workspace-write` + `--approve-for-me`
 
 ```bash
 codex exec \
   --model {MODEL} \
   --config model_reasoning_effort="medium" \
-  --sandbox read-only \
+  --sandbox workspace-write \
+  --approve-for-me \
   --skip-git-repo-check \
   -C . \
-  "TASK: Analyze CI/CD pipeline configuration and identify optimization opportunities
-CONTEXT: GitHub Actions workflow for multi-service deployment, build time is 25+ minutes
-FOCUS: .github/workflows/ directory, Docker build process, test execution strategy
-OUTPUT: Identify bottlenecks and suggest specific optimization techniques with expected time savings" \
+  "TASK: Generate unit tests for pkg/pricing/ package
+CONTEXT: Go project, testify for assertions, existing tests in *_test.go files alongside source
+SPEC: Cover happy paths, boundary values, and error cases for all exported functions; mock external dependencies using interfaces already defined; aim for >80% coverage
+CONSTRAINTS: Match existing test file naming (*_test.go), use table-driven tests where applicable, do not modify source files" \
   2>/dev/null
 ```
 
 ## Example 5: Session Continuation
 
 ```bash
-echo "Also check for security vulnerabilities in the pipeline configuration" | \
+echo "Also add integration tests for the new endpoint using testcontainers" | \
   codex exec --skip-git-repo-check resume --last
 ```

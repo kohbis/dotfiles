@@ -35,12 +35,7 @@ After the last task, review the whole change once for integration, then ship via
 
 ## Status handling
 
-Ask each subagent to end with one status and the supporting detail (files changed, what was tested):
-
-- `COMPLETE` — finished and self-checked. Proceed to verification.
-- `COMPLETE_WITH_CAVEATS` — finished, but the agent flagged a risk or deviation. Weigh it, then verify.
-- `MISSING_INPUT` — it lacked something it needed. A subagent can't ask you mid-task, so this is how the gap surfaces: supply what's missing and re-dispatch.
-- `STUCK` — it couldn't proceed. Diagnose before retrying: missing context → add it; task too large → split it; model out of depth → raise the tier; the plan itself is wrong → bring it back to the user. Never re-run an unchanged prompt and hope.
+Each implementer ends with one status from the result protocol in `delegating-to-subagents` (`COMPLETE`, `COMPLETE_WITH_CAVEATS`, `MISSING_INPUT`, `STUCK`), plus the files changed and what was tested. Respond as that protocol says; in this loop, both `COMPLETE` statuses lead into the two verification passes (step 3 of the loop), never straight to the next task.
 
 ## Model selection
 

@@ -2,7 +2,27 @@
 
 ## Output Formatting
 
-When reporting Codex coding results to user, use this structure:
+When reporting Codex results to the user, use the structure for the mode.
+
+Review:
+
+```
+## Key Findings
+- [Most critical finding]
+- [Second priority finding]
+- [Third priority finding]
+
+## Recommended Actions
+1. [Immediate action with highest impact]
+2. [Secondary action]
+3. [Long-term improvement]
+
+## Next Steps
+- [Specific next action to take]
+- [Follow-up investigation if needed]
+```
+
+Coding:
 
 ```
 ## Changed Files
@@ -17,15 +37,6 @@ When reporting Codex coding results to user, use this structure:
 - [Test commands to verify the change]
 ```
 
-## Pre-Execution Checklist
-
-Before running a coding task, verify:
-
-1. **Git status** — ask user if there are uncommitted changes that might conflict
-2. **Change scope** — confirm which files/directories are in scope
-3. **Sandbox** — always `workspace-write` for this skill
-4. **`--full-auto`** — always included for this skill
-
 ## Error Handling
 
 ### IF execution fails:
@@ -39,7 +50,7 @@ Before running a coding task, verify:
 3. IF confirmed THEN proceed
 4. ELSE suggest safer alternative
 
-### IF unexpected files are modified:
+### IF unexpected files are modified (coding mode):
 1. Report all changed files to user
 2. Ask user to review with `git diff`
 3. Offer to revert specific files if needed
@@ -49,18 +60,19 @@ Before running a coding task, verify:
 | Issue | Solution |
 |-------|----------|
 | Command not found | Guide user to install Codex CLI |
-| Timeout on large codebase | Add `--timeout` flag or narrow scope with `-C` |
-| Permission denied | Verify `workspace-write` sandbox is set |
-| Invalid model | Verify model name with `codex --help` |
-| Want to hide reasoning | Add `2>/dev/null` at end |
+| Timeout on large codebase | Narrow scope with `-C` or in the prompt |
+| Permission denied | Check sandbox mode setting |
+| Invalid model | Verify the model name against the Models table and `codex exec --help` |
+| Final answer missing from output | The template already appends `2>/dev/null`; if the answer is still empty, re-run without it to surface the underlying error |
+| Want to inspect progress/exec trace | Drop the `2>/dev/null` suffix to surface stderr |
 | Need network access | Use `danger-full-access` with user confirmation |
 | Session context lost | Use `resume --last` to continue |
-| Too many files changed | Narrow scope in CONSTRAINTS section of prompt |
+| Too many files changed | Narrow scope in the CONSTRAINTS section of the prompt |
 
 ## Implementation Notes
 
 1. **Always use Bash tool** to execute codex commands
-2. **Summarize changed files** before presenting to user
+2. **Summarize** results or changed files before presenting to user
 3. **Preserve error messages** if execution fails (share with user verbatim)
 4. **Maintain conversation context** when using resume
-5. **Suggest `git diff`** after execution so user can review changes
+5. **Suggest `git diff`** after a coding run so the user can review changes

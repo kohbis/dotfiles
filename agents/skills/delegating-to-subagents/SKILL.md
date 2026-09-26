@@ -30,7 +30,7 @@ The main session acts as architect and controller. Push context-heavy and mechan
 - The hard architectural core of a problem.
 - Final audit and integration of results.
 
-When a more specific sibling skill fits, prefer it over this general guide: `implementing-with-subagents` to drive a plan task-by-task, `reviewing-with-multi-models` to review across models, `coding-with-codex` to hand work to Codex.
+When a more specific sibling skill fits, prefer it over this general guide: `implementing-with-subagents` to drive a plan task-by-task, `using-codex` to hand review or coding work to Codex.
 
 ## Workflow
 
@@ -52,18 +52,20 @@ When a more specific sibling skill fits, prefer it over this general guide: `imp
 | Standard implementation / multi-file edits with a clear spec | `sonnet` | `medium` | Workhorse for standard work |
 | Hard implementation, design, final audit/review | `opus`, or do it yourself in the main session | `high`–`xhigh` | Keep the especially hard parts in main |
 
-Effort is an axis independent of model, and it's the primary lever for cost and latency — reach for it before jumping a model tier. Raise it for demanding agentic work; don't carry over defaults from a previous model without re-checking them against your own tasks. The Codex equivalent is `model_reasoning_effort` (see `coding-with-codex`).
+Effort is an axis independent of model, and it's the primary lever for cost and latency — reach for it before jumping a model tier. Raise it for demanding agentic work; don't carry over defaults from a previous model without re-checking them against your own tasks. The Codex equivalent is `model_reasoning_effort` (see `using-codex`).
 
 Agent type and model are independent axes: the **Explore** agent type is read-only and ideal for search, while the model is chosen separately by task difficulty. Claude Code uses family aliases (`opus`/`sonnet`/`haiku`/`fable`); routing mechanical work to cheaper models keeps the parent's context window from filling with bulk output that never needs to return in detail.
 
 ## Result protocol
 
-Require each subagent to end its final message with a status line followed by the artifact (changed file paths or a short summary). Statuses:
+This is the single definition of the status protocol; `implementing-with-subagents` and the templates in both skills use it.
 
-- `COMPLETE` — finished and self-checked.
-- `COMPLETE_WITH_CAVEATS` — finished but flagging correctness risks to address.
-- `MISSING_INPUT` — lacked something it needed; supply it and re-dispatch.
-- `STUCK` — couldn't proceed; diagnose the cause and change approach (switch model, decompose the task, or revise the plan) — never just retry unchanged.
+Require each subagent to end its final message with a status line followed by the artifact (changed file paths or a short summary). Statuses and how to respond:
+
+- `COMPLETE` — finished and self-checked. Verify the result before relying on it.
+- `COMPLETE_WITH_CAVEATS` — finished, but flagging a correctness risk or deviation. Weigh it, then verify.
+- `MISSING_INPUT` — lacked something it needed. A subagent can't ask mid-task, so this is how the gap surfaces: supply what's missing and re-dispatch.
+- `STUCK` — couldn't proceed. Diagnose before retrying: missing context → add it; task too large → split it; model out of depth → raise the tier; the plan itself is wrong → bring it back to the user. Never re-run an unchanged prompt and hope.
 
 ## Rules
 
