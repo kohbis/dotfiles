@@ -48,11 +48,11 @@ dotfiles/agents/skills/<skill>
 
 When a skill needs an explicit model name, follow these conventions:
 
-| Tool / CLI | Naming policy | Examples |
-| ---------- | ------------- | -------- |
-| Codex CLI | Use explicit model IDs | `gpt-5.6-sol`, `gpt-5.6-terra`, `gpt-5.6-luna` |
-| GitHub Copilot CLI | Use explicit versioned model names | `claude-sonnet-5`, `claude-opus-4.8` |
-| Claude Code CLI | Prefer family aliases | `opus`, `sonnet`, `haiku`, `fable` |
+| Tool / CLI | Naming policy |
+| ---------- | ------------- |
+| Codex CLI | Use explicit model IDs |
+| GitHub Copilot CLI | Use explicit versioned model names |
+| Claude Code CLI | Prefer family aliases |
 
 Rationale:
 - Codex skills currently use concrete OpenAI model IDs rather than family aliases.

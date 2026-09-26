@@ -2,14 +2,14 @@
 name: writing-agents-md
 description: >
   Writes or improves AGENTS.md by analyzing project structure, conventions, and tooling.
-  Also creates CLAUDE.md with @AGENTS.md reference for unified context management.
+  Offers to fold an existing CLAUDE.md into AGENTS.md for unified context management.
   Trigger only when user explicitly says "writing agents md" or "/writing-agents-md".
 disable-model-invocation: true
 ---
 
 # Writing AGENTS.md
 
-Create or improve AGENTS.md for a project, and optionally create CLAUDE.md that references it.
+Create or improve AGENTS.md for a project. Claude Code and Codex both read AGENTS.md directly, so no CLAUDE.md is needed alongside it.
 
 ## Workflow
 
@@ -34,13 +34,13 @@ Check what already exists:
 
 Normalize CLAUDE.md content first: strip blank lines and comments, then evaluate.
 
-- **CLAUDE.md does not exist** → Note: create it in Step 6.
-- **CLAUDE.md is empty or effectively contains only `@AGENTS.md`** → Skip; no action needed.
+- **CLAUDE.md does not exist** → Nothing to do.
+- **CLAUDE.md is empty or effectively contains only `@AGENTS.md`** → Leave it; mention to the user that it is redundant and can be deleted.
 - **CLAUDE.md has substantive content** → Ask the user:
 
-  > "CLAUDE.md has existing content. Would you like to merge it into AGENTS.md and replace CLAUDE.md with just `@AGENTS.md` for unified management? (yes/no)"
+  > "CLAUDE.md has existing content. Would you like to merge it into AGENTS.md and delete CLAUDE.md for unified management? (yes/no)"
 
-  - Yes → Incorporate the content into AGENTS.md (Step 5), then replace CLAUDE.md with `@AGENTS.md` only (Step 6).
+  - Yes → Incorporate the content into AGENTS.md (Step 5), then delete CLAUDE.md.
   - No → Leave CLAUDE.md untouched.
   - **No response / unclear** → Do not modify CLAUDE.md; proceed with AGENTS.md only.
 
@@ -74,22 +74,13 @@ For information that cannot be confirmed from the repository, ask the user rathe
 
 Include only sections that have relevant content for the project.
 
-### Step 6: Create CLAUDE.md (if needed)
-
-If CLAUDE.md did not exist at Step 2, create it with only:
-
-```
-@AGENTS.md
-```
-
-### Step 7: Validate
+### Step 6: Validate
 
 Before finishing, verify:
 
 - Sections appear in the order defined below.
 - All commands are exact and runnable (not placeholders like `<command>`).
 - File size is under 32 KiB.
-- If CLAUDE.md was created or modified, it contains a valid `@AGENTS.md` reference.
 
 ---
 

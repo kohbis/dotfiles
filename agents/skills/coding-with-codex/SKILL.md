@@ -20,20 +20,30 @@ codex exec \
   {SUPPRESS_FLAG}
 ```
 
+## Models
+
+Model IDs live only in this table; everything else in this skill refers to the tier.
+
+| Tier | Model ID |
+|------|----------|
+| frontier | `gpt-5.6-sol` |
+| balanced | `gpt-5.6-terra` |
+| fast | `gpt-5.6-luna` |
+
 ## Parameter Selection
 
-| Task Type | Model | Reasoning | Sandbox | --full-auto |
+| Task Type | Tier | Reasoning | Sandbox | --full-auto |
 |-----------|-------|-----------|---------|-------------|
-| New feature implementation | gpt-5.6-sol | high | workspace-write | YES |
-| Bug fix | gpt-5.6-sol | xhigh | workspace-write | YES |
-| Test generation | gpt-5.6-terra | medium | workspace-write | YES |
-| Scaffolding | gpt-5.6-terra | medium | workspace-write | YES |
-| Small changes | gpt-5.6-luna | medium | workspace-write | YES |
+| New feature implementation | frontier | high | workspace-write | YES |
+| Bug fix | frontier | xhigh | workspace-write | YES |
+| Test generation | balanced | medium | workspace-write | YES |
+| Scaffolding | balanced | medium | workspace-write | YES |
+| Small changes | fast | medium | workspace-write | YES |
 
 Parameter notes:
-- `gpt-5.6-sol` is the default (frontier); raise `model_reasoning_effort` to `xhigh` when the implementation requires deeper reasoning, debugging, or broader codebase context
-- `gpt-5.6-terra` is the balanced tier for everyday `medium`-effort work such as test generation and scaffolding
-- Use `gpt-5.6-luna` for simple or localized changes where speed matters more than depth
+- frontier is the default; raise `model_reasoning_effort` to `xhigh` when the implementation requires deeper reasoning, debugging, or broader codebase context
+- balanced is the tier for everyday `medium`-effort work such as test generation and scaffolding
+- Use fast for simple or localized changes where speed matters more than depth
 - Always use `workspace-write` + `--full-auto` — this skill is for executing changes
 - `danger-full-access` (network access) requires explicit user confirmation
 - Append `2>/dev/null` only if user requests hidden output

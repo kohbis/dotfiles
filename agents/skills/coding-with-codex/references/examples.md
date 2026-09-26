@@ -1,13 +1,15 @@
 # Practical Examples
 
+`{MODEL}` is the model ID for the selected tier — see the Models table in SKILL.md.
+
 ## Example 1: New Feature Implementation (API Endpoint)
 
 **Task Type**: New feature implementation
-**Selected Parameters**: `gpt-5.6-sol` + `high` + `workspace-write` + `--full-auto`
+**Selected Parameters**: frontier tier + `high` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.6-sol \
+  --model {MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --full-auto \
@@ -22,11 +24,11 @@ CONSTRAINTS: Follow existing handler patterns in internal/handler/user.go, use e
 ## Example 2: Bug Fix (with Reproduction Steps)
 
 **Task Type**: Bug fix
-**Selected Parameters**: `gpt-5.6-sol` + `xhigh` + `workspace-write` + `--full-auto`
+**Selected Parameters**: frontier tier + `xhigh` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.6-sol \
+  --model {MODEL} \
   --config model_reasoning_effort="xhigh" \
   --sandbox workspace-write \
   --full-auto \
@@ -41,11 +43,11 @@ CONSTRAINTS: Do not change the HTTP handler signature; fix must be in processor.
 ## Example 3: Test Suite Generation
 
 **Task Type**: Test generation
-**Selected Parameters**: `gpt-5.6-terra` + `medium` + `workspace-write` + `--full-auto`
+**Selected Parameters**: balanced tier + `medium` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.6-terra \
+  --model {MODEL} \
   --config model_reasoning_effort="medium" \
   --sandbox workspace-write \
   --full-auto \
@@ -60,11 +62,11 @@ CONSTRAINTS: Match existing test file naming (*_test.go), use table-driven tests
 ## Example 4: Refactoring (Adding Type Safety)
 
 **Task Type**: New feature implementation (type safety refactor)
-**Selected Parameters**: `gpt-5.6-sol` + `high` + `workspace-write` + `--full-auto`
+**Selected Parameters**: frontier tier + `high` + `workspace-write` + `--full-auto`
 
 ```bash
 codex exec \
-  --model gpt-5.6-sol \
+  --model {MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --full-auto \

@@ -19,10 +19,9 @@ you're running, so don't fill gaps with guesses.
 
 ## Do
 1. Implement exactly the task — no more.
-2. Add tests that cover the task's behavior, and run them.
-3. Run them; make them pass.
-4. Commit a checkpoint.
-5. Before reporting, confirm your diff covers every requirement in the task and
+2. Add tests that cover the task's behavior; run them and make them pass.
+3. Commit a checkpoint.
+4. Before reporting, confirm your diff covers every requirement in the task and
    nothing beyond it. One pass — fix what it surfaces, then report.
 
 ## Stay in scope
