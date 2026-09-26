@@ -1,6 +1,7 @@
 ---
 name: delegating-to-subagents
-description: "Playbook for delegating work to subagents — what to hand off, how to pack context into the prompt, which model to pick, fanning out in parallel, and auditing results. Use whenever you're about to spawn subagents or run agents in parallel."
+description: "Playbook for delegating work to subagents — what to hand off, how to pack context into the prompt, which model to pick, fanning out in parallel, and auditing results. Trigger only when user explicitly says \"delegating to subagents\" or \"/delegating-to-subagents\"; implementing-with-subagents reads it as a file."
+disable-model-invocation: true
 ---
 
 # Delegating to Subagents

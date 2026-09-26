@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Implementing with Subagents
 
-Turn an approved plan into shipped code by running its tasks through fresh subagents, one at a time, verifying each before moving on. This main session stays the controller: it scopes each task, dispatches it, checks the result, and keeps the working tree coherent. It builds on `delegating-to-subagents` for the dispatch mechanics — context-packing, status returns, model choice.
+Turn an approved plan into shipped code by running its tasks through fresh subagents, one at a time, verifying each before moving on. This main session stays the controller: it scopes each task, dispatches it, checks the result, and keeps the working tree coherent. It builds on [delegating-to-subagents](../delegating-to-subagents/SKILL.md) for the dispatch mechanics — context-packing, status returns, model choice. That skill is user-invoked only, so read the file at the start of the loop rather than expecting it to be loaded.
 
 ## Boundaries
 
@@ -53,7 +53,7 @@ Match the model to each task's difficulty — see the table in `delegating-to-su
 ## References
 
 - `references/templates.md` — the implementer dispatch skeleton and the two verification passes
-- `delegating-to-subagents` — dispatch mechanics this skill builds on
+- [delegating-to-subagents](../delegating-to-subagents/SKILL.md) — dispatch mechanics this skill builds on (read as a file)
 - `reviewing-code` — how the craftsmanship pass reviews
 - Claude Code's built-in worktree isolation (`isolation: worktree` on the subagent) — give a task its own checkout when isolation helps
 - `shipping-with-git` — the gated ship step once all tasks pass
