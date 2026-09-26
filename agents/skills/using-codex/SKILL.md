@@ -1,7 +1,6 @@
 ---
 name: using-codex
-description: Runs Codex CLI for code review, analysis, and technical research (read-only) or for coding tasks — implementing features, fixing bugs, generating tests, scaffolding (workspace-write). Trigger only when user explicitly says "using codex" or "/using-codex".
-disable-model-invocation: true
+description: Use only when the user asks for Codex, or when a workflow calls for a Codex pass (reviewing-code's second opinion, the code-reviewer agent) — ordinary review requests go to reviewing-code. Runs Codex CLI for code review, analysis, and technical research (read-only) or for coding tasks — implementing features, fixing bugs, generating tests, scaffolding (workspace-write). Start coding mode only when the user asked for it.
 ---
 
 # Using Codex
