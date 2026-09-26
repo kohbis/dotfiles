@@ -55,5 +55,5 @@ Match the model to each task's difficulty — see the table in `delegating-to-su
 - `references/templates.md` — the implementer dispatch skeleton and the two verification passes
 - `delegating-to-subagents` — dispatch mechanics this skill builds on
 - `reviewing-code` — how the craftsmanship pass reviews
-- `managing-git-worktrees` — give a task its own checkout when isolation helps
+- Claude Code's built-in worktree isolation (`isolation: worktree` on the subagent) — give a task its own checkout when isolation helps
 - `shipping-with-git` — the gated ship step once all tasks pass

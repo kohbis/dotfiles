@@ -30,7 +30,7 @@ The main session acts as architect and controller. Push context-heavy and mechan
 - The hard architectural core of a problem.
 - Final audit and integration of results.
 
-When a more specific sibling skill fits, prefer it over this general guide: `implementing-with-subagents` to drive a plan task-by-task, `using-codex` to hand review or coding work to Codex.
+When a more specific sibling skill fits, prefer it over this general guide: `using-codex` to hand review or coding work to Codex. `implementing-with-subagents` drives a written plan task-by-task, but only the user can start it — suggest it when that is the job.
 
 ## Workflow
 
