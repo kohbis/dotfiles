@@ -3,18 +3,38 @@ local vim = vim
 vim.opt.autoread = true
 vim.opt.clipboard:append({'unnamedplus'})
 vim.opt.cmdheight = 1
+vim.opt.confirm = true
 vim.opt.cursorline = true
+vim.opt.fileencodings = { 'utf-8', 'iso-2022-jp', 'euc-jp', 'sjis' }
+vim.opt.fileformats = { 'unix', 'dos', 'mac' }
 vim.opt.guifont = { 'DroidSansMono Nerd Font', "h11" }
 vim.opt.ignorecase = true
 vim.opt.list = true
 vim.opt.listchars = 'tab:»-,trail:-,extends:»,precedes:«,nbsp:%'
 vim.opt.mouse = 'a'
+vim.opt.scrolloff = 10
+vim.opt.showmatch = true
 vim.opt.smartcase = true
+vim.opt.smartindent = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+vim.opt.swapfile = false
 vim.opt.termguicolors = true
+vim.opt.undofile = true
+vim.opt.updatetime = 500
+vim.opt.virtualedit = 'block'
+vim.opt.wildmode = { 'list:longest', 'full' }
 vim.opt.wrapscan = true
 vim.wo.number = true
+
+-- Reload files changed outside nvim (autoread alone only checks on a few events)
+local function checktime()
+  if vim.fn.mode() ~= 'c' and vim.fn.getcmdwintype() == '' then
+    vim.cmd('silent! checktime')
+  end
+end
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, { callback = checktime })
+vim.uv.new_timer():start(1000, 1000, vim.schedule_wrap(checktime))
 
 -- Tab, Indent
 -- vim.opt.shiftwidth = 4
@@ -505,6 +525,8 @@ vim.keymap.set('n', '+', '<C-a>', { noremap = true })
 vim.keymap.set('n', '-', '<C-x>', { noremap = true })
 vim.keymap.set('n', '<Esc><Esc>', '<cmd>nohlsearch<CR><Esc>', { noremap = true })
 vim.keymap.set('n', 'Y', 'y$', { noremap = true })
+vim.keymap.set('n', '<C-s>', '<cmd>w<CR>', { noremap = true })
+vim.keymap.set('n', '<Leader>bb', ':buffers<CR>:b<Space>', { noremap = true })
 vim.keymap.set('n', 'j', 'gj', { noremap = true })
 vim.keymap.set('n', 'k', 'gk', { noremap = true })
 vim.keymap.set('n', '<Left>', '<cmd>bp<CR>', { noremap = true })
