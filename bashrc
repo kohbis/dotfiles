@@ -51,6 +51,11 @@ if [ -f $bash_local ]; then
   . $bash_local
 fi
 
+bash_private="${HOME}/workspace/dotfiles/dotfiles-private/bashrc"
+if [ -f $bash_private ]; then
+  . $bash_private
+fi
+
 ########
 # bind #
 ########
