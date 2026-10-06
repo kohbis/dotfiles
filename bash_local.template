@@ -43,3 +43,10 @@
 # pi_port="22"
 # alias ssh-pi="ssh $pi_user@$pi_host -p $pi_port"
 
+
+# tmux (restart tmux server to apply)
+# plugins: 1 or unset = enabled, 0 = disabled
+# export TMUX_PLUGIN_BATTERY=1
+# export TMUX_PLUGIN_CPU=1
+# status bar update interval in seconds (default: 1)
+# export TMUX_STATUS_INTERVAL=15
