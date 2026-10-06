@@ -27,7 +27,7 @@ dotfiles/agents/skills/<skill>       # edit here
 ~/.claude/skills/<skill>  ~/.codex/skills/<skill>
 ```
 
-`dotfiles-private/agents/skills/` is linked into `~/.agents/skills/` the same way when present.
+`dotfiles-private/agents/skills/` is linked into `~/.agents/skills/` the same way when present. `dotfiles-private/bashrc` is sourced from `bashrc` when present.
 
 Global agent rules follow the same fan-out pattern:
 

@@ -70,4 +70,6 @@ make link
 
 Skills in `dotfiles-private/agents/skills/` are also linked into `~/.agents/skills/` automatically.
 
+`dotfiles-private/bashrc` is sourced from `~/.bashrc` when present.
+
 `dotfiles-private/` is excluded from this repository via `.gitignore`.
