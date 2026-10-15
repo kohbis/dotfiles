@@ -108,6 +108,7 @@ These are transient facts about your machine, not durable context about the chan
 - CI/build status
 
 A "Testing" or "Verification" section is not an exception. Describe what a reviewer should verify or how to reproduce the scenario, or write `TODO` — never fabricate results.
+When verification steps appear, separate what can be checked at PR time or in a staging/verification environment from what can only be checked after merge or production rollout, so neither is mistaken for the other.
 
 ## Ticket ID prefix (PR title)
 
@@ -120,3 +121,4 @@ With no ticket ID, skip the prefix rather than inventing one.
 - One sentence per line — break after each `.` / `。`. A later edit then touches one line, so the markdown diff shows exactly what changed. (Consecutive lines still render as one paragraph; leave a blank line only for a real paragraph break.)
 - Don't invent facts, issue links, or test results; mark unknowns as `TODO`.
 - Write with authorial voice and active phrasing; avoid detached narration like "This PR adds…".
+- In Japanese, use plain form (だ・である調), never polite form (です・ます調) — e.g. 「〜を修正した」, not 「〜を修正しました」.
