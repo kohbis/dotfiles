@@ -4,6 +4,7 @@
 
 - Do not use `/tmp` as a working directory.
 - Always create a `tmp/` directory under the current working directory instead.
+- Delete files under `tmp/` once the work that needed them is done. When unsure whether a file is still needed, delete it.
 
 ## Scope
 
