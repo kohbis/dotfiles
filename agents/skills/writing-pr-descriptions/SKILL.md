@@ -43,8 +43,32 @@ Even then, a bigger diff usually means less to write, not more: state a shared r
 
 ## Structure
 
-**Without a template**, write plain paragraphs — no `##` headings, no bold pseudo-headings (`**Why:**`), no section-per-topic bullets — in both forms.
+**Without a template**, write plain paragraphs — no `##` headings, no bold pseudo-headings (`**Why:**`) — in both forms.
 Use sections only when the user explicitly asks for a structure; then follow exactly the structure given.
+
+Layout still matters without headings — GitHub joins consecutive lines into one paragraph, so a description with no blank lines renders as a wall of text:
+
+- One topic per paragraph, usually one or two sentences: put a blank line between distinct topics (why, approach, rollout scope, rollback), so each reads as its own block.
+- Use a bulleted list for parallel items (two or more targets, conditions, or options) and a numbered list for steps that must happen in order (post-merge rollout, manual operations).
+- Keep the why as prose; bullets are for enumerations and procedures, not for chopping reasoning into fragments.
+
+**Example — wall of text:**
+> Moves search to the new full-text index, since the old `LIKE` queries time out once a catalog passes ~100k items.
+> Reuses the existing read replica instead of adding a new database.
+> The old search path stays active right after merge. The new index serves traffic only after the backfill job finishes and the `search_v2` flag is enabled.
+> Roll back by disabling `search_v2`.
+
+**Example — same content, laid out:**
+> Moves search to the new full-text index, since the old `LIKE` queries time out once a catalog passes ~100k items.
+> Reuses the existing read replica instead of adding a new database.
+>
+> The old search path stays active right after merge.
+> The new index serves traffic after these steps.
+>
+> 1. Run the backfill job.
+> 2. Enable the `search_v2` flag.
+>
+> Roll back by disabling `search_v2`.
 
 **With a template**, its structure wins over anything else here.
 Keep every heading and checklist unless clearly marked optional, strip instructional comments (`<!-- describe your changes -->`), and answer a section you have nothing for with `N/A`.
@@ -118,7 +142,9 @@ With no ticket ID, skip the prefix rather than inventing one.
 ## Output rules
 
 - Markdown only.
-- One sentence per line — break after each `.` / `。`. A later edit then touches one line, so the markdown diff shows exactly what changed. (Consecutive lines still render as one paragraph; leave a blank line only for a real paragraph break.)
+- One sentence per line — break at the end of each sentence (in Japanese, without the 「。」 — see below). A later edit then touches one line, so the markdown diff shows exactly what changed. (Consecutive lines still render as one paragraph, so leave a blank line wherever the topic changes — see *Structure* for when to use lists.)
 - Don't invent facts, issue links, or test results; mark unknowns as `TODO`.
 - Write with authorial voice and active phrasing; avoid detached narration like "This PR adds…".
 - In Japanese, use plain form (だ・である調), never polite form (です・ます調) — e.g. 「〜を修正した」, not 「〜を修正しました」.
+- In Japanese, drop the trailing 「。」 at the end of each line — the line break already ends the sentence.
+- No `**bold**` and no colons (`:` / `：`) in the description — not for emphasis, labels, or lead-ins to a list. Say it as a full sentence instead, e.g. 「切り替え手順は以下のとおり」 rather than 「切り替え手順:」.
