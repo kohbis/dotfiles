@@ -133,6 +133,19 @@ These are transient facts about your machine, not durable context about the chan
 
 A "Testing" or "Verification" section is not an exception. Describe what a reviewer should verify or how to reproduce the scenario, or write `TODO` — never fabricate results.
 When verification steps appear, separate what can be checked at PR time or in a staging/verification environment from what can only be checked after merge or production rollout, so neither is mistaken for the other.
+Write each verification item as an unchecked task-list item (`- [ ] …`), including ordered steps, so whoever does the check can tick it off on the PR page.
+Leave every box unchecked — a checked box would claim a result nobody has verified yet.
+
+**Example — verification section:**
+> Before merge, verify these in the staging environment.
+>
+> - [ ] Searching a catalog with over 100k items returns results within 1 second
+> - [ ] Searching with an empty query returns a 400 instead of a 500
+>
+> After the production rollout, verify these in order.
+>
+> - [ ] The backfill job finishes without errors
+> - [ ] Search latency on the dashboard stays at or below its pre-rollout level after enabling `search_v2`
 
 ## Ticket ID prefix (PR title)
 
