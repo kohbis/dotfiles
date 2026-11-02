@@ -157,6 +157,7 @@ With no ticket ID, skip the prefix rather than inventing one.
 - Markdown only.
 - One sentence per line — break at the end of each sentence (in Japanese, without the 「。」 — see below). A later edit then touches one line, so the markdown diff shows exactly what changed. (Consecutive lines still render as one paragraph, so leave a blank line wherever the topic changes — see *Structure* for when to use lists.)
 - Don't invent facts, issue links, or test results; mark unknowns as `TODO`.
+- When you mention a commit, write it as a link so the reviewer can open it in one click — `[abc1234](https://github.com/<owner>/<repo>/commit/<full-sha>)`, with the short hash as the text. Resolve the full SHA with `git rev-parse` and the repository URL from `gh repo view --json url` (or the `origin` remote) rather than guessing. Never put a hash in backticks: a code span stops GitHub from linking it.
 - Write with authorial voice and active phrasing; avoid detached narration like "This PR adds…".
 - In Japanese, use plain form (だ・である調), never polite form (です・ます調) — e.g. 「〜を修正した」, not 「〜を修正しました」.
 - In Japanese, drop the trailing 「。」 at the end of each line — the line break already ends the sentence.
