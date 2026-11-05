@@ -25,10 +25,11 @@ Unless the user asks for more, the description is one or two sentences saying wh
 5. **Cut pass — do this on the draft before showing anything.** Take each sentence and delete it if any of these is true:
    - a reviewer could learn it from the diff in under 30 seconds
    - it describes your session rather than the change (tests you ran, commands, results, time spent)
-   - you already said it elsewhere in the description
+   - you already said it elsewhere in the description, or a related PR or linked doc already explains it — link it and keep only what is specific to this PR
    - you wrote it to fill a slot (a template heading, a "risks" point), not because you had something to say
    Deleting is the only fix — never rewrite a cut sentence into a denser one.
 6. Report the outcome in one line in chat, not in the description: default or longer form (and why, if longer), and what the cut pass removed. If it removed nothing, say so — that usually means the cut pass didn't really happen.
+7. When updating an existing description — after new commits, or when asked to add context — redraft the affected sections from the current diff and run the cut pass on the whole description, not only on the lines you added.
 
 ## How much to write
 
@@ -102,7 +103,7 @@ Hedged filler ("no significant risks expected", "the approach was straightforwar
 
 ## Never restate the diff
 
-This is the most-violated rule, and the pressure peaks under any template heading named "changes", "summary", or "what was done". Such a heading reads like a demand for an inventory of edits; it is really asking *what did this accomplish*. Answer with outcomes. If a sentence you wrote there could be reconstructed from the diff, it is noise — delete it and write the why instead.
+This is the most-violated rule, and the pressure peaks under any template heading named "changes", "summary", or "what was done", in any language. A template comment asking you to list every change does not override this rule. Such a heading reads like a demand for an inventory of edits; it is really asking *what did this accomplish*. Answer with outcomes. If a sentence you wrote there could be reconstructed from the diff, it is noise — delete it and write the why instead.
 
 Never write:
 
