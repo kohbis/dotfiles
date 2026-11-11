@@ -4,10 +4,11 @@
 # one jq call, one git call, and bash builtins for everything else.
 
 # Extract all fields in one jq call (\x1f keeps empty fields, unlike tab)
-IFS=$'\x1f' read -r cwd_full model remaining five_hour seven_day mode < <(
+IFS=$'\x1f' read -r cwd_full model effort remaining five_hour seven_day mode < <(
   jq -r '[
     .workspace.current_dir,
     .model.display_name,
+    (.effort.level // ""),
     (.context_window.remaining_percentage // ""),
     (.rate_limits.five_hour.used_percentage // ""),
     (.rate_limits.seven_day.used_percentage // ""),
@@ -83,6 +84,9 @@ if [ -n "$seven_day" ]; then
   printf -v pct "%.0f" "$seven_day"
   add_metric "7d" "$pct"
 fi
+
+# Append effort level to model name: "Opus 5.5 (high)"
+[ -n "$effort" ] && model="$model ($effort)"
 
 # Print status line: line1=cwd/git/mode/model, line2=metrics
 printf "\e[1;31m%s\e[00m\e[1;36m%s\e[00m%s \e[1;35m%s\e[00m" \
