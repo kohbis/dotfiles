@@ -48,10 +48,10 @@ Stage and commit require explicit user confirmation.
    - Run `git push -u origin <branch-name>` and report the result.
 
 5. **Generate PR description**
-   - Run `/writing-pr-descriptions` to draft the PR body.
+   - Run `/writing-pr-descriptions` to draft the PR body and the title `<subject>`.
 
 6. **Open PR** *(automatic)*
-   - Build the PR title as `<type>: <subject>` when there is no scope, or `<type>(<scope>): <subject>` when scope is present.
+   - Build the PR title as `<type>: <subject>` when there is no scope, or `<type>(<scope>): <subject>` when scope is present. Use the `<subject>` drafted in step 5; reuse the commit subject only when it meets that skill's PR title rules.
    - If a ticket ID in `XXX-123` format was supplied, prefix the title with `[XXX-123] ` (e.g. `[XXX-123] feat: add shipping-with-git command`).
    - Run:
      ```

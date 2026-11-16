@@ -1,6 +1,6 @@
 ---
 name: writing-pr-descriptions
-description: "Drafts a pull request description from the branch diff and the repository's PR template. Use for any request to create a PR or write its description, and when another skill such as shipping-with-git needs one."
+description: "Drafts a pull request title and description from the branch diff and the repository's PR template. Use for any request to create a PR or write its title or description, and when another skill such as shipping-with-git needs one."
 ---
 
 # Writing PR Descriptions
@@ -21,15 +21,15 @@ Unless the user asks for more, the description is one or two sentences saying wh
    - Read key changed files to understand intent (not to summarize them)
    - Use commit messages, issue refs, branch names, and user-provided context for motivation and decisions. When context is unavailable, write `TODO` rather than inferring
 3. Find the PR template, in order: `.github/pull_request_template.md`, `.github/PULL_REQUEST_TEMPLATE.md`, `.github/PULL_REQUEST_TEMPLATE/*.md` (pick the most relevant). Whether one exists decides the structure — see *Structure*.
-4. Draft the default form — one or two sentences — unless the user asked for more (see *How much to write*).
-5. **Cut pass — do this on the draft before showing anything.** Take each sentence and delete it if any of these is true:
+4. Draft the title (see *PR title*) and the default form of the description — one or two sentences — unless the user asked for more (see *How much to write*).
+5. **Cut pass — do this on the draft before showing anything.** Take each sentence of the description, and each word of the title, and delete it if any of these is true:
    - a reviewer could learn it from the diff in under 30 seconds
    - it describes your session rather than the change (tests you ran, commands, results, time spent)
    - you already said it elsewhere in the description, or a related PR or linked doc already explains it — link it and keep only what is specific to this PR
    - you wrote it to fill a slot (a template heading, a "risks" point), not because you had something to say
    Deleting is the only fix — never rewrite a cut sentence into a denser one.
 6. Report the outcome in one line in chat, not in the description: default or longer form (and why, if longer), and what the cut pass removed. If it removed nothing, say so — that usually means the cut pass didn't really happen.
-7. When updating an existing description — after new commits, or when asked to add context — redraft the affected sections from the current diff and run the cut pass on the whole description, not only on the lines you added.
+7. When updating an existing description — after new commits, or when asked to add context — redraft the affected sections from the current diff and run the cut pass on the whole description, not only on the lines you added. Recheck the title against the current diff too, and redraft it if it no longer names what the change accomplishes.
 
 ## How much to write
 
@@ -148,7 +148,26 @@ Leave every box unchecked — a checked box would claim a result nobody has veri
 > - [ ] The backfill job finishes without errors
 > - [ ] Search latency on the dashboard stays at or below its pre-rollout level after enabling `search_v2`
 
-## Ticket ID prefix (PR title)
+## PR title
+
+The title is held to the same standard as the description.
+It is what a reviewer sees in the PR list and what stays in the merge history, read with no diff next to it.
+
+- Name what the change accomplishes, not the edits that got it there — no file names, no "Add function X", no "Update Y" (see *Never restate the diff*).
+- Keep the session out of it — no "WIP", "fix review comments", "try again" (see *Never report your local session*).
+- One line, around 60 characters at most. Cut words rather than compress them; a title that needs "and" to join independent concerns means the PR probably wants splitting.
+- Don't repeat the title in the description. The description starts where the title stops — usually at the why.
+- Don't invent a scope, issue number, or outcome the diff and context don't support.
+- The output rules below apply. In Japanese, use plain form and no trailing 「。」. No bold. A colon appears only as part of a type prefix (`feat: …`, `fix(api): …`).
+- When the repository or the calling skill fixes a title format (e.g. shipping-with-git's `<type>: <subject>`), keep the format and apply these rules to the subject.
+
+**Example — bad:**
+> Add `validateInput` to utils and update request handler
+
+**Example — good:**
+> Reject malformed payloads at the handler boundary
+
+### Ticket ID prefix
 
 When the user supplies a ticket ID in `XXX-123` format (letters, hyphen, digits — e.g. Jira-style), prefix the PR title with `[XXX-123]`, e.g. `[XXX-123] Fix null pointer in session handler`.
 With no ticket ID, skip the prefix rather than inventing one.
