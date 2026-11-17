@@ -154,6 +154,7 @@ The title is held to the same standard as the description.
 It is what a reviewer sees in the PR list and what stays in the merge history, read with no diff next to it.
 
 - Name what the change accomplishes, not the edits that got it there — no file names, no "Add function X", no "Update Y" (see *Never restate the diff*).
+- Summarize the PR as a whole, in words a reader of the PR list understands without opening it. Leave implementation details out — resource, function, or variable names, config values, policy statements, and inline code. When a reviewer needs them, they go in the description.
 - Keep the session out of it — no "WIP", "fix review comments", "try again" (see *Never report your local session*).
 - One line, around 60 characters at most. Cut words rather than compress them; a title that needs "and" to join independent concerns means the PR probably wants splitting.
 - Don't repeat the title in the description. The description starts where the title stops — usually at the why.
@@ -167,9 +168,15 @@ It is what a reviewer sees in the PR list and what stays in the merge history, r
 **Example — good:**
 > Reject malformed payloads at the handler boundary
 
+**Example — bad (implementation details):**
+> [XXX-123] Replace `scopes: ["*"]` with `["repo:read"]` for `ci-bot`
+
+**Example — good:**
+> [XXX-123] Narrow the CI bot's token permissions
+
 ### Ticket ID prefix
 
-When the user supplies a ticket ID in `XXX-123` format (letters, hyphen, digits — e.g. Jira-style), prefix the PR title with `[XXX-123]`, e.g. `[XXX-123] Fix null pointer in session handler`.
+When the user supplies a ticket ID in `XXX-123` format (letters, hyphen, digits — e.g. Jira-style), prefix the PR title with `[XXX-123]`, e.g. `[XXX-123] Fix crash when a session expires`.
 With no ticket ID, skip the prefix rather than inventing one.
 
 ## Output rules
