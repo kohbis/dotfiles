@@ -6,13 +6,13 @@ When you need to survey several independent areas, spawn all the Explore/researc
 
 ```
 # Subagent A — dispatched in the same turn as B
-Explore agent, haiku model.
+Explore agent, low effort.
 Search /src/api for all route definitions. List each route, its HTTP method,
 and the handler file. Return a plain table.
 End with: COMPLETE <table> or STUCK <reason>.
 
 # Subagent B — dispatched in the same turn as A
-Explore agent, haiku model.
+Explore agent, low effort.
 Search /src/middleware for any authentication or authorization middleware.
 Summarize what each does and where it is applied.
 End with: COMPLETE <summary> or STUCK <reason>.
@@ -24,10 +24,10 @@ Because A and B are independent, they run in parallel. The main session receives
 
 A sequential pattern for work where correctness matters enough to warrant an independent review pass.
 
-1. Dispatch a `sonnet` subagent with a fully packed spec (see Example 3). It implements and returns `COMPLETE` or `COMPLETE_WITH_CAVEATS` with the changed file paths.
-2. Dispatch an `opus` subagent (or review in main) with those file paths and the original spec. Ask it to audit for correctness, edge cases, and spec compliance.
+1. Dispatch an implementer subagent with a fully packed spec (see Example 3). It implements and returns `COMPLETE` or `COMPLETE_WITH_CAVEATS` with the changed file paths.
+2. Dispatch a reviewer subagent at `high` effort (or review in main) with those file paths and the original spec. Ask it to audit for correctness, edge cases, and spec compliance.
 3. If the reviewer returns findings or `COMPLETE_WITH_CAVEATS`, re-dispatch the implementer with the specific concerns listed — not a blanket "fix it."
-4. If the implementer returns `STUCK`, diagnose: wrong model, underspecified task, or wrong plan. Change the approach; never retry unchanged.
+4. If the implementer returns `STUCK`, diagnose: too little effort, underspecified task, or wrong plan. Change the approach; never retry unchanged.
 5. When the reviewer comes back clean, integrate and move on.
 
 ## Example 3 — Context-packing prompt template

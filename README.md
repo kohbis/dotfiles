@@ -44,18 +44,9 @@ dotfiles/agents/skills/<skill>
 ~/.claude/skills/<skill>  ~/.codex/skills/<skill>
 ```
 
-### Model Naming Policy
+### Model Policy
 
-When a skill needs an explicit model name, follow these conventions:
-
-| Tool / CLI | Naming policy |
-| ---------- | ------------- |
-| Codex CLI | Use explicit model IDs |
-| Claude Code CLI | Prefer family aliases |
-
-Rationale:
-- Codex skills currently use concrete OpenAI model IDs rather than family aliases.
-- Claude Code CLI is intended to use family-level aliases rather than pinned release names.
+Skills and agents do not name a model for any client (Claude Code, Codex, cursor-agent). Each tool picks its own default, so new model releases need no edits here. Depth is tuned with effort instead.
 
 ### Private dotfiles (optional)
 

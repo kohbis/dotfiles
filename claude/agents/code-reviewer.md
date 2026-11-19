@@ -2,7 +2,6 @@
 name: code-reviewer
 description: Reviews code for quality, security, and maintainability using Codex CLI. Use when reviewing code changes, investigating bugs, analyzing infrastructure configs, or optimizing CI/CD pipelines.
 tools: Read, Grep, Glob, Bash(codex:*), Bash(git diff:*), Bash(git log:*), Bash(git show:*), Bash(gh:*)
-model: inherit
 memory: user
 skills:
   - using-codex

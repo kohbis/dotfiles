@@ -1,15 +1,12 @@
 # Practical Examples
 
-`{MODEL}` is the model ID for the selected tier — see the Models table in SKILL.md.
-
 ## Example 1: Kubernetes Manifests Review
 
 **Mode**: Review — infrastructure analysis
-**Selected Parameters**: frontier tier + `high` + `read-only`
+**Selected Parameters**: `high` + `read-only`
 
 ```bash
 codex exec \
-  --model {MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -24,11 +21,10 @@ OUTPUT: List issues by severity with specific remediation steps for each finding
 ## Example 2: API Performance Investigation
 
 **Mode**: Review — complex bug investigation
-**Selected Parameters**: frontier tier + `xhigh` + `read-only`
+**Selected Parameters**: `xhigh` + `read-only`
 
 ```bash
 codex exec \
-  --model {MODEL} \
   --config model_reasoning_effort="xhigh" \
   --sandbox read-only \
   --skip-git-repo-check \
@@ -43,11 +39,10 @@ OUTPUT: Explain root cause, reproduction conditions, and optimization strategy s
 ## Example 3: New Feature Implementation (API Endpoint)
 
 **Mode**: Coding — new feature implementation
-**Selected Parameters**: frontier tier + `high` + `workspace-write`
+**Selected Parameters**: `high` + `workspace-write`
 
 ```bash
 codex exec \
-  --model {MODEL} \
   --config model_reasoning_effort="high" \
   --sandbox workspace-write \
   --skip-git-repo-check \
@@ -62,11 +57,10 @@ CONSTRAINTS: Follow existing handler patterns in internal/handler/user.go, use e
 ## Example 4: Test Suite Generation
 
 **Mode**: Coding — test generation
-**Selected Parameters**: balanced tier + `medium` + `workspace-write`
+**Selected Parameters**: `medium` + `workspace-write`
 
 ```bash
 codex exec \
-  --model {MODEL} \
   --config model_reasoning_effort="medium" \
   --sandbox workspace-write \
   --skip-git-repo-check \

@@ -27,7 +27,6 @@ In coding mode, **confirm the change scope with the user before execution** (whi
 
 ```bash
 codex exec \
-  --model {MODEL} \
   --config model_reasoning_effort="{LEVEL}" \
   --sandbox {SANDBOX_MODE} \
   --skip-git-repo-check \
@@ -42,33 +41,28 @@ Codex writes the final assistant message to stdout and routes the progress UI, e
 
 ## Models
 
-Codex model IDs live only in this table; everything else refers to the tier.
-
-| Tier | Model ID |
-|------|----------|
-| frontier | `gpt-5.6-sol` |
-| balanced | `gpt-5.6-terra` |
-| fast | `gpt-5.6-luna` |
+Do not pass `--model`. Codex then uses the `model` in `~/.codex/config.toml`, or its built-in default when that key is unset, so new releases are picked up without editing this skill. Add `--model {MODEL}` only when the user names a specific model.
 
 ## Parameter Selection
 
-| Mode | Task Type | Tier | Reasoning |
-|------|-----------|------|-----------|
-| Review | Complex bug investigation | frontier | xhigh |
-| Review | Standard code review | frontier | high |
-| Review | Infrastructure analysis | frontier | high |
-| Review | CI/CD optimization | balanced | medium |
-| Review | Quick code question | fast | medium |
-| Coding | New feature implementation | frontier | high |
-| Coding | Bug fix | frontier | xhigh |
-| Coding | Test generation | balanced | medium |
-| Coding | Scaffolding | balanced | medium |
-| Coding | Small changes | fast | medium |
+Tune depth and latency with `model_reasoning_effort`:
+
+| Mode | Task Type | Reasoning |
+|------|-----------|-----------|
+| Review | Complex bug investigation | xhigh |
+| Review | Standard code review | high |
+| Review | Infrastructure analysis | high |
+| Review | CI/CD optimization | medium |
+| Review | Quick code question | low |
+| Coding | New feature implementation | high |
+| Coding | Bug fix | xhigh |
+| Coding | Test generation | medium |
+| Coding | Scaffolding | medium |
+| Coding | Small changes | low |
 
 Parameter notes:
-- frontier is the default; raise `model_reasoning_effort` to `xhigh` for deep investigations, cross-cutting analysis, debugging, or changes that need broad codebase context
-- balanced is the tier for everyday `medium`-effort work such as CI/CD review, test generation, and scaffolding
-- Use fast for quick, low-risk questions or localized changes where latency matters more than depth
+- Use `xhigh` for deep investigations, cross-cutting analysis, debugging, or changes that need broad codebase context
+- Use `low` for quick, low-risk questions or localized changes where latency matters more than depth
 - `danger-full-access` (network access) requires explicit user confirmation
 
 ## Prompt Format
@@ -93,7 +87,8 @@ CONSTRAINTS: {style conventions, patterns to follow, what NOT to change}
 
 ## Rules
 
-- Always include `--skip-git-repo-check`, `--model`, `--config model_reasoning_effort`, `--sandbox`
+- Always include `--skip-git-repo-check`, `--config model_reasoning_effort`, `--sandbox`
+- Omit `--model` unless the user names a specific model
 - Never use `danger-full-access` without user confirmation
 - Never add `--approve-for-me`: it cannot be combined with `--sandbox`, and it auto-approves writes outside the working directory
 

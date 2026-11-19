@@ -37,9 +37,9 @@ After the last task, review the whole change once for integration, then ship via
 
 Each implementer ends with one status from the result protocol in `delegating-to-subagents` (`COMPLETE`, `COMPLETE_WITH_CAVEATS`, `MISSING_INPUT`, `STUCK`), plus the files changed and what was tested. Respond as that protocol says; in this loop, both `COMPLETE` statuses lead into the two verification passes (step 3 of the loop), never straight to the next task.
 
-## Model selection
+## Model and effort
 
-Match the model to each task's difficulty — see the table in `delegating-to-subagents`, the canonical model-selection guidance and alias policy. For this loop: mechanical tasks go to `sonnet` (or `haiku`); architecturally tricky tasks and the craftsmanship review pass want `opus`, or keep them in this session.
+Leave the model unset and match effort to each task's difficulty — see `delegating-to-subagents`, the canonical guidance. For this loop: mechanical tasks run at `low`–`medium`; architecturally tricky tasks and the craftsmanship review pass run at `high`–`xhigh`, or stay in this session.
 
 ## Rules
 

@@ -2,7 +2,6 @@
 name: pr-writer
 description: Drafts a PR title and description from the current branch diff. Use when delegating PR description generation to a subagent — for inline drafting in the main session, use the writing-pr-descriptions skill directly instead.
 tools: Read, Grep, Glob, Bash(git diff:*), Bash(git log:*), Bash(git show:*), Bash(gh pr:*), Bash(gh issue:*)
-model: sonnet
 memory: user
 skills:
   - writing-pr-descriptions

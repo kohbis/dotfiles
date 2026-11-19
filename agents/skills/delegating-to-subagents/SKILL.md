@@ -1,12 +1,12 @@
 ---
 name: delegating-to-subagents
-description: "Playbook for delegating work to subagents — what to hand off, how to pack context into the prompt, which model to pick, fanning out in parallel, and auditing results. Trigger only when user explicitly says \"delegating to subagents\" or \"/delegating-to-subagents\"; implementing-with-subagents reads it as a file."
+description: "Playbook for delegating work to subagents — what to hand off, how to pack context into the prompt, which effort to set, fanning out in parallel, and auditing results. Trigger only when user explicitly says \"delegating to subagents\" or \"/delegating-to-subagents\"; implementing-with-subagents reads it as a file."
 disable-model-invocation: true
 ---
 
 # Delegating to Subagents
 
-The main session acts as architect and controller. Push context-heavy and mechanical work to fresh subagents on cheaper models; keep design, audit, and review in the parent.
+The main session acts as architect and controller. Push context-heavy and mechanical work to fresh subagents; keep design, audit, and review in the parent.
 
 ## Boundaries
 
@@ -37,7 +37,7 @@ When a more specific sibling skill fits, prefer it over this general guide: `usi
 
 1. **Resolve ambiguity first.** Subagents can't ask the user — if requirements are unclear, clarify them before writing a single delegation prompt.
 2. **Pack the context.** The prompt is the only input channel; no conversation history is passed. Include file paths, the spec, constraints, and the expected return format.
-3. **Pick a model per task.** See Model selection.
+3. **Set effort per task.** See Model and effort.
 4. **Fan out.**
 
    > Spawn independent subagents in the same turn so they run in parallel. Sequence only when one task genuinely depends on another's output.
@@ -45,17 +45,21 @@ When a more specific sibling skill fits, prefer it over this general guide: `usi
 5. **Collect structured results.** Only the final message returns. Keep the parent lean — the main session audits, integrates, and reviews.
 6. **Handle outcomes.** Branch on the reported status (see Result protocol). Re-dispatch fixes with updated context; when an agent is stuck, change the approach rather than blindly retrying.
 
-## Model selection
+## Model and effort
 
-| Task | Model | Effort | Notes |
-|------|-------|--------|-------|
-| Read-only broad exploration / search | `haiku` | `low` | Use the read-only **Explore** agent type |
-| Standard implementation / multi-file edits with a clear spec | `sonnet` | `medium` | Workhorse for standard work |
-| Hard implementation, design, final audit/review | `opus`, or do it yourself in the main session | `high`–`xhigh` | Keep the especially hard parts in main |
+Do not set a model on subagents. Claude Code then picks it (the parent's model, or the configured default subagent model), so new releases are picked up without editing this skill. Set a model only when the user names one.
 
-Effort is an axis independent of model, and it's the primary lever for cost and latency — reach for it before jumping a model tier. Raise it for demanding agentic work; don't carry over defaults from a previous model without re-checking them against your own tasks. The Codex equivalent is `model_reasoning_effort` (see `using-codex`).
+Effort is the lever for cost and latency:
 
-Agent type and model are independent axes: the **Explore** agent type is read-only and ideal for search, while the model is chosen separately by task difficulty. Claude Code uses family aliases (`opus`/`sonnet`/`haiku`/`fable`); routing mechanical work to cheaper models keeps the parent's context window from filling with bulk output that never needs to return in detail.
+| Task | Effort | Notes |
+|------|--------|-------|
+| Read-only broad exploration / search | `low` | Use the read-only **Explore** agent type |
+| Standard implementation / multi-file edits with a clear spec | `medium` | Workhorse for standard work |
+| Hard implementation, design, final audit/review | `high`–`xhigh` | Or keep the especially hard parts in the main session |
+
+Raise effort for demanding agentic work; don't carry over defaults from a previous model without re-checking them against your own tasks. The Codex equivalent is `model_reasoning_effort` (see `using-codex`).
+
+Agent type and effort are independent axes: the **Explore** agent type is read-only and ideal for search, while effort follows task difficulty. Pushing bulk work to subagents keeps the parent's context window from filling with output that never needs to return in detail.
 
 ## Result protocol
 
@@ -66,7 +70,7 @@ Require each subagent to end its final message with a status line followed by th
 - `COMPLETE` — finished and self-checked. Verify the result before relying on it.
 - `COMPLETE_WITH_CAVEATS` — finished, but flagging a correctness risk or deviation. Weigh it, then verify.
 - `MISSING_INPUT` — lacked something it needed. A subagent can't ask mid-task, so this is how the gap surfaces: supply what's missing and re-dispatch.
-- `STUCK` — couldn't proceed. Diagnose before retrying: missing context → add it; task too large → split it; model out of depth → raise the tier; the plan itself is wrong → bring it back to the user. Never re-run an unchanged prompt and hope.
+- `STUCK` — couldn't proceed. Diagnose before retrying: missing context → add it; task too large → split it; out of depth → raise the effort or keep it in main; the plan itself is wrong → bring it back to the user. Never re-run an unchanged prompt and hope.
 
 ## Rules
 
