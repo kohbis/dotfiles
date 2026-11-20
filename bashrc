@@ -125,7 +125,3 @@ alias ll='ls -l'
 alias ls='ls -G'
 alias xargs='xargs '
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/kohbis/.lmstudio/bin"
-# End of LM Studio CLI section
-
