@@ -20,7 +20,7 @@ make link
 Filter with `F=<string>` to target specific files:
 
 ```bash
-make link F=vim     # only vimrc and nvim config
+make link F=nvim    # only nvim config
 make unlink F=otel  # only otel-related skills
 ```
 
