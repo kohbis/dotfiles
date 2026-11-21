@@ -1,0 +1,11 @@
+onboarding = false
+
+[ui]
+agent_panel_sort = "spaces"
+
+[theme]
+name = "nord"
+auto_switch = false
+
+[keys]
+split_vertical = ["prefix+v", "prefix+|"]
