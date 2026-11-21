@@ -8,4 +8,5 @@ name = "nord"
 auto_switch = false
 
 [keys]
+prefix = "ctrl+g"
 split_vertical = ["prefix+v", "prefix+|"]
