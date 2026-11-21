@@ -10,7 +10,6 @@ DOT_FILES := \
 	rufo \
 	sqlfluff \
 	tmux.conf \
-	vimrc \
 	zshrc
 
 CONFIG_TOOLS := $(shell find $(DOTFILES_DIR)/config -mindepth 1 -maxdepth 1 -type d -exec basename {} \; 2>/dev/null)

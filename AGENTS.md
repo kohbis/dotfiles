@@ -50,7 +50,7 @@ Help:    make help
 Filter any target to a subset of files with `F=<substring>`:
 
 ```
-make link F=vim      # only vimrc / nvim config
+make link F=nvim     # only nvim config
 make unlink F=otel   # only otel-related skills
 make list F=skills   # all skills
 ```
