@@ -1,3 +1,7 @@
+# agents
+agents/**/*.local.md
+agents/**/*.local/
+
 # alias
 aliases/**/*.local.sh
 
