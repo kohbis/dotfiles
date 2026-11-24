@@ -10,3 +10,6 @@ auto_switch = false
 [keys]
 prefix = "ctrl+g"
 split_vertical = ["prefix+v", "prefix+|"]
+
+[ui.sound]
+enabled = true
